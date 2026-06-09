@@ -6,6 +6,9 @@
   "type": "module",
   "scripts": {
     "start": "node ./src/index.js",
+    "python:start": "python -m takeshi_bot",
+    "python:test": "python -m unittest discover -s tests_python",
+    "python:doctor": "python -m takeshi_bot.doctor",
     "test": "node ./src/test.js",
     "test:all": "node --test --test-concurrency=1"
   },

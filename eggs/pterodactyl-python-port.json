@@ -1,0 +1,32 @@
+{
+  "_comment": "Python port egg for Takeshi Bot. Requires a Docker image with Python 3.12+, Node.js 24+ and FFmpeg.",
+  "meta": {
+    "version": "PTDL_v2",
+    "update_url": null
+  },
+  "exported_at": "2026-06-08T00:00:00-03:00",
+  "name": "Takeshi Bot Python Port",
+  "author": "python-port",
+  "description": "Runs Takeshi Bot's Python port while keeping Baileys in a Node.js sidecar.",
+  "features": null,
+  "docker_images": {
+    "Takeshi Python Port": "ghcr.io/your-org/takeshi-bot-python-port:latest",
+    "Nodejs 24 fallback": "ghcr.io/parkervcp/yolks:nodejs_24"
+  },
+  "file_denylist": [],
+  "startup": "python3 -m pip install --break-system-packages -r requirements.txt && npm install && python3 -m takeshi_bot",
+  "config": {
+    "files": "{}",
+    "startup": "{\r\n    \"done\": \"Bridge Baileys iniciado\"\r\n}",
+    "logs": "{}",
+    "stop": "^C"
+  },
+  "scripts": {
+    "installation": {
+      "script": "#!/bin/bash\r\nset -e\r\n\r\napt update\r\napt install -y git curl unzip make gcc g++ ffmpeg python3 python3-pip python3-venv\r\n\r\ncd /mnt/server\r\nif [ -d .git ]; then\r\n  git pull\r\nelse\r\n  git clone https://github.com/guiireal/takeshi-bot.git .\r\nfi\r\n\r\nnpm install\r\npython3 -m pip install --break-system-packages -r requirements.txt\r\n\r\necho \"Takeshi Bot Python Port installed.\"\r\n",
+      "container": "ghcr.io/parkervcp/installers:ubuntu",
+      "entrypoint": "bash"
+    }
+  },
+  "variables": []
+}
