@@ -91,6 +91,10 @@ command registry and JS-to-Python command mapping.
 - `ia-sticker` downloads the generated Spider X image and converts it to local
   WebP with FFmpeg before sending, matching the JavaScript sticker workflow more
   closely.
+- Python FFmpeg service parity covers the JavaScript canvas filters
+  (`blur`, grayscale, mirror, contrast, pixelation and sticker-to-image), plus
+  audio extraction, image normalization and video copy helpers used by ported
+  commands.
 - Every JS command file under `src/commands` now has a Python counterpart under
   `takeshi_bot/commands`. Many example commands now send real text, media,
   document, button, native-flow button, list, carousel card, poll, contact,
@@ -188,6 +192,5 @@ command registry and JS-to-Python command mapping.
 - Runtime validation for the advanced card/carousel/native-flow examples against
   a real WhatsApp account.
 - Remaining sticker edge cases around animated EXIF and unusual WebP inputs.
-- More FFmpeg media conversions from `src/services/ffmpeg.js`.
 - Runtime validation with a real paired WhatsApp account.
 - Publishing a real container image for the Python-first Pterodactyl egg.
