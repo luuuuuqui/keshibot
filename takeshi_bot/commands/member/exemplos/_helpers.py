@@ -220,10 +220,7 @@ async def _send_reels(ctx: CommandContext) -> None:
 async def _send_edited_message(ctx: CommandContext) -> None:
     message = await ctx.send_text("Mensagem original do exemplo.")
     try:
-        await ctx.bridge.send_message(
-            ctx.remote_jid,
-            {"text": "Mensagem editada do exemplo.", "edit": message.get("key")},
-        )
+        await ctx.send_edited_text("Mensagem editada do exemplo.", message)
     except Exception:
         await ctx.send_reply("Seu cliente/bridge nao aceitou edicao neste contexto.")
 

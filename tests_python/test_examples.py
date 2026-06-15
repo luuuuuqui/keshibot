@@ -23,6 +23,9 @@ from takeshi_bot.commands.member.exemplos.enviar_lista import command as list_co
 from takeshi_bot.commands.member.exemplos.enviar_localizacao import (
     command as location_command,
 )
+from takeshi_bot.commands.member.exemplos.enviar_mensagem_editada import (
+    command as edited_message_command,
+)
 from takeshi_bot.context import CommandContext
 
 
@@ -117,6 +120,21 @@ class ExamplesTest(unittest.IsolatedAsyncioTestCase):
         content = messages[-1][2]
         self.assertEqual(content["location"]["degreesLatitude"], -23.55052)
         self.assertEqual(content["location"]["degreesLongitude"], -46.633308)
+
+    async def test_edited_message_example_sends_edit_payload(self) -> None:
+        ctx = make_context()
+        await edited_message_command.handle(ctx)
+        messages = [call for call in ctx.bridge.calls if call[0] == "send_message"]
+        edited = [call for call in messages if call[2].get("edit")]
+        self.assertTrue(edited)
+        self.assertEqual(edited[-1][2]["edit"], {"id": "MSG"})
+
+    async def test_edited_reply_helper_quotes_original_message(self) -> None:
+        ctx = make_context()
+        await ctx.send_edited_reply("editado", {"key": {"id": "EDIT"}})
+        messages = [call for call in ctx.bridge.calls if call[0] == "send_message"]
+        self.assertEqual(messages[-1][2]["edit"], {"id": "EDIT"})
+        self.assertEqual(messages[-1][3]["quoted"], ctx.web_message)
 
     async def test_document_buffer_helper_sends_document_file_and_cleans_temp(self) -> None:
         ctx = make_context()

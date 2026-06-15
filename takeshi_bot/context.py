@@ -95,6 +95,36 @@ class CommandContext:
             self.remote_jid, content, self._quoted_option(True)
         )
 
+    async def send_edited_text(
+        self,
+        text: str,
+        message_to_edit: dict[str, Any],
+        mentions: list[str] | None = None,
+    ) -> Any:
+        content: dict[str, Any] = {
+            "text": f"{config.BOT_EMOJI} {text}",
+            "edit": message_to_edit.get("key"),
+        }
+        if mentions:
+            content["mentions"] = mentions
+        return await self.bridge.send_message(self.remote_jid, content)
+
+    async def send_edited_reply(
+        self,
+        text: str,
+        message_to_edit: dict[str, Any],
+        mentions: list[str] | None = None,
+    ) -> Any:
+        content: dict[str, Any] = {
+            "text": f"{config.BOT_EMOJI} {text}",
+            "edit": message_to_edit.get("key"),
+        }
+        if mentions:
+            content["mentions"] = mentions
+        return await self.bridge.send_message(
+            self.remote_jid, content, self._quoted_option(True)
+        )
+
     async def send_react(self, emoji: str, msg_key: dict[str, Any] | None = None) -> Any:
         return await self.bridge.send_message(
             self.remote_jid,
