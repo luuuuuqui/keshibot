@@ -14,9 +14,9 @@ async def handle(ctx: CommandContext) -> None:
         raise InvalidParameterError("Este comando so pode ser usado em grupo.")
     target_lid = f"{only_numbers(ctx.args[0])}@lid" if ctx.args else ctx.user_lid
     await ctx.send_wait_reply("Carregando perfil...")
-    metadata = await ctx.bridge.group_metadata(ctx.remote_jid)
+    participants = await ctx.get_group_participants()
     participant = next(
-        (item for item in metadata.get("participants", []) if item.get("id") == target_lid),
+        (item for item in participants if item.get("id") == target_lid),
         None,
     )
     role = "Administrador" if participant and participant.get("admin") else "Membro"

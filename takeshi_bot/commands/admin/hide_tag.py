@@ -5,8 +5,8 @@ from takeshi_bot.context import CommandContext
 
 
 async def handle(ctx: CommandContext) -> None:
-    metadata = await ctx.bridge.group_metadata(ctx.remote_jid)
-    mentions = [participant.get("id") for participant in metadata.get("participants", [])]
+    participants = await ctx.get_group_participants()
+    mentions = [participant.get("id") for participant in participants]
     mentions = [mention for mention in mentions if mention]
     await ctx.send_react("\U0001f4e2")
     await ctx.send_text(f"\U0001f4e2 Marcando todos!\n\n{ctx.full_args}", mentions)

@@ -5,7 +5,7 @@ from takeshi_bot.commands import Command
 from takeshi_bot.context import CommandContext
 from takeshi_bot.database import check_if_member_is_muted, mute_member
 from takeshi_bot.errors import DangerError
-from takeshi_bot.utils import as_dict, as_list, only_numbers
+from takeshi_bot.utils import only_numbers
 
 
 async def handle(ctx: CommandContext) -> None:
@@ -20,8 +20,7 @@ async def handle(ctx: CommandContext) -> None:
         raise DangerError("Voce nao pode mutar o dono do bot!")
     if user_id == config.BOT_LID:
         raise DangerError("Voce nao pode mutar o bot.")
-    metadata = await ctx.bridge.group_metadata(ctx.remote_jid)
-    participants = [as_dict(item) for item in as_list(metadata.get("participants"))]
+    participants = await ctx.get_group_participants()
     if not any(item.get("id") == user_id for item in participants):
         await ctx.send_error_reply(f"O usuario @{only_numbers(user_id)} nao esta neste grupo.")
         return
