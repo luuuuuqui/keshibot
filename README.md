@@ -780,10 +780,9 @@ Todos os arquivos de exemplo são armazenados em `assets/samples/`:
   - 📁 images ➔ _arquivos de imagem_
     - 📁 funny ➔ _gifs de comandos de diversão_
   - 📁 samples ➔ _arquivos de exemplo para testes_
-  - 📁 temp ➔ _arquivos temporários_
-- 📁 database ➔ _arquivos de dados_
+  - 📁 temp ➔ _arquivos temporários gerados em runtime_
+- 📁 database ➔ _arquivos de dados gerados em runtime_
 - 📁 diagrams ➔ _diagramas de fluxos de dados e execução do Bot_
-- 📁 node_modules ➔ _módulos do Node.js_
 - 📁 src ➔ _código fonte do bot (geralmente você mexerá mais aqui)_
   - 📁 @types ➔ _pasta onde fica as definições de tipos_
   - 📁 commands ➔ _pasta onde ficam os comandos_
@@ -803,13 +802,9 @@ Todos os arquivos de exemplo são armazenados em `assets/samples/`:
   - 📝 loader.js ➔ _script de carga de funções_
   - 📝 menu.js ➔ _menu do bot_
   - 📝 messages.js ➔ _arquivos de mensagens de boas vindas e saída_
-  - 📝 test.js ➔ _script de testes_
 - 📝 .gitignore ➔ _arquivo para não subir certas pastas no GitHub_
 - 📝 ⚡-cases-estao-aqui.js ➔ _easter egg_
 - 📝 AGENTS.md ➔ _arquivo de instruções para IA's_
-- 📝 CLAUDE.md ➔ _arquivo de instruções para a IA Claude_
-- 📝 GEMINI.md ➔ _arquivo de instruções para a IA Gemini_
-- 📝 CONTRIBUTING.md ➔ _guia de contribuição_
 - 📝 LICENSE ➔ _arquivo de licença_
 - 📝 package-lock.json ➔ _arquivo de cache das dependências do bot_
 - 📝 package.json ➔ _arquivo de definição das dependências do bot_
@@ -823,7 +818,7 @@ Execute `bash update.sh`
 
 ## Testes
 
-Execute `npm run test:all`
+Execute `npm test`
 
 ## Erros comuns
 
