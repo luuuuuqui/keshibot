@@ -81,8 +81,8 @@ command registry and JS-to-Python command mapping.
   participant updates, profile image lookup, metadata and media download.
 - Python message extraction, command context helpers and dynamic command routing.
 - Command context helpers cover text/reply/edit/react, contact, location,
-  document, image, sticker, audio, video and GIF send workflows used by ported
-  commands.
+  poll, document, image, sticker, audio, video and GIF send workflows used by
+  ported commands.
 - Permission model by folder: `owner`, `admin`, `member`.
 - Participant lifecycle for welcome/exit messages with profile-image fallback.
 - Group restriction moderation for anti-media, anti-product, anti-event,

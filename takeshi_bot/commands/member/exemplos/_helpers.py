@@ -45,15 +45,10 @@ async def _send_document(ctx: CommandContext, file_path: str, file_name: str) ->
 
 
 async def _send_poll(ctx: CommandContext) -> None:
-    await ctx.bridge.send_message(
-        ctx.remote_jid,
-        {
-            "poll": {
-                "name": "Qual exemplo voce quer ver?",
-                "values": ["Texto", "Imagem", "Sticker"],
-                "selectableCount": 1,
-            }
-        },
+    await ctx.send_poll(
+        "Qual exemplo voce quer ver?",
+        ["Texto", "Imagem", "Sticker"],
+        single_choice=True,
     )
 
 

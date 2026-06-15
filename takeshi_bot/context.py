@@ -247,6 +247,28 @@ class CommandContext:
             },
         )
 
+    async def send_poll(
+        self,
+        title: str,
+        options: list[dict[str, str]] | list[str],
+        single_choice: bool = False,
+    ) -> Any:
+        values = [
+            option.get("optionName", "") if isinstance(option, dict) else option
+            for option in options
+        ]
+        return await self.bridge.send_message(
+            self.remote_jid,
+            {
+                "poll": {
+                    "name": f"{config.BOT_EMOJI} {title}",
+                    "selectableCount": 1 if single_choice else 0,
+                    "toAnnouncementGroup": True,
+                    "values": values,
+                }
+            },
+        )
+
     async def send_sticker_from_file(self, file_path: str, quoted: bool = True) -> Any:
         return await self.bridge.send_file_message(
             self.remote_jid, "sticker", file_path, {}, self._quoted_option(quoted)

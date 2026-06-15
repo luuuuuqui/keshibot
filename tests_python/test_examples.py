@@ -87,7 +87,10 @@ class ExamplesTest(unittest.IsolatedAsyncioTestCase):
         ctx = make_context()
         await poll_command.handle(ctx)
         messages = [call for call in ctx.bridge.calls if call[0] == "send_message"]
-        self.assertIn("poll", messages[-1][2])
+        poll = messages[-1][2]["poll"]
+        self.assertEqual(poll["values"], ["Texto", "Imagem", "Sticker"])
+        self.assertEqual(poll["selectableCount"], 1)
+        self.assertTrue(poll["toAnnouncementGroup"])
 
     async def test_document_example_sends_document_file(self) -> None:
         ctx = make_context()
