@@ -12,7 +12,7 @@ async def handle(ctx: CommandContext) -> None:
 command = Command(
     name="tik-tok",
     description="Baixa videos do TikTok.",
-    commands=["tik-tok", "tiktok", "ttk"],
+    commands=["tik-tok", "ttk", "tik", "tiktok"],
     usage="/tik-tok https://tiktok.com/...",
     handle=handle,
 )

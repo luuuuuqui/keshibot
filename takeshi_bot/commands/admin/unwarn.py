@@ -20,7 +20,15 @@ async def handle(ctx: CommandContext) -> None:
 command = Command(
     name="unwarn",
     description="Remove a ultima advertencia valida de um membro.",
-    commands=["unwarn", "remover-warn", "tirar-warn"],
+    commands=[
+        "unwarn",
+        "perdoaradvertencia",
+        "perdoaradvt",
+        "removeradvertencia",
+        "advtremove",
+        "remover-warn",
+        "tirar-warn",
+    ],
     usage="/unwarn @usuario",
     handle=handle,
 )

@@ -17,7 +17,15 @@ async def handle(ctx: CommandContext) -> None:
 command = Command(
     name="set-spider-api-token",
     description="Configura o token da Spider X API.",
-    commands=["set-spider-api-token", "setspiderapitoken"],
+    commands=[
+        "set-spider-api-token",
+        "altera-spider-api-token",
+        "alterar-spider-api-token",
+        "muda-spider-api-token",
+        "mudar-spider-api-token",
+        "spider-api-token",
+        "setspiderapitoken",
+    ],
     usage="/set-spider-api-token seu_token",
     handle=handle,
 )

@@ -19,7 +19,7 @@ async def handle(ctx: CommandContext) -> None:
 command = Command(
     name="rebaixar",
     description="Rebaixa um administrador para membro.",
-    commands=["rebaixar", "demote", "remover-adm"],
+    commands=["rebaixar", "rebaixa", "demote", "remover-adm"],
     usage="/rebaixar @usuario",
     handle=handle,
 )

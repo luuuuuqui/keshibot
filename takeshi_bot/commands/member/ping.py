@@ -16,7 +16,7 @@ async def handle(ctx: CommandContext) -> None:
 command = Command(
     name="ping",
     description="Verifica se o bot esta respondendo.",
-    commands=["ping"],
+    commands=["ping", "pong"],
     usage="/ping",
     handle=handle,
 )

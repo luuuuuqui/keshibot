@@ -18,7 +18,7 @@ async def handle(ctx: CommandContext) -> None:
 command = Command(
     name="gemini",
     description="Conversa com Gemini via Spider X.",
-    commands=["gemini"],
+    commands=["gemini", "takeshi"],
     usage="/gemini pergunta",
     handle=handle,
 )

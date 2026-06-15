@@ -25,7 +25,15 @@ async def handle(ctx: CommandContext) -> None:
 command = Command(
     name="tik-tok-audio",
     description="Baixa audio do TikTok.",
-    commands=["tik-tok-audio", "tiktok-audio", "ttk-audio"],
+    commands=[
+        "tik-tok-audio",
+        "tik-tok-mp3",
+        "tik-audio",
+        "tik-mp3",
+        "ttk-audio",
+        "ttk-mp3",
+        "tiktok-audio",
+    ],
     usage="/tik-tok-audio https://tiktok.com/...",
     handle=handle,
 )

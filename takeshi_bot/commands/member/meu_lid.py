@@ -11,7 +11,7 @@ async def handle(ctx: CommandContext) -> None:
 command = Command(
     name="meu-lid",
     description="Mostra o seu LID.",
-    commands=["meu-lid", "meulid"],
+    commands=["meu-lid", "my-lid", "lid", "meulid"],
     usage="/meu-lid",
     handle=handle,
 )

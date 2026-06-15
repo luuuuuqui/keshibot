@@ -18,7 +18,7 @@ async def handle(ctx: CommandContext) -> None:
 command = Command(
     name="gpt-5-mini",
     description="Conversa com GPT-5 Mini via Spider X.",
-    commands=["gpt-5-mini", "gpt5mini"],
+    commands=["gpt-5-mini", "gpt-5", "gpt", "gpt5mini"],
     usage="/gpt-5-mini pergunta",
     handle=handle,
 )

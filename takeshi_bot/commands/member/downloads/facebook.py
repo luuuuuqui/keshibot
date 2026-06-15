@@ -12,7 +12,7 @@ async def handle(ctx: CommandContext) -> None:
 command = Command(
     name="facebook",
     description="Baixa videos do Facebook.",
-    commands=["facebook", "fb"],
+    commands=["facebook", "face", "fb"],
     usage="/facebook https://facebook.com/...",
     handle=handle,
 )

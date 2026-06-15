@@ -19,7 +19,19 @@ async def handle(ctx: CommandContext) -> None:
 command = Command(
     name="set-prefix",
     description="Define o prefixo do grupo.",
-    commands=["set-prefix", "setprefix"],
+    commands=[
+        "set-prefix",
+        "altera-prefix",
+        "altera-prefixo",
+        "alterar-prefix",
+        "alterar-prefixo",
+        "muda-prefix",
+        "muda-prefixo",
+        "mudar-prefix",
+        "mudar-prefixo",
+        "set-prefixo",
+        "setprefix",
+    ],
     usage="/set-prefix !",
     handle=handle,
 )

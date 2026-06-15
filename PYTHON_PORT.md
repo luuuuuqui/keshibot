@@ -92,9 +92,9 @@ command registry and JS-to-Python command mapping.
   `takeshi_bot/commands`. Many example commands now send real text, media,
   document, button, native-flow button, list, carousel card, poll, contact,
   location and reaction payloads through the bridge.
-- Advanced example aliases from the JavaScript implementation are preserved in
-  the Python registry for buttons, lists, polls, rich text/code/table examples,
-  raw-message and metadata helpers.
+- JavaScript command aliases are covered by the Python registry for all mapped
+  command files, with a regression test comparing the JS `commands` arrays to
+  the loaded Python aliases.
 - Commands currently loaded by the Python registry include:
   - `abrir`
   - `ping`

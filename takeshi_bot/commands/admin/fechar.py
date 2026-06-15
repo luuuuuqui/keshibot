@@ -12,7 +12,7 @@ async def handle(ctx: CommandContext) -> None:
 command = Command(
     name="fechar",
     description="Fecha o grupo.",
-    commands=["fechar", "fecha", "fechar-grupo", "close", "close-group"],
+    commands=["fechar", "fecha", "fechar-grupo", "fecha-grupo", "close", "close-group"],
     usage="/fechar",
     handle=handle,
 )

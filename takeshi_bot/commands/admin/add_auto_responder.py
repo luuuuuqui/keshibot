@@ -16,7 +16,7 @@ async def handle(ctx: CommandContext) -> None:
 command = Command(
     name="add-auto-responder",
     description="Adiciona uma resposta automatica.",
-    commands=["add-auto-responder", "addautoresponder"],
+    commands=["add-auto-responder", "add-auto", "add-responder", "addautoresponder"],
     usage="/add-auto-responder oi / ola",
     handle=handle,
 )

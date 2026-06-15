@@ -21,7 +21,7 @@ async def handle(ctx: CommandContext) -> None:
 command = Command(
     name="ia-sticker",
     description="Cria sticker usando IA.",
-    commands=["ia-sticker", "sticker-ia"],
+    commands=["ia-sticker", "ia-fig", "sticker-ia"],
     usage="/ia-sticker descricao",
     handle=handle,
 )

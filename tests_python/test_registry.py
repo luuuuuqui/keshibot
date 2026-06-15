@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import re
 import unittest
 from pathlib import Path
 
 from takeshi_bot.commands.registry import registry
+from takeshi_bot.utils import format_command
 
 
 class RegistryTest(unittest.TestCase):
@@ -69,6 +71,23 @@ class RegistryTest(unittest.TestCase):
         }
         self.assertEqual(sorted(js_commands - py_modules), [])
 
+    def test_js_command_aliases_are_registered_in_python(self) -> None:
+        py_aliases = {
+            format_command(alias)
+            for group in registry.all_commands().values()
+            for command in group
+            for alias in command.commands
+        }
+        missing: list[str] = []
+        for path in Path("src", "commands").rglob("*.js"):
+            if "como-criar-comandos" in path.name:
+                continue
+            relative = path.relative_to("src/commands").with_suffix("").as_posix()
+            for alias in self._js_command_aliases(path):
+                if format_command(alias) not in py_aliases:
+                    missing.append(f"{relative}: {alias}")
+        self.assertEqual(missing, [])
+
     def test_example_aliases_match_advanced_js_examples(self) -> None:
         expected = {
             "enviar-botao": "enviar-botoes",
@@ -95,6 +114,14 @@ class RegistryTest(unittest.TestCase):
                 match = registry.find(alias)
                 self.assertIsNotNone(match.command)
                 self.assertEqual(match.command.name, command_name)
+
+    @staticmethod
+    def _js_command_aliases(path: Path) -> list[str]:
+        text = path.read_text(encoding="utf-8", errors="replace")
+        match = re.search(r"commands\s*:\s*\[([\s\S]*?)\]", text)
+        if not match:
+            return []
+        return re.findall(r"['\"]([^'\"]+)['\"]", match.group(1))
 
 
 if __name__ == "__main__":
