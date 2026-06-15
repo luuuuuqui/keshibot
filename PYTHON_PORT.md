@@ -78,7 +78,7 @@ command registry and JS-to-Python command mapping.
 
 - Python config, logger, custom errors and atomic JSON database access.
 - Baileys sidecar bridge for connect, send message, delete message, group
-  participant updates, metadata and media download.
+  participant updates, profile image lookup, metadata and media download.
 - Python message extraction, command context helpers and dynamic command routing.
 - Permission model by folder: `owner`, `admin`, `member`.
 - Participant lifecycle for welcome/exit messages with profile-image fallback.

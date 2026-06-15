@@ -39,9 +39,7 @@ async def on_group_participants_update(
         mentions.append(user_lid)
 
     try:
-        profile_image_url = await bridge.request(
-            "profile_picture_url", {"jid": user_lid, "type": "image"}
-        )
+        profile_image_url = await bridge.profile_picture_url(user_lid)
     except Exception:
         profile_image_url = None
 

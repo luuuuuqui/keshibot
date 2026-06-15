@@ -21,9 +21,7 @@ async def handle(ctx: CommandContext) -> None:
     )
     role = "Administrador" if participant and participant.get("admin") else "Membro"
     try:
-        image_url = await ctx.bridge.request(
-            "profile_picture_url", {"jid": target_lid, "type": "image"}
-        )
+        image_url = await ctx.bridge.profile_picture_url(target_lid)
     except Exception:
         image_url = str(ASSETS_DIR / "images" / "default-user.png")
     random_percent = random.randint(0, 99)

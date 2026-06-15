@@ -195,6 +195,11 @@ class BaileysBridge:
             "update_block_status", {"jid": jid, "status": status}
         )
 
+    async def profile_picture_url(self, jid: str, image_type: str = "image") -> str:
+        return await self.request(
+            "profile_picture_url", {"jid": jid, "type": image_type}
+        )
+
     async def download_media(
         self, web_message: dict[str, Any], context: str, file_name: str, extension: str
     ) -> str | None:

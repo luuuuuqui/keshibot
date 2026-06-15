@@ -39,6 +39,10 @@ class FakeBridge:
             return "https://example.com/profile.jpg"
         return None
 
+    async def profile_picture_url(self, jid: str, image_type: str = "image") -> str:
+        self.calls.append(("profile_picture_url", jid, image_type))
+        return "https://example.com/profile.jpg"
+
 
 class ModerationTest(unittest.IsolatedAsyncioTestCase):
     def setUp(self) -> None:
