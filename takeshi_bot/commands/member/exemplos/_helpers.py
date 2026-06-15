@@ -7,7 +7,6 @@ from typing import Any
 from takeshi_bot.commands import Command
 from takeshi_bot.context import CommandContext
 from takeshi_bot.paths import ASSETS_DIR
-from takeshi_bot.utils import as_dict, as_list
 
 SAMPLES_DIR = ASSETS_DIR / "samples"
 SAMPLE_IMAGE_URL = "https://api.spiderx.com.br/storage/samples/sample-image.jpg"
@@ -347,11 +346,19 @@ async def metadata_handle(ctx: CommandContext) -> None:
 
 
 async def group_data_handle(ctx: CommandContext) -> None:
-    metadata = await ctx.bridge.group_metadata(ctx.remote_jid)
-    participants = [as_dict(item) for item in as_list(metadata.get("participants"))]
+    if not ctx.is_group:
+        await ctx.send_error_reply("Este comando so funciona em grupos!")
+        return
+
+    metadata = await ctx.get_group_metadata()
+    participants = await ctx.get_group_participants()
+    admins = await ctx.get_group_admins()
+    owner = await ctx.get_group_owner()
     await ctx.send_reply(
         "Dados do grupo\n\n"
-        f"subject: {metadata.get('subject', '')}\n"
+        f"subject: {metadata.get('subject', '') if metadata else ''}\n"
         f"id: {ctx.remote_jid}\n"
-        f"participantes: {len(participants)}"
+        f"dono: {owner or ''}\n"
+        f"participantes: {len(participants)}\n"
+        f"admins: {len(admins)}"
     )

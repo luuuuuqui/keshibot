@@ -83,6 +83,8 @@ command registry and JS-to-Python command mapping.
 - Command context helpers cover text/reply/edit/react, contact, location,
   poll, document, image, sticker, audio, video and GIF send workflows used by
   ported commands.
+- Group helper methods expose metadata, name, owner, participants and admins
+  through the Python command context.
 - Permission model by folder: `owner`, `admin`, `member`.
 - Participant lifecycle for welcome/exit messages with profile-image fallback.
 - Group restriction moderation for anti-media, anti-product, anti-event,

@@ -26,6 +26,7 @@ from takeshi_bot.commands.member.exemplos.enviar_localizacao import (
 from takeshi_bot.commands.member.exemplos.enviar_mensagem_editada import (
     command as edited_message_command,
 )
+from takeshi_bot.commands.member.exemplos.funcoes_grupo import command as group_command
 from takeshi_bot.context import CommandContext
 
 
@@ -43,6 +44,19 @@ class FakeBridge:
     async def send_file_message(self, remote_jid, media_key, file_path, content=None, options=None):
         self.calls.append(("send_file_message", media_key, file_path, content or {}, options or {}))
         return {"key": {"id": "FILE"}}
+
+    async def group_metadata(self, remote_jid: str):
+        self.calls.append(("group_metadata", remote_jid))
+        return {
+            "id": remote_jid,
+            "subject": "Grupo Teste",
+            "owner": "owner@lid",
+            "participants": [
+                {"id": "owner@lid", "admin": "superadmin"},
+                {"id": "admin@lid", "admin": "admin"},
+                {"id": "member@lid"},
+            ],
+        }
 
 
 def make_context() -> CommandContext:
@@ -138,6 +152,22 @@ class ExamplesTest(unittest.IsolatedAsyncioTestCase):
         messages = [call for call in ctx.bridge.calls if call[0] == "send_message"]
         self.assertEqual(messages[-1][2]["edit"], {"id": "EDIT"})
         self.assertEqual(messages[-1][3]["quoted"], ctx.web_message)
+
+    async def test_group_helpers_return_metadata_details(self) -> None:
+        ctx = make_context()
+        self.assertEqual(await ctx.get_group_name(), "Grupo Teste")
+        self.assertEqual(await ctx.get_group_owner(), "owner@lid")
+        self.assertEqual(len(await ctx.get_group_participants()), 3)
+        self.assertEqual(await ctx.get_group_admins(), ["owner@lid", "admin@lid"])
+
+    async def test_group_functions_example_uses_group_helpers(self) -> None:
+        ctx = make_context()
+        await group_command.handle(ctx)
+        messages = [call for call in ctx.bridge.calls if call[0] == "send_message"]
+        text = messages[-1][2]["text"]
+        self.assertIn("Grupo Teste", text)
+        self.assertIn("owner@lid", text)
+        self.assertIn("admins: 2", text)
 
     async def test_document_buffer_helper_sends_document_file_and_cleans_temp(self) -> None:
         ctx = make_context()

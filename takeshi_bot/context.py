@@ -150,6 +150,34 @@ class CommandContext:
     async def delete_message(self, key: dict[str, Any]) -> Any:
         return await self.bridge.delete_message(self.remote_jid, key)
 
+    async def get_group_metadata(self, group_jid: str = "") -> dict[str, Any] | None:
+        target_jid = group_jid or self.remote_jid
+        if not target_jid.endswith("@g.us"):
+            return None
+        return await self.bridge.group_metadata(target_jid)
+
+    async def get_group_name(self, group_jid: str = "") -> str | None:
+        metadata = await self.get_group_metadata(group_jid)
+        return metadata.get("subject", "") if metadata else None
+
+    async def get_group_owner(self, group_jid: str = "") -> str | None:
+        metadata = await self.get_group_metadata(group_jid)
+        return metadata.get("owner", "") if metadata else None
+
+    async def get_group_participants(self, group_jid: str = "") -> list[dict[str, Any]]:
+        metadata = await self.get_group_metadata(group_jid)
+        participants = metadata.get("participants", []) if metadata else []
+        return [item for item in participants if isinstance(item, dict)]
+
+    async def get_group_admins(self, group_jid: str = "") -> list[str]:
+        participants = await self.get_group_participants(group_jid)
+        return [
+            str(participant.get("id"))
+            for participant in participants
+            if participant.get("id")
+            and participant.get("admin") in {"admin", "superadmin"}
+        ]
+
     async def download_audio(self, file_name: str | None = None) -> str | None:
         return await self.bridge.download_media(
             self.web_message, "audio", file_name or random_name("audio"), "mpeg"
