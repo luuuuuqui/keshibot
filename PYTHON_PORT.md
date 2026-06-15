@@ -82,7 +82,8 @@ command registry and JS-to-Python command mapping.
 - Python message extraction, command context helpers and dynamic command routing.
 - Permission model by folder: `owner`, `admin`, `member`.
 - Participant lifecycle for welcome/exit messages with profile-image fallback.
-- Group restriction moderation for anti-media, anti-payment and anti-status-grupo.
+- Group restriction moderation for anti-media, anti-product, anti-event,
+  anti-lottie-sticker, anti-payment and anti-status-grupo.
 - Stealth anti-payment detection for ciphertext stubs with `stealthMeta.decryptFail=hide`,
   including tracker/cooldown and the same close-remove-clean-reopen flow.
 - Progressive warn storage compatible with `database/warns.json`.

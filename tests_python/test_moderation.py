@@ -45,7 +45,15 @@ class ModerationTest(unittest.IsolatedAsyncioTestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.original_dir = database.DATABASE_DIR
         database.DATABASE_DIR = Path(self.temp.name)
-        database.write_json("restricted-messages", {"image": "imageMessage"})
+        database.write_json(
+            "restricted-messages",
+            {
+                "image": "imageMessage",
+                "product": "productMessage",
+                "event": "eventMessage",
+                "lottieSticker": "lottieStickerMessage",
+            },
+        )
 
     def tearDown(self) -> None:
         database.DATABASE_DIR = self.original_dir
@@ -68,6 +76,31 @@ class ModerationTest(unittest.IsolatedAsyncioTestCase):
         )
 
         self.assertTrue(any(call[0] == "delete_message" for call in bridge.calls))
+
+    async def test_restricted_product_event_and_lottie_are_deleted(self) -> None:
+        cases = [
+            ("anti-product", {"productMessage": {"title": "Oferta"}}),
+            ("anti-event", {"eventMessage": {"name": "Evento"}}),
+            ("anti-lottieSticker", {"lottieStickerMessage": {"mimetype": "application/lottie+json"}}),
+        ]
+        for restriction, message in cases:
+            with self.subTest(restriction=restriction):
+                bridge = FakeBridge()
+                database.update_is_active_group_restriction("123@g.us", restriction, True)
+                await message_handler(
+                    bridge,
+                    {
+                        "key": {
+                            "remoteJid": "123@g.us",
+                            "participant": "member@lid",
+                            "id": restriction,
+                            "fromMe": False,
+                        },
+                        "message": message,
+                    },
+                )
+
+                self.assertTrue(any(call[0] == "delete_message" for call in bridge.calls))
 
     async def test_welcome_participant_message(self) -> None:
         bridge = FakeBridge()
