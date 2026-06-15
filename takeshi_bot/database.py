@@ -25,6 +25,17 @@ RESTRICTED_MESSAGES_FILE = "restricted-messages"
 WELCOME_GROUPS_FILE = "welcome-groups"
 WARNS_FILE = "warns"
 
+DEFAULT_RESTRICTED_MESSAGE_TYPES = {
+    "sticker": "stickerMessage",
+    "lottieSticker": "lottieStickerMessage",
+    "video": "videoMessage",
+    "image": "imageMessage",
+    "audio": "audioMessage",
+    "product": "productMessage",
+    "document": "documentMessage",
+    "event": "eventMessage",
+}
+
 
 def _path(name: str) -> Path:
     return DATABASE_DIR / f"{name}.json"
@@ -229,8 +240,8 @@ def update_is_active_group_restriction(
     save_group_restrictions(restrictions)
 
 
-def read_restricted_message_types() -> list[dict[str, Any]]:
-    return read_json(RESTRICTED_MESSAGES_FILE)
+def read_restricted_message_types() -> dict[str, str]:
+    return read_json(RESTRICTED_MESSAGES_FILE, DEFAULT_RESTRICTED_MESSAGE_TYPES)
 
 
 def set_prefix(group_jid: str, prefix: str) -> None:

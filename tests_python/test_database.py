@@ -38,6 +38,11 @@ class DatabaseTest(unittest.TestCase):
         database.set_spider_api_token("secret-token")
         self.assertEqual(database.get_spider_api_token(), "secret-token")
 
+    def test_restricted_message_types_have_code_default(self) -> None:
+        types = database.read_restricted_message_types()
+        self.assertEqual(types["image"], "imageMessage")
+        self.assertEqual(types["lottieSticker"], "lottieStickerMessage")
+
 
 if __name__ == "__main__":
     unittest.main()
