@@ -19,6 +19,7 @@ async def handle(ctx: CommandContext) -> None:
         raise DangerError("O autor deve ter entre 2 e 50 caracteres.")
     await ctx.send_react("\u23f3")
     sticker_path = await ctx.download_sticker(random_name("webp"))
+    TEMP_DIR.mkdir(parents=True, exist_ok=True)
     renamed_path = str(TEMP_DIR / random_name("webp"))
     try:
         if not sticker_path:

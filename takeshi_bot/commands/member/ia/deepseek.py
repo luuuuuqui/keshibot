@@ -17,7 +17,7 @@ async def handle(ctx: CommandContext) -> None:
 command = Command(
     name="deepseek",
     description="Conversa com DeepSeek via Spider X.",
-    commands=["deepseek"],
+    commands=["deepseek", "deep-seek"],
     usage="/deepseek pergunta",
     handle=handle,
 )

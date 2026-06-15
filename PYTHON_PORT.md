@@ -88,6 +88,9 @@ command registry and JS-to-Python command mapping.
 - Progressive warn storage compatible with `database/warns.json`.
 - Sticker creation and `rename` use `node-webpmux` through the Baileys sidecar
   for WhatsApp EXIF metadata.
+- `ia-sticker` downloads the generated Spider X image and converts it to local
+  WebP with FFmpeg before sending, matching the JavaScript sticker workflow more
+  closely.
 - Every JS command file under `src/commands` now has a Python counterpart under
   `takeshi_bot/commands`. Many example commands now send real text, media,
   document, button, native-flow button, list, carousel card, poll, contact,
@@ -173,8 +176,11 @@ command registry and JS-to-Python command mapping.
   - `yt-mp4`
   - `tik-tok`
   - `tik-tok-audio`
+  - `yt-search`
   - `gemini`
   - `gpt-5-mini`
+  - `deepseek`
+  - `ia-sticker`
   - plus the `member/exemplos/*` example commands and their main JS aliases.
 
 ## Still To Port
