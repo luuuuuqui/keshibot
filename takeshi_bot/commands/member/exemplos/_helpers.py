@@ -8,6 +8,29 @@ from takeshi_bot.context import CommandContext
 from takeshi_bot.paths import ASSETS_DIR
 
 SAMPLES_DIR = ASSETS_DIR / "samples"
+SAMPLE_IMAGE_URL = "https://api.spiderx.com.br/storage/samples/sample-image.jpg"
+SPIDER_LOGO_URL = "https://api.spiderx.com.br/assets/images/logo.png"
+
+EXAMPLE_ALIASES = {
+    "enviar-botoes": ["enviar-botoes", "enviar-botao", "botoes-exemplo"],
+    "enviar-codigo": ["enviar-codigo", "codigo"],
+    "enviar-enquete": ["enviar-enquete", "poll-example", "exemplo-poll"],
+    "enviar-latex": ["enviar-latex", "latex", "formula"],
+    "enviar-lista": ["enviar-lista", "lista-exemplo", "enviar-list"],
+    "enviar-reels": ["enviar-reels", "reels", "rich-reels"],
+    "enviar-tabela": ["enviar-tabela", "tabela"],
+    "enviar-texto-colorido": ["enviar-texto-colorido", "texto-colorido", "rich-texto"],
+    "exemplo-gatilho": ["exemplo-gatilho", "gatilho-exemplo"],
+    "exemplos-de-mensagens": [
+        "exemplos-de-mensagens",
+        "exemplos",
+        "help-exemplos",
+        "exemplo-de-mensagem",
+        "exemplo-de-mensagens",
+        "enviar-exemplos",
+        "enviar-exemplo",
+    ],
+}
 
 
 def _sample(name: str) -> str:
@@ -38,14 +61,48 @@ async def _send_poll(ctx: CommandContext) -> None:
 
 
 async def _send_buttons(ctx: CommandContext) -> None:
+    trigger = _trigger_command(ctx, "opcao1")
     await ctx.bridge.send_message(
         ctx.remote_jid,
         {
             "text": "Exemplo de botoes no port Python.",
             "footer": "Takeshi Bot",
             "buttons": [
-                {"buttonId": "exemplo_ok", "buttonText": {"displayText": "OK"}},
-                {"buttonId": "exemplo_menu", "buttonText": {"displayText": "Menu"}},
+                {"buttonId": trigger, "buttonText": {"displayText": "Opcao 1"}},
+                {
+                    "buttonId": _trigger_command(ctx, "opcao2"),
+                    "buttonText": {"displayText": "Opcao 2"},
+                },
+            ],
+            "viewOnce": True,
+        },
+    )
+    await ctx.bridge.send_message(
+        ctx.remote_jid,
+        {
+            "text": "Exemplo com botoes interativos.",
+            "footer": "Takeshi Bot",
+            "interactiveButtons": [
+                {
+                    "name": "quick_reply",
+                    "buttonParamsJson": json.dumps(
+                        {
+                            "display_text": "Interativo 1",
+                            "id": _trigger_command(ctx, "interativo1"),
+                        },
+                        ensure_ascii=False,
+                    ),
+                },
+                {
+                    "name": "quick_reply",
+                    "buttonParamsJson": json.dumps(
+                        {
+                            "display_text": "Interativo 2",
+                            "id": _trigger_command(ctx, "interativo2"),
+                        },
+                        ensure_ascii=False,
+                    ),
+                },
             ],
             "viewOnce": True,
         },
@@ -67,16 +124,37 @@ async def _send_list(ctx: CommandContext) -> None:
                         {
                             "title": "Texto",
                             "description": "Exemplo de texto",
-                            "rowId": "enviar-texto",
+                            "rowId": _trigger_command(ctx, "texto"),
                         },
                         {
                             "title": "Imagem",
                             "description": "Exemplo de imagem",
-                            "rowId": "enviar-imagem-de-arquivo",
+                            "rowId": _trigger_command(ctx, "imagem"),
+                        },
+                        {
+                            "title": "Video",
+                            "description": "Exemplo de video",
+                            "rowId": _trigger_command(ctx, "video"),
                         },
                     ],
-                }
+                },
+                {
+                    "title": "Interacao",
+                    "rows": [
+                        {
+                            "title": "Botoes",
+                            "description": "Exemplos com botoes",
+                            "rowId": _trigger_command(ctx, "botoes"),
+                        },
+                        {
+                            "title": "Carrossel",
+                            "description": "Exemplos em formato de cards",
+                            "rowId": _trigger_command(ctx, "carrossel"),
+                        },
+                    ],
+                },
             ],
+            "viewOnce": True,
         },
     )
 
@@ -89,14 +167,28 @@ async def _send_carousel(ctx: CommandContext) -> None:
             "footer": "Takeshi Bot",
             "cards": [
                 {
-                    "title": "Imagem local",
-                    "image": {"url": _sample("sample-image.jpg")},
-                    "caption": "Card de exemplo",
-                }
+                    "title": "Card 1: Imagem de exemplo",
+                    "image": {"url": SAMPLE_IMAGE_URL},
+                    "caption": "Primeira imagem do carrossel",
+                },
+                {
+                    "title": "Card 2: Outra imagem",
+                    "image": {"url": SPIDER_LOGO_URL},
+                    "caption": "Segunda imagem com descricao diferente",
+                },
+                {
+                    "title": "Card 3: Terceira opcao",
+                    "image": {"url": SAMPLE_IMAGE_URL},
+                    "caption": "Outro exemplo de card no carrossel",
+                },
             ],
             "viewOnce": True,
         },
     )
+
+
+def _trigger_command(ctx: CommandContext, parameter: str) -> str:
+    return f"{ctx.prefix}exemplo-gatilho {parameter}"
 
 
 async def _send_code(ctx: CommandContext) -> None:
@@ -243,7 +335,7 @@ def make_example_command(name: str, description: str | None = None) -> Command:
     return Command(
         name=name,
         description=description or f"Exemplo Python para {name}.",
-        commands=[name],
+        commands=EXAMPLE_ALIASES.get(name, [name]),
         usage=f"/{name}",
         handle=handle,
     )

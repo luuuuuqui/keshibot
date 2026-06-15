@@ -90,8 +90,11 @@ command registry and JS-to-Python command mapping.
   for WhatsApp EXIF metadata.
 - Every JS command file under `src/commands` now has a Python counterpart under
   `takeshi_bot/commands`. Many example commands now send real text, media,
-  document, button, list, poll, contact, location and reaction payloads through
-  the bridge.
+  document, button, native-flow button, list, carousel card, poll, contact,
+  location and reaction payloads through the bridge.
+- Advanced example aliases from the JavaScript implementation are preserved in
+  the Python registry for buttons, lists, polls, rich text/code/table examples,
+  raw-message and metadata helpers.
 - Commands currently loaded by the Python registry include:
   - `abrir`
   - `ping`
@@ -172,11 +175,12 @@ command registry and JS-to-Python command mapping.
   - `tik-tok-audio`
   - `gemini`
   - `gpt-5-mini`
-  - plus the `member/exemplos/*` example commands.
+  - plus the `member/exemplos/*` example commands and their main JS aliases.
 
 ## Still To Port
 
-- Deeper behavior parity for the most advanced card/carousel/native-flow examples.
+- Runtime validation for the advanced card/carousel/native-flow examples against
+  a real WhatsApp account.
 - Remaining sticker edge cases around animated EXIF and unusual WebP inputs.
 - More FFmpeg media conversions from `src/services/ffmpeg.js`.
 - Runtime validation with a real paired WhatsApp account.

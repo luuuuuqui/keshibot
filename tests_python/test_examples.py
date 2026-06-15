@@ -4,6 +4,9 @@ import unittest
 from typing import Any
 
 from takeshi_bot.commands.member.exemplos.enviar_botoes import command as buttons_command
+from takeshi_bot.commands.member.exemplos.enviar_carrossel import (
+    command as carousel_command,
+)
 from takeshi_bot.commands.member.exemplos.enviar_documento_de_arquivo import (
     command as document_command,
 )
@@ -11,6 +14,7 @@ from takeshi_bot.commands.member.exemplos.enviar_enquete import command as poll_
 from takeshi_bot.commands.member.exemplos.enviar_imagem_de_arquivo import (
     command as image_command,
 )
+from takeshi_bot.commands.member.exemplos.enviar_lista import command as list_command
 from takeshi_bot.context import CommandContext
 
 
@@ -46,7 +50,27 @@ class ExamplesTest(unittest.IsolatedAsyncioTestCase):
         await buttons_command.handle(ctx)
         messages = [call for call in ctx.bridge.calls if call[0] == "send_message"]
         self.assertTrue(messages)
-        self.assertIn("buttons", messages[-1][2])
+        self.assertTrue(any("buttons" in message[2] for message in messages))
+        self.assertTrue(any("interactiveButtons" in message[2] for message in messages))
+
+    async def test_list_example_sends_sections_with_trigger_ids(self) -> None:
+        ctx = make_context()
+        await list_command.handle(ctx)
+        messages = [call for call in ctx.bridge.calls if call[0] == "send_message"]
+        content = messages[-1][2]
+        self.assertIn("sections", content)
+        self.assertTrue(content["viewOnce"])
+        first_row = content["sections"][0]["rows"][0]
+        self.assertEqual(first_row["rowId"], "/exemplo-gatilho texto")
+
+    async def test_carousel_example_sends_remote_cards(self) -> None:
+        ctx = make_context()
+        await carousel_command.handle(ctx)
+        messages = [call for call in ctx.bridge.calls if call[0] == "send_message"]
+        content = messages[-1][2]
+        self.assertEqual(len(content["cards"]), 3)
+        self.assertTrue(content["viewOnce"])
+        self.assertTrue(content["cards"][0]["image"]["url"].startswith("https://"))
 
     async def test_poll_example_sends_poll_payload(self) -> None:
         ctx = make_context()

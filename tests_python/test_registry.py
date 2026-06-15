@@ -69,6 +69,33 @@ class RegistryTest(unittest.TestCase):
         }
         self.assertEqual(sorted(js_commands - py_modules), [])
 
+    def test_example_aliases_match_advanced_js_examples(self) -> None:
+        expected = {
+            "enviar-botao": "enviar-botoes",
+            "botoes-exemplo": "enviar-botoes",
+            "lista-exemplo": "enviar-lista",
+            "enviar-list": "enviar-lista",
+            "poll-example": "enviar-enquete",
+            "exemplo-poll": "enviar-enquete",
+            "codigo": "enviar-codigo",
+            "latex": "enviar-latex",
+            "formula": "enviar-latex",
+            "reels": "enviar-reels",
+            "rich-reels": "enviar-reels",
+            "tabela": "enviar-tabela",
+            "texto-colorido": "enviar-texto-colorido",
+            "rich-texto": "enviar-texto-colorido",
+            "gatilho-exemplo": "exemplo-gatilho",
+            "raw": "raw-message",
+            "metadados": "obter-metadados-mensagem",
+            "info-msg": "obter-metadados-mensagem",
+        }
+        for alias, command_name in expected.items():
+            with self.subTest(alias=alias):
+                match = registry.find(alias)
+                self.assertIsNotNone(match.command)
+                self.assertEqual(match.command.name, command_name)
+
 
 if __name__ == "__main__":
     unittest.main()
