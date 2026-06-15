@@ -41,13 +41,7 @@ def _sample(name: str) -> str:
 
 
 async def _send_document(ctx: CommandContext, file_path: str, file_name: str) -> None:
-    await ctx.bridge.send_file_message(
-        ctx.remote_jid,
-        "document",
-        file_path,
-        {"mimetype": "application/pdf", "fileName": file_name},
-        ctx.quoted_option(True),
-    )
+    await ctx.send_document_from_file(file_path, "application/pdf", file_name)
 
 
 async def _send_poll(ctx: CommandContext) -> None:
@@ -263,14 +257,10 @@ EXAMPLE_HANDLERS: dict[str, ExampleHandler] = {
     "enviar-documento-de-buffer": lambda ctx: _send_document(
         ctx, _sample("sample-document.pdf"), "sample-document.pdf"
     ),
-    "enviar-documento-de-url": lambda ctx: ctx.bridge.send_message(
-        ctx.remote_jid,
-        {
-            "document": {"url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"},
-            "mimetype": "application/pdf",
-            "fileName": "dummy.pdf",
-        },
-        ctx.quoted_option(True),
+    "enviar-documento-de-url": lambda ctx: ctx.send_document_from_url(
+        "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+        "application/pdf",
+        "dummy.pdf",
     ),
     "enviar-enquete": _send_poll,
     "enviar-gif-de-arquivo": lambda ctx: ctx.send_gif_from_file(

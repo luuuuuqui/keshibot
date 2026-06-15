@@ -1,20 +1,28 @@
 from __future__ import annotations
 
 import unittest
+from pathlib import Path
 from typing import Any
 
 from takeshi_bot.commands.member.exemplos.enviar_botoes import command as buttons_command
 from takeshi_bot.commands.member.exemplos.enviar_carrossel import (
     command as carousel_command,
 )
+from takeshi_bot.commands.member.exemplos.enviar_contato import command as contact_command
 from takeshi_bot.commands.member.exemplos.enviar_documento_de_arquivo import (
     command as document_command,
+)
+from takeshi_bot.commands.member.exemplos.enviar_documento_de_url import (
+    command as document_url_command,
 )
 from takeshi_bot.commands.member.exemplos.enviar_enquete import command as poll_command
 from takeshi_bot.commands.member.exemplos.enviar_imagem_de_arquivo import (
     command as image_command,
 )
 from takeshi_bot.commands.member.exemplos.enviar_lista import command as list_command
+from takeshi_bot.commands.member.exemplos.enviar_localizacao import (
+    command as location_command,
+)
 from takeshi_bot.context import CommandContext
 
 
@@ -84,6 +92,40 @@ class ExamplesTest(unittest.IsolatedAsyncioTestCase):
         files = [call for call in ctx.bridge.calls if call[0] == "send_file_message"]
         self.assertTrue(files)
         self.assertEqual(files[-1][1], "document")
+
+    async def test_document_url_example_sends_document_payload(self) -> None:
+        ctx = make_context()
+        await document_url_command.handle(ctx)
+        messages = [call for call in ctx.bridge.calls if call[0] == "send_message"]
+        content = messages[-1][2]
+        self.assertIn("document", content)
+        self.assertEqual(content["mimetype"], "application/pdf")
+        self.assertEqual(content["fileName"], "dummy.pdf")
+
+    async def test_contact_example_sends_vcard_payload(self) -> None:
+        ctx = make_context()
+        await contact_command.handle(ctx)
+        messages = [call for call in ctx.bridge.calls if call[0] == "send_message"]
+        content = messages[-1][2]
+        self.assertIn("contacts", content)
+        self.assertIn("BEGIN:VCARD", content["contacts"]["contacts"][0]["vcard"])
+
+    async def test_location_example_sends_location_payload(self) -> None:
+        ctx = make_context()
+        await location_command.handle(ctx)
+        messages = [call for call in ctx.bridge.calls if call[0] == "send_message"]
+        content = messages[-1][2]
+        self.assertEqual(content["location"]["degreesLatitude"], -23.55052)
+        self.assertEqual(content["location"]["degreesLongitude"], -46.633308)
+
+    async def test_document_buffer_helper_sends_document_file_and_cleans_temp(self) -> None:
+        ctx = make_context()
+        await ctx.send_document_from_buffer(b"pdf", "application/pdf", "buffer.pdf")
+        files = [call for call in ctx.bridge.calls if call[0] == "send_file_message"]
+        self.assertTrue(files)
+        self.assertEqual(files[-1][1], "document")
+        self.assertEqual(files[-1][3]["fileName"], "buffer.pdf")
+        self.assertFalse(Path(files[-1][2]).exists())
 
     async def test_image_example_sends_image_file(self) -> None:
         ctx = make_context()

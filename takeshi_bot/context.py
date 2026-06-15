@@ -6,7 +6,7 @@ from typing import Any
 
 from . import config
 from .bridge import BaileysBridge
-from .utils import baileys_is, extract_data_from_message, random_name
+from .utils import baileys_is, extract_data_from_message, only_numbers, random_name
 
 
 @dataclass
@@ -187,10 +187,93 @@ class CommandContext:
             self.remote_jid, {"sticker": {"url": url}}, self._quoted_option(quoted)
         )
 
+    async def send_contact(self, phone_number: str, display_name: str) -> Any:
+        phone_number_hydrated = only_numbers(phone_number)
+        vcard = (
+            "BEGIN:VCARD\n"
+            "VERSION:3.0\n"
+            f"FN:{display_name}\n"
+            f"TEL;type=CELL;type=VOICE;waid={phone_number_hydrated}:{phone_number}\n"
+            "END:VCARD"
+        )
+        return await self.bridge.send_message(
+            self.remote_jid,
+            {
+                "contacts": {
+                    "displayName": display_name,
+                    "contacts": [{"vcard": vcard}],
+                }
+            },
+        )
+
+    async def send_location(self, latitude: float, longitude: float) -> Any:
+        return await self.bridge.send_message(
+            self.remote_jid,
+            {
+                "location": {
+                    "degreesLatitude": latitude,
+                    "degreesLongitude": longitude,
+                }
+            },
+        )
+
     async def send_sticker_from_file(self, file_path: str, quoted: bool = True) -> Any:
         return await self.bridge.send_file_message(
             self.remote_jid, "sticker", file_path, {}, self._quoted_option(quoted)
         )
+
+    async def send_document_from_url(
+        self,
+        url: str,
+        mimetype: str = "application/octet-stream",
+        file_name: str = "documento.pdf",
+        quoted: bool = True,
+    ) -> Any:
+        return await self.bridge.send_message(
+            self.remote_jid,
+            {
+                "document": {"url": url},
+                "mimetype": mimetype,
+                "fileName": file_name,
+            },
+            self._quoted_option(quoted),
+        )
+
+    async def send_document_from_file(
+        self,
+        file_path: str,
+        mimetype: str = "application/octet-stream",
+        file_name: str = "documento.pdf",
+        quoted: bool = True,
+    ) -> Any:
+        return await self.bridge.send_file_message(
+            self.remote_jid,
+            "document",
+            file_path,
+            {"mimetype": mimetype, "fileName": file_name},
+            self._quoted_option(quoted),
+        )
+
+    async def send_document_from_buffer(
+        self,
+        buffer: bytes,
+        mimetype: str = "application/octet-stream",
+        file_name: str = "documento.pdf",
+        quoted: bool = True,
+    ) -> Any:
+        from pathlib import Path
+
+        from takeshi_bot.paths import TEMP_DIR
+
+        TEMP_DIR.mkdir(parents=True, exist_ok=True)
+        file_path = TEMP_DIR / random_name("bin")
+        Path(file_path).write_bytes(buffer)
+        try:
+            return await self.send_document_from_file(
+                str(file_path), mimetype, file_name, quoted
+            )
+        finally:
+            file_path.unlink(missing_ok=True)
 
     async def send_image_from_file(
         self, file_path: str, caption: str = "", quoted: bool = True
