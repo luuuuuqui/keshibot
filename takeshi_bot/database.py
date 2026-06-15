@@ -5,10 +5,11 @@ import os
 from copy import deepcopy
 from pathlib import Path
 from tempfile import NamedTemporaryFile
-from typing import Any
+from typing import Any, cast
 
 from . import config
 from .paths import DATABASE_DIR
+from .utils import as_dict, as_list, as_str
 
 ANTI_LINK_GROUPS_FILE = "anti-link-groups"
 AUTO_RESPONDER_FILE = "auto-responder"
@@ -127,11 +128,12 @@ def is_active_group(group_id: str) -> bool:
 
 
 def get_auto_responder_response(match: str) -> str | None:
-    responses = read_json(AUTO_RESPONDER_FILE)
+    responses = as_list(read_json(AUTO_RESPONDER_FILE))
     match_upper = match.upper()
     for response in responses:
-        if str(response.get("match", "")).upper() == match_upper:
-            return response.get("answer")
+        item = as_dict(response)
+        if as_str(item.get("match")).upper() == match_upper:
+            return as_str(item.get("answer")) or None
     return None
 
 
@@ -172,16 +174,16 @@ def is_active_auto_sticker_group(group_id: str) -> bool:
 
 
 def mute_member(group_id: str, member_id: str) -> None:
-    muted = read_json(MUTE_FILE, {})
-    group_muted = muted.setdefault(group_id, [])
+    muted = as_dict(read_json(MUTE_FILE, {}))
+    group_muted = as_list(muted.setdefault(group_id, []))
     if member_id not in group_muted:
         group_muted.append(member_id)
         write_json(MUTE_FILE, muted)
 
 
 def unmute_member(group_id: str, member_id: str) -> None:
-    muted = read_json(MUTE_FILE, {})
-    group_muted = muted.get(group_id, [])
+    muted = as_dict(read_json(MUTE_FILE, {}))
+    group_muted = as_list(muted.get(group_id))
     if member_id in group_muted:
         group_muted.remove(member_id)
         write_json(MUTE_FILE, muted)
@@ -190,8 +192,8 @@ def unmute_member(group_id: str, member_id: str) -> None:
 def check_if_member_is_muted(group_id: str | None, member_id: str | None) -> bool:
     if not group_id or not member_id:
         return False
-    muted = read_json(MUTE_FILE, {})
-    return member_id in muted.get(group_id, [])
+    muted = as_dict(read_json(MUTE_FILE, {}))
+    return member_id in as_list(muted.get(group_id))
 
 
 def activate_only_admins(group_id: str) -> None:
@@ -210,16 +212,17 @@ def read_group_restrictions() -> dict[str, dict[str, bool]]:
     data = read_json(GROUP_RESTRICTIONS_FILE, {})
     if isinstance(data, list):
         converted: dict[str, dict[str, bool]] = {}
-        for item in data:
-            group_id = item.get("groupId")
+        for item in as_list(data):
+            item_data = as_dict(item)
+            group_id = as_str(item_data.get("groupId"))
             if group_id:
                 converted[group_id] = {
                     key: bool(value)
-                    for key, value in item.items()
+                    for key, value in item_data.items()
                     if key != "groupId"
                 }
         return converted
-    return data
+    return cast(dict[str, dict[str, bool]], data) if isinstance(data, dict) else {}
 
 
 def save_group_restrictions(restrictions: dict[str, dict[str, bool]]) -> None:
@@ -241,22 +244,23 @@ def update_is_active_group_restriction(
 
 
 def read_restricted_message_types() -> dict[str, str]:
-    return read_json(RESTRICTED_MESSAGES_FILE, DEFAULT_RESTRICTED_MESSAGE_TYPES)
+    data = read_json(RESTRICTED_MESSAGES_FILE, DEFAULT_RESTRICTED_MESSAGE_TYPES)
+    return cast(dict[str, str], data) if isinstance(data, dict) else DEFAULT_RESTRICTED_MESSAGE_TYPES
 
 
 def set_prefix(group_jid: str, prefix: str) -> None:
-    prefixes = read_json(PREFIX_GROUPS_FILE, {})
+    prefixes = as_dict(read_json(PREFIX_GROUPS_FILE, {}))
     prefixes[group_jid] = prefix
     write_json(PREFIX_GROUPS_FILE, prefixes)
 
 
 def get_prefix(group_jid: str) -> str:
-    prefixes = read_json(PREFIX_GROUPS_FILE, {})
-    return prefixes.get(group_jid, config.PREFIX)
+    prefixes = as_dict(read_json(PREFIX_GROUPS_FILE, {}))
+    return as_str(prefixes.get(group_jid)) or config.PREFIX
 
 
-def list_auto_responder_items() -> list[dict[str, str]]:
-    return read_json(AUTO_RESPONDER_FILE)
+def list_auto_responder_items() -> list[dict[str, str | int]]:
+    return [as_dict(item) for item in as_list(read_json(AUTO_RESPONDER_FILE))]
 
 
 def add_auto_responder_item(match: str, answer: str) -> None:
@@ -276,11 +280,11 @@ def remove_auto_responder_item_by_key(key: int) -> bool:
 
 
 def set_spider_api_token(token: str) -> None:
-    runtime_config = read_json(CONFIG_FILE, {})
+    runtime_config = as_dict(read_json(CONFIG_FILE, {}))
     runtime_config["spider_api_token"] = token
     write_json(CONFIG_FILE, runtime_config)
 
 
 def get_spider_api_token() -> str:
-    runtime_config = read_json(CONFIG_FILE, {})
-    return runtime_config.get("spider_api_token") or config.SPIDER_API_TOKEN
+    runtime_config = as_dict(read_json(CONFIG_FILE, {}))
+    return as_str(runtime_config.get("spider_api_token")) or config.SPIDER_API_TOKEN

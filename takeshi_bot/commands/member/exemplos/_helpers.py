@@ -1,15 +1,18 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
+from collections.abc import Awaitable, Callable
+from typing import Any
 
 from takeshi_bot.commands import Command
 from takeshi_bot.context import CommandContext
 from takeshi_bot.paths import ASSETS_DIR
+from takeshi_bot.utils import as_dict, as_list
 
 SAMPLES_DIR = ASSETS_DIR / "samples"
 SAMPLE_IMAGE_URL = "https://api.spiderx.com.br/storage/samples/sample-image.jpg"
 SPIDER_LOGO_URL = "https://api.spiderx.com.br/assets/images/logo.png"
+ExampleHandler = Callable[[CommandContext], Awaitable[Any]]
 
 EXAMPLE_ALIASES = {
     "enviar-botoes": ["enviar-botoes", "enviar-botao", "botoes-exemplo"],
@@ -43,7 +46,7 @@ async def _send_document(ctx: CommandContext, file_path: str, file_name: str) ->
         "document",
         file_path,
         {"mimetype": "application/pdf", "fileName": file_name},
-        ctx._quoted_option(True),
+        ctx.quoted_option(True),
     )
 
 
@@ -241,7 +244,7 @@ async def _send_message_examples(ctx: CommandContext) -> None:
     )
 
 
-EXAMPLE_HANDLERS = {
+EXAMPLE_HANDLERS: dict[str, ExampleHandler] = {
     "enviar-audio-de-arquivo": lambda ctx: ctx.send_audio_from_file(
         _sample("sample-audio.mp3")
     ),
@@ -267,7 +270,7 @@ EXAMPLE_HANDLERS = {
             "mimetype": "application/pdf",
             "fileName": "dummy.pdf",
         },
-        ctx._quoted_option(True),
+        ctx.quoted_option(True),
     ),
     "enviar-enquete": _send_poll,
     "enviar-gif-de-arquivo": lambda ctx: ctx.send_gif_from_file(
@@ -363,7 +366,7 @@ async def metadata_handle(ctx: CommandContext) -> None:
 
 async def group_data_handle(ctx: CommandContext) -> None:
     metadata = await ctx.bridge.group_metadata(ctx.remote_jid)
-    participants = metadata.get("participants") or []
+    participants = [as_dict(item) for item in as_list(metadata.get("participants"))]
     await ctx.send_reply(
         "Dados do grupo\n\n"
         f"subject: {metadata.get('subject', '')}\n"

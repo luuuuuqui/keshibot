@@ -76,6 +76,9 @@ class CommandContext:
     def _quoted_option(self, quoted: bool = True) -> dict[str, Any]:
         return {"quoted": self.web_message} if quoted else {}
 
+    def quoted_option(self, quoted: bool = True) -> dict[str, Any]:
+        return self._quoted_option(quoted)
+
     async def send_text(self, text: str, mentions: list[str] | None = None) -> Any:
         await self.send_typing_state()
         content: dict[str, Any] = {"text": f"{config.BOT_EMOJI} {text}"}

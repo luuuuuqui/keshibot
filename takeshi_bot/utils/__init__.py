@@ -5,9 +5,37 @@ import re
 import string
 import unicodedata
 from pathlib import Path
-from typing import Any
+from typing import Any, TypedDict, cast
 
 from takeshi_bot import config
+
+
+JsonDict = dict[str, Any]
+
+
+class ExtractedMessageData(TypedDict):
+    args: list[str]
+    command_name: str
+    full_args: str
+    full_message: str
+    is_reply: bool
+    prefix: str
+    remote_jid: str | None
+    reply_lid: str | None
+    reply_text: str
+    user_lid: str
+
+
+def as_dict(value: Any) -> JsonDict:
+    return cast(JsonDict, value) if isinstance(value, dict) else {}
+
+
+def as_list(value: Any) -> list[Any]:
+    return cast(list[Any], value) if isinstance(value, list) else []
+
+
+def as_str(value: Any) -> str:
+    return value if isinstance(value, str) else ""
 
 
 def only_numbers(text: str) -> str:
@@ -66,33 +94,38 @@ def random_name(extension: str) -> str:
 
 
 def get_nested_message(web_message: dict[str, Any], context: str) -> dict[str, Any] | None:
-    message = web_message.get("message") or {}
+    message = as_dict(web_message.get("message"))
     direct = message.get(f"{context}Message")
-    if direct:
-        return direct
+    if isinstance(direct, dict):
+        return as_dict(direct)
 
-    quoted = (
-        message.get("extendedTextMessage", {})
-        .get("contextInfo", {})
-        .get("quotedMessage", {})
+    quoted = as_dict(
+        as_dict(as_dict(message.get("extendedTextMessage")).get("contextInfo")).get(
+            "quotedMessage"
+        )
     )
-    if quoted.get(f"{context}Message"):
-        return quoted.get(f"{context}Message")
+    quoted_direct = quoted.get(f"{context}Message")
+    if isinstance(quoted_direct, dict):
+        return as_dict(quoted_direct)
 
-    view_once = message.get("viewOnceMessage", {}).get("message", {})
-    if view_once.get(f"{context}Message"):
-        return view_once.get(f"{context}Message")
+    view_once = as_dict(as_dict(message.get("viewOnceMessage")).get("message"))
+    view_once_direct = view_once.get(f"{context}Message")
+    if isinstance(view_once_direct, dict):
+        return as_dict(view_once_direct)
 
-    quoted_view_once = quoted.get("viewOnceMessage", {}).get("message", {})
-    if quoted_view_once.get(f"{context}Message"):
-        return quoted_view_once.get(f"{context}Message")
+    quoted_view_once = as_dict(as_dict(quoted.get("viewOnceMessage")).get("message"))
+    quoted_view_once_direct = quoted_view_once.get(f"{context}Message")
+    if isinstance(quoted_view_once_direct, dict):
+        return as_dict(quoted_view_once_direct)
 
-    view_once_v2 = message.get("viewOnceMessageV2", {}).get("message", {})
-    if view_once_v2.get(f"{context}Message"):
-        return view_once_v2.get(f"{context}Message")
+    view_once_v2 = as_dict(as_dict(message.get("viewOnceMessageV2")).get("message"))
+    view_once_v2_direct = view_once_v2.get(f"{context}Message")
+    if isinstance(view_once_v2_direct, dict):
+        return as_dict(view_once_v2_direct)
 
-    quoted_view_once_v2 = quoted.get("viewOnceMessageV2", {}).get("message", {})
-    return quoted_view_once_v2.get(f"{context}Message")
+    quoted_view_once_v2 = as_dict(as_dict(quoted.get("viewOnceMessageV2")).get("message"))
+    quoted_view_once_v2_direct = quoted_view_once_v2.get(f"{context}Message")
+    return as_dict(quoted_view_once_v2_direct) if isinstance(quoted_view_once_v2_direct, dict) else None
 
 
 def baileys_is(web_message: dict[str, Any], context: str) -> bool:
@@ -108,46 +141,55 @@ def _extract_interactive_response_id(params_json: str | None) -> str | None:
         params = json.loads(params_json)
     except json.JSONDecodeError:
         return None
+    if not isinstance(params, dict):
+        return None
+    params_data = as_dict(params)
     for key in ("id", "selectedId", "selectedRowId", "rowId", "buttonId", "button_id"):
-        if params.get(key):
-            return params[key]
+        value = params_data.get(key)
+        if isinstance(value, str) and value:
+            return value
     return None
 
 
-def extract_data_from_message(web_message: dict[str, Any]) -> dict[str, Any]:
-    message = web_message.get("message") or {}
-    extended = message.get("extendedTextMessage") or {}
-    interactive = (
-        message.get("interactiveResponseMessage", {})
-        .get("nativeFlowResponseMessage", {})
+def extract_data_from_message(web_message: dict[str, Any]) -> ExtractedMessageData:
+    message = as_dict(web_message.get("message"))
+    extended = as_dict(message.get("extendedTextMessage"))
+    image_message = as_dict(message.get("imageMessage"))
+    video_message = as_dict(message.get("videoMessage"))
+    buttons_response = as_dict(message.get("buttonsResponseMessage"))
+    template_button_reply = as_dict(message.get("templateButtonReplyMessage"))
+    list_response = as_dict(message.get("listResponseMessage"))
+    single_select_reply = as_dict(list_response.get("singleSelectReply"))
+    interactive = as_dict(
+        as_dict(message.get("interactiveResponseMessage")).get(
+            "nativeFlowResponseMessage"
+        )
     )
 
-    full_message = (
+    full_message = as_str(
         message.get("conversation")
         or extended.get("text")
-        or message.get("imageMessage", {}).get("caption")
-        or message.get("videoMessage", {}).get("caption")
-        or message.get("buttonsResponseMessage", {}).get("selectedButtonId")
-        or message.get("templateButtonReplyMessage", {}).get("selectedId")
-        or message.get("listResponseMessage", {})
-        .get("singleSelectReply", {})
-        .get("selectedRowId")
-        or _extract_interactive_response_id(interactive.get("paramsJson"))
+        or image_message.get("caption")
+        or video_message.get("caption")
+        or buttons_response.get("selectedButtonId")
+        or template_button_reply.get("selectedId")
+        or single_select_reply.get("selectedRowId")
+        or _extract_interactive_response_id(as_str(interactive.get("paramsJson")))
         or "#auto-command"
     )
 
-    context_info = extended.get("contextInfo") or {}
-    quoted = context_info.get("quotedMessage") or {}
+    context_info = as_dict(extended.get("contextInfo"))
+    quoted = as_dict(context_info.get("quotedMessage"))
     is_reply = bool(extended and quoted)
-    reply_text = (
+    reply_text = as_str(
         quoted.get("conversation")
-        or quoted.get("extendedTextMessage", {}).get("text")
-        or quoted.get("imageMessage", {}).get("caption")
+        or as_dict(quoted.get("extendedTextMessage")).get("text")
+        or as_dict(quoted.get("imageMessage")).get("caption")
         or ""
     )
 
-    key = web_message.get("key") or {}
-    participant = key.get("participant") or ""
+    key = as_dict(web_message.get("key"))
+    participant = as_str(key.get("participant"))
     user_lid = re.sub(r":[0-9][0-9]|:[0-9]", "", participant)
 
     command, *args = full_message.split(" ")
@@ -161,14 +203,16 @@ def extract_data_from_message(web_message: dict[str, Any]) -> dict[str, Any]:
         "full_message": full_message,
         "is_reply": is_reply,
         "prefix": prefix,
-        "remote_jid": key.get("remoteJid"),
-        "reply_lid": context_info.get("participant"),
+        "remote_jid": cast(str | None, key.get("remoteJid")),
+        "reply_lid": cast(str | None, context_info.get("participant")),
         "reply_text": reply_text,
         "user_lid": user_lid,
     }
 
 
-def remove_file_if_exists(file_path: str | Path) -> None:
+def remove_file_if_exists(file_path: str | Path | None) -> None:
+    if file_path is None:
+        return
     path = Path(file_path)
     if path.exists():
         path.unlink()

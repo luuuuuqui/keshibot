@@ -13,7 +13,7 @@ from takeshi_bot.logger import error_log, info_log
 from takeshi_bot.message_handler import message_handler
 from takeshi_bot.participants import on_group_participants_update
 from takeshi_bot.stealth_payment import handle_stealth_payment_detection
-from takeshi_bot.utils import only_numbers
+from takeshi_bot.utils import as_dict, as_list, as_str, only_numbers
 
 
 async def _ask_input(prompt: str) -> str:
@@ -29,14 +29,15 @@ async def on_messages_upsert(bridge: BaileysBridge, messages: list[dict[str, Any
 
     for web_message in messages:
         try:
-            key = web_message.get("key") or {}
+            key = as_dict(web_message.get("key"))
             await handle_stealth_payment_detection(bridge, web_message)
-            participant = (key.get("participant") or "").split(":")[0]
-            if check_if_member_is_muted(key.get("remoteJid"), participant):
+            remote_jid = as_str(key.get("remoteJid"))
+            participant = as_str(key.get("participant")).split(":")[0]
+            if check_if_member_is_muted(remote_jid, participant):
                 await bridge.delete_message(
-                    key.get("remoteJid"),
+                    remote_jid,
                     {
-                        "remoteJid": key.get("remoteJid"),
+                        "remoteJid": remote_jid,
                         "fromMe": False,
                         "id": key.get("id"),
                         "participant": key.get("participant"),
@@ -52,8 +53,8 @@ async def on_messages_upsert(bridge: BaileysBridge, messages: list[dict[str, Any
                 action = "add" if stub_type in {27, "GROUP_PARTICIPANT_ADD"} else "remove"
                 await on_group_participants_update(
                     bridge,
-                    key.get("remoteJid") or "",
-                    web_message.get("messageStubParameters") or [],
+                    remote_jid,
+                    [str(item) for item in as_list(web_message.get("messageStubParameters"))],
                     action,
                 )
                 return

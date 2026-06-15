@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
-
 from takeshi_bot.commands import Command
 from takeshi_bot.context import CommandContext
 from takeshi_bot.errors import DangerError, InvalidParameterError

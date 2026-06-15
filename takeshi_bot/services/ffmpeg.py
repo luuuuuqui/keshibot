@@ -25,6 +25,9 @@ class Ffmpeg:
         if process.returncode != 0:
             raise RuntimeError(stderr.decode("utf-8", errors="replace"))
 
+    async def execute(self, *args: str) -> None:
+        await self._execute(*args)
+
     def _temp_path(self, extension: str = "png") -> Path:
         return self.temp_dir / f"{random.randint(10_000, 99_999)}.{extension}"
 

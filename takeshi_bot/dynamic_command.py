@@ -23,6 +23,7 @@ from takeshi_bot.middlewares.permissions import (
     verify_prefix,
 )
 from takeshi_bot.services.sticker import create_sticker
+from takeshi_bot.utils import as_dict
 
 
 async def dynamic_command(ctx: CommandContext) -> None:
@@ -46,7 +47,7 @@ async def dynamic_command(ctx: CommandContext) -> None:
             ctx.remote_jid, [ctx.user_lid], "remove"
         )
         await ctx.send_reply("Anti-link ativado! Voce foi removido por enviar um link!")
-        key = ctx.web_message.get("key") or {}
+        key = as_dict(ctx.web_message.get("key"))
         await ctx.bridge.delete_message(
             ctx.remote_jid,
             {

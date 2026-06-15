@@ -9,7 +9,7 @@ from takeshi_bot.database import read_group_restrictions, read_restricted_messag
 from takeshi_bot.logger import error_log
 from takeshi_bot.middlewares.permissions import is_admin
 from takeshi_bot.messages import clear_chat
-from takeshi_bot.utils import get_nested_message
+from takeshi_bot.utils import as_dict, as_str, get_nested_message
 from takeshi_bot.utils.group_status_message import has_group_status_message
 from takeshi_bot.utils.payment_message import has_payment_message
 
@@ -46,11 +46,11 @@ async def apply_anti_payment_restriction(
 
 async def message_handler(bridge: BaileysBridge, web_message: dict[str, Any]) -> None:
     try:
-        key = web_message.get("key") or {}
-        remote_jid = key.get("remoteJid")
+        key = as_dict(web_message.get("key"))
+        remote_jid = as_str(key.get("remoteJid"))
         if not remote_jid or not remote_jid.endswith("@g.us") or key.get("fromMe"):
             return
-        user_lid = key.get("participant")
+        user_lid = as_str(key.get("participant"))
         if not user_lid or user_lid in {config.OWNER_LID, config.BOT_LID}:
             return
 

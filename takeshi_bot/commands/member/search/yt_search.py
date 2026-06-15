@@ -4,6 +4,7 @@ from takeshi_bot.commands import Command
 from takeshi_bot.context import CommandContext
 from takeshi_bot.errors import InvalidParameterError, WarningError
 from takeshi_bot.services.spider_x_api import search
+from takeshi_bot.utils import as_dict, as_list
 
 
 async def handle(ctx: CommandContext) -> None:
@@ -15,14 +16,15 @@ async def handle(ctx: CommandContext) -> None:
     data = await search("youtube", query)
     if not data:
         raise WarningError("Nao foi possivel encontrar resultados para a pesquisa.")
-    lines = []
-    for item in data[:8]:
+    lines: list[str] = []
+    for item in as_list(data)[:8]:
+        result = as_dict(item)
         lines.append(
-            f"Titulo: *{item.get('title', '')}*\n"
-            f"Duracao: {item.get('duration', '')}\n"
-            f"Publicado em: {item.get('published_at', '')}\n"
-            f"Views: {item.get('views', '')}\n"
-            f"URL: {item.get('url', '')}"
+            f"Titulo: *{result.get('title', '')}*\n"
+            f"Duracao: {result.get('duration', '')}\n"
+            f"Publicado em: {result.get('published_at', '')}\n"
+            f"Views: {result.get('views', '')}\n"
+            f"URL: {result.get('url', '')}"
         )
     await ctx.send_success_reply(
         f"*Pesquisa realizada*\n\n*Termo*: {query}\n\n*Resultados*\n" + "\n\n-----\n\n".join(lines)

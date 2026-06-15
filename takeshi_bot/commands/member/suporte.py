@@ -11,7 +11,7 @@ from takeshi_bot.utils import random_name, remove_file_if_exists
 
 
 def _context_text() -> str:
-    parts = []
+    parts: list[str] = []
     for name in ("AGENTS.md", "README.md", "package.json"):
         path = PROJECT_ROOT / name
         if path.exists():
@@ -40,9 +40,13 @@ async def handle(ctx: CommandContext) -> None:
     image_path = await ctx.download_image(random_name("support")) if ctx.is_image else None
     try:
         from openai import AsyncOpenAI
+        from openai.types.chat import (
+            ChatCompletionContentPartParam,
+            ChatCompletionMessageParam,
+        )
 
         client = AsyncOpenAI(api_key=config.OPENAI_API_KEY)
-        user_content: list[dict[str, object]] = []
+        user_content: list[ChatCompletionContentPartParam] = []
         if text:
             user_content.append({"type": "text", "text": text})
         if image_path:
@@ -57,19 +61,20 @@ async def handle(ctx: CommandContext) -> None:
             )
         if not user_content:
             user_content.append({"type": "text", "text": "O que voce ve nesta imagem?"})
+        messages: list[ChatCompletionMessageParam] = [
+            {
+                "role": "system",
+                "content": (
+                    "Voce e um assistente especializado em suporte tecnico do Takeshi Bot. "
+                    "Responda em portugues do Brasil, direto e com foco pratico."
+                ),
+            },
+            {"role": "system", "content": _context_text()},
+            {"role": "user", "content": user_content},
+        ]
         response = await client.chat.completions.create(
             model="gpt-5-mini",
-            messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        "Voce e um assistente especializado em suporte tecnico do Takeshi Bot. "
-                        "Responda em portugues do Brasil, direto e com foco pratico."
-                    ),
-                },
-                {"role": "system", "content": _context_text()},
-                {"role": "user", "content": user_content},
-            ],
+            messages=messages,
             max_completion_tokens=2048,
         )
         answer = (response.choices[0].message.content or "").strip()

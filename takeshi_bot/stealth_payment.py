@@ -9,6 +9,7 @@ from takeshi_bot.bridge import BaileysBridge
 from takeshi_bot.database import read_group_restrictions
 from takeshi_bot.logger import error_log, warning_log
 from takeshi_bot.message_handler import apply_anti_payment_restriction
+from takeshi_bot.utils import as_dict, as_list, as_str
 
 CIPHERTEXT_STUB = 2
 REPEAT_WINDOW_MS = 2 * 60 * 1000
@@ -57,7 +58,7 @@ def _on_cooldown(entry: TrackerEntry, now: int) -> bool:
 
 
 def _confidence(web_message: dict[str, Any]) -> str | None:
-    meta = web_message.get("stealthMeta") or {}
+    meta = as_dict(web_message.get("stealthMeta"))
     if meta.get("decryptFail") == "hide":
         return "high"
     return None
@@ -78,7 +79,11 @@ async def _sender_is_exempt(
         warning_log(f"[stealth-payment] Falha ao obter metadados: {error}")
         return False
     participant = next(
-        (item for item in metadata.get("participants", []) if item.get("id") == sender),
+        (
+            item
+            for item in (as_dict(value) for value in as_list(metadata.get("participants")))
+            if item.get("id") == sender
+        ),
         None,
     )
     if not participant:
@@ -94,17 +99,17 @@ async def handle_stealth_payment_detection(
     bridge: BaileysBridge, web_message: dict[str, Any]
 ) -> None:
     try:
-        key = web_message.get("key") or {}
+        key = as_dict(web_message.get("key"))
         if not key or key.get("fromMe"):
             return
-        remote_jid = key.get("remoteJid")
+        remote_jid = as_str(key.get("remoteJid"))
         if not remote_jid or not remote_jid.endswith("@g.us"):
             return
         is_ciphertext = web_message.get("messageStubType") == CIPHERTEXT_STUB
         has_stealth_meta = bool(web_message.get("stealthMeta"))
         if not is_ciphertext and not has_stealth_meta:
             return
-        sender = key.get("participant")
+        sender = as_str(key.get("participant"))
         if not sender:
             return
         restrictions = read_group_restrictions()

@@ -5,6 +5,7 @@ import re
 from takeshi_bot import config
 from takeshi_bot.context import CommandContext
 from takeshi_bot.database import get_prefix
+from takeshi_bot.utils import as_dict, as_list
 
 
 def verify_prefix(prefix: str, group_jid: str) -> bool:
@@ -28,7 +29,7 @@ async def is_admin(ctx: CommandContext, user_lid: str | None = None) -> bool:
     if not target_lid or not ctx.is_group:
         return False
     metadata = await ctx.bridge.group_metadata(ctx.remote_jid)
-    participants = metadata.get("participants") or []
+    participants = [as_dict(item) for item in as_list(metadata.get("participants"))]
     for participant in participants:
         jid = participant.get("id") or participant.get("lid") or participant.get("jid")
         if jid == target_lid and participant.get("admin"):

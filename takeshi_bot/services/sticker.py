@@ -25,7 +25,7 @@ async def create_sticker(ctx: CommandContext) -> str:
             input_path = await ctx.download_image("sticker-input")
             if not input_path:
                 raise RuntimeError("Nao consegui baixar a imagem.")
-            await ffmpeg._execute(
+            await ffmpeg.execute(
                 "-i",
                 input_path,
                 "-vf",
@@ -41,7 +41,7 @@ async def create_sticker(ctx: CommandContext) -> str:
             input_path = await ctx.download_video("sticker-input")
             if not input_path:
                 raise RuntimeError("Nao consegui baixar o video.")
-            await ffmpeg._execute(
+            await ffmpeg.execute(
                 "-i",
                 input_path,
                 "-vf",

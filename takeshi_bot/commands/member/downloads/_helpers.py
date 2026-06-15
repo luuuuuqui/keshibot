@@ -5,6 +5,7 @@ from typing import Any
 from takeshi_bot.context import CommandContext
 from takeshi_bot.errors import InvalidParameterError, WarningError
 from takeshi_bot.services.spider_x_api import download, play
+from takeshi_bot.utils import as_dict, as_str
 
 
 def _first_url(data: dict[str, Any], *keys: str) -> str | None:
@@ -47,10 +48,10 @@ async def send_youtube_audio(ctx: CommandContext, query_or_url: str, by_search: 
         await ctx.send_error_reply("Nenhum resultado encontrado!")
         return
     await ctx.send_react("\u2705")
-    thumbnail = data.get("thumbnail")
-    title = data.get("title") or "Resultado"
-    description = data.get("description") or ""
-    channel = (data.get("channel") or {}).get("name") or ""
+    thumbnail = as_str(data.get("thumbnail"))
+    title = as_str(data.get("title")) or "Resultado"
+    description = as_str(data.get("description"))
+    channel = as_str(as_dict(data.get("channel")).get("name"))
     if thumbnail:
         await ctx.send_image_from_url(
             thumbnail,

@@ -16,11 +16,17 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
+  "pyright>=1.1.407",
   "pytest>=8.0",
 ]
 
 [tool.hatch.build.targets.wheel]
 packages = ["takeshi_bot"]
+
+[tool.pyright]
+include = ["takeshi_bot"]
+typeCheckingMode = "strict"
+pythonVersion = "3.12"
 
 [tool.pytest.ini_options]
 testpaths = ["tests_python"]

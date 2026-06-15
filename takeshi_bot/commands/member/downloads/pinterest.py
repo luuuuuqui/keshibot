@@ -4,6 +4,7 @@ from takeshi_bot.commands import Command
 from takeshi_bot.context import CommandContext
 from takeshi_bot.errors import InvalidParameterError
 from takeshi_bot.services.spider_x_api import pinterest
+from takeshi_bot.utils import as_dict, as_list
 
 
 async def handle(ctx: CommandContext) -> None:
@@ -15,12 +16,19 @@ async def handle(ctx: CommandContext) -> None:
     if not isinstance(data, list) or not data:
         await ctx.send_error_reply("Nenhuma imagem foi encontrada para a sua busca.")
         return
-    first = next((item for item in data if isinstance(item, dict) and item.get("url")), None)
-    if not first:
+    first_url = next(
+        (
+            url
+            for item in as_list(data)
+            if isinstance(url := as_dict(item).get("url"), str) and url
+        ),
+        None,
+    )
+    if not first_url:
         await ctx.send_error_reply("Nao foi possivel montar resultado com as imagens retornadas.")
         return
     await ctx.send_react("\u2705")
-    await ctx.send_image_from_url(first["url"], f"Resultado do Pinterest para: {query}")
+    await ctx.send_image_from_url(first_url, f"Resultado do Pinterest para: {query}")
 
 
 command = Command(
