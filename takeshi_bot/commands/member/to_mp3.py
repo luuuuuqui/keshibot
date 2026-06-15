@@ -26,7 +26,7 @@ async def handle(ctx: CommandContext) -> None:
 command = Command(
     name="to-mp3",
     description="Converte video em audio MP3.",
-    commands=["to-mp3", "video2mp3", "tomp3"],
+    commands=["to-mp3", "video2mp3", "mp3", "tomp3"],
     usage="/to-mp3",
     handle=handle,
 )

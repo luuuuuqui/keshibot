@@ -115,6 +115,21 @@ class RegistryTest(unittest.TestCase):
                 self.assertIsNotNone(match.command)
                 self.assertEqual(match.command.name, command_name)
 
+    def test_media_conversion_command_metadata_matches_js_aliases(self) -> None:
+        expected = {
+            "to-mp3": {"to-mp3", "video2mp3", "mp3"},
+            "toimage": {"toimage", "toimg"},
+            "togif": {"togif", "gif"},
+        }
+        commands = {
+            command.name: set(command.commands)
+            for group in registry.all_commands().values()
+            for command in group
+        }
+        for command_name, aliases in expected.items():
+            with self.subTest(command_name=command_name):
+                self.assertTrue(aliases.issubset(commands[command_name]))
+
     @staticmethod
     def _js_command_aliases(path: Path) -> list[str]:
         text = path.read_text(encoding="utf-8", errors="replace")

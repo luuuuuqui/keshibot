@@ -24,9 +24,9 @@ async def handle(ctx: CommandContext) -> None:
 
 
 command = Command(
-    name="to-image",
+    name="toimage",
     description="Converte sticker em imagem.",
-    commands=["to-image", "toimg", "to-image"],
-    usage="/to-image",
+    commands=["toimage", "toimg"],
+    usage="/toimage",
     handle=handle,
 )

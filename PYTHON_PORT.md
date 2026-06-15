@@ -164,7 +164,7 @@ command registry and JS-to-Python command mapping.
   - `set-name`
   - `set-proxy`
   - `sticker`
-  - `to-image`
+  - `toimage`
   - `to-mp3`
   - `togif`
   - `unmute`
