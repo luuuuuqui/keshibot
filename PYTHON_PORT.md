@@ -89,6 +89,9 @@ command registry and JS-to-Python command mapping.
 - Participant lifecycle for welcome/exit messages with profile-image fallback.
 - Group restriction moderation for anti-media, anti-product, anti-event,
   anti-lottie-sticker, anti-payment and anti-status-grupo.
+- Group administration commands such as `link-grupo` and `set-name` preserve
+  the JavaScript friendly error replies when WhatsApp rejects invite-code or
+  subject-update operations due to missing admin permissions.
 - Stealth anti-payment detection for ciphertext stubs with `stealthMeta.decryptFail=hide`,
   including tracker/cooldown and the same close-remove-clean-reopen flow.
 - Progressive warn storage compatible with `database/warns.json`.

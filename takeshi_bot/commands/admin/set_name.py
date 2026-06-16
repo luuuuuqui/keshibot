@@ -13,12 +13,17 @@ async def handle(ctx: CommandContext) -> None:
         raise InvalidParameterError("Voce precisa fornecer um novo nome para o grupo!")
     if len(name) < 3 or len(name) > 40:
         raise InvalidParameterError("O nome do grupo deve ter entre 3 e 40 caracteres!")
-    await ctx.send_wait_reply("Alterando o nome do grupo...")
-    old_name = await ctx.get_group_name() or ""
-    await ctx.bridge.group_update_subject(ctx.remote_jid, name)
-    await ctx.send_success_reply(
-        f"Nome do grupo alterado com sucesso!\n\n*Antigo*: {old_name}\n\n*Novo*: {name}"
-    )
+    try:
+        await ctx.send_wait_reply("Alterando o nome do grupo...")
+        old_name = await ctx.get_group_name() or ""
+        await ctx.bridge.group_update_subject(ctx.remote_jid, name)
+        await ctx.send_success_reply(
+            f"Nome do grupo alterado com sucesso!\n\n*Antigo*: {old_name}\n\n*Novo*: {name}"
+        )
+    except Exception:
+        await ctx.send_error_reply(
+            "Falha ao alterar o nome do grupo. Verifique se tenho permissao de administrador."
+        )
 
 
 command = Command(
