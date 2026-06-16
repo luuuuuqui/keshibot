@@ -108,6 +108,9 @@ command registry and JS-to-Python command mapping.
   `takeshi_bot/commands`. Many example commands now send real text, media,
   document, button, native-flow button, list, carousel card, poll, contact,
   location and reaction payloads through the bridge.
+- `suporte` preserves the JavaScript text/reply context merge, image-only
+  prompt fallback, image MIME detection and no-prompt usage response in the
+  Python command, with OpenAI calls covered by mocked regression tests.
 - JavaScript command aliases are covered by the Python registry for all mapped
   command files, with a regression test comparing the JS `commands` arrays to
   the loaded Python aliases.
