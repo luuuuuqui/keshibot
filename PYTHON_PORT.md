@@ -92,6 +92,9 @@ command registry and JS-to-Python command mapping.
 - Stealth anti-payment detection for ciphertext stubs with `stealthMeta.decryptFail=hide`,
   including tracker/cooldown and the same close-remove-clean-reopen flow.
 - Progressive warn storage compatible with `database/warns.json`.
+- `agendar-mensagem` schedules delayed replies in the Python runtime and keeps
+  the JavaScript validation paths for usage errors, invalid time units and
+  empty/zero schedules covered by regression tests.
 - Sticker creation and `rename` use `node-webpmux` through the Baileys sidecar
   for WhatsApp EXIF metadata.
 - `ia-sticker` downloads the generated Spider X image and converts it to local
