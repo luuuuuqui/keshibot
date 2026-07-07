@@ -34,7 +34,7 @@ export async function onGroupParticipantsUpdate({
     if (isActiveWelcomeGroup(remoteJid) && action === "add") {
       const { buffer, profileImage } = await getProfileImageData(
         socket,
-        userLid
+        userLid,
       );
 
       const hasMemberMention = welcomeMessage.includes("@member");
@@ -46,7 +46,7 @@ export async function onGroupParticipantsUpdate({
         const userNumber = onlyNumbers(userLid);
         finalWelcomeMessage = welcomeMessage.replace(
           "@member",
-          `@${userNumber}`
+          `@${userNumber}`,
         );
         mentions.push(userLid);
       }
@@ -77,7 +77,7 @@ export async function onGroupParticipantsUpdate({
     } else if (isActiveExitGroup(remoteJid) && action === "remove") {
       const { buffer, profileImage } = await getProfileImageData(
         socket,
-        userLid
+        userLid,
       );
 
       const hasMemberMention = exitMessage.includes("@member");

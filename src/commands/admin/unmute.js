@@ -27,8 +27,8 @@ export default {
     const userId = replyLid
       ? replyLid
       : targetNumber
-      ? `${targetNumber}@lid`
-      : null;
+        ? `${targetNumber}@lid`
+        : null;
 
     if (!userId) {
       throw new DangerError("Membro inválido!");

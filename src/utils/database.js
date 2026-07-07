@@ -227,7 +227,7 @@ export function getAutoResponderResponse(match) {
   const matchUpperCase = match.toLocaleUpperCase();
 
   const data = responses.find(
-    (response) => response.match.toLocaleUpperCase() === matchUpperCase
+    (response) => response.match.toLocaleUpperCase() === matchUpperCase,
   );
 
   if (!data) {
@@ -496,7 +496,7 @@ export function addAutoResponderItem(match, answer) {
   const matchUpperCase = match.toLocaleUpperCase();
 
   const existingItem = responses.find(
-    (response) => response.match.toLocaleUpperCase() === matchUpperCase
+    (response) => response.match.toLocaleUpperCase() === matchUpperCase,
   );
 
   if (existingItem) {

@@ -37,14 +37,14 @@ Use ${prefix}list-auto-responder para ver todos os IDs`);
 
     if (!success) {
       await sendErrorReply(
-        `Não foi possível remover o termo com o ID ${id}. Ele pode não existir ou já ter sido removido!`
+        `Não foi possível remover o termo com o ID ${id}. Ele pode não existir ou já ter sido removido!`,
       );
 
       return;
     }
 
     await sendSuccessReply(
-      `O termo com o ID ${id} foi removido do auto-responder com sucesso!`
+      `O termo com o ID ${id} foi removido do auto-responder com sucesso!`,
     );
   },
 };

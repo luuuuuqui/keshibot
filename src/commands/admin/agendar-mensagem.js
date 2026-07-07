@@ -12,7 +12,7 @@ Exemplo: ${PREFIX}agendar-mensagem Reunião amanhã / 10m`,
       return await sendErrorReply(
         `Formato incorreto. Use: ${PREFIX}agendar-mensagem mensagem / tempo
         
-Exemplo: ${PREFIX}agendar-mensagem Reunião amanhã / 10m`
+Exemplo: ${PREFIX}agendar-mensagem Reunião amanhã / 10m`,
       );
     }
 
@@ -31,13 +31,13 @@ Exemplo: ${PREFIX}agendar-mensagem Reunião amanhã / 10m`
     } else {
       return await sendErrorReply(
         `Formato de tempo inválido.
-Use:\n• 10s para 10 segundos\n• 5m para 5 minutos\n• 2h para 2 horas`
+Use:\n• 10s para 10 segundos\n• 5m para 5 minutos\n• 2h para 2 horas`,
       );
     }
 
     if (!message || message.trim() === "" || isNaN(timeInMs) || timeInMs <= 0) {
       return await sendErrorReply(
-        "Mensagem inválida ou tempo não especificado corretamente."
+        "Mensagem inválida ou tempo não especificado corretamente.",
       );
     }
 

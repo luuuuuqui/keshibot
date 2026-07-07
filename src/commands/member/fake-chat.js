@@ -10,7 +10,7 @@ export default {
   handle: async ({ remoteJid, socket, args }) => {
     if (args.length !== 3) {
       throw new InvalidParameterError(
-        `Uso incorreto do comando. Exemplo: ${PREFIX}fake-chat @usuário / texto citado / mensagem que será enviada`
+        `Uso incorreto do comando. Exemplo: ${PREFIX}fake-chat @usuário / texto citado / mensagem que será enviada`,
       );
     }
 
@@ -26,13 +26,13 @@ export default {
 
     if (quotedText.length < 2) {
       throw new InvalidParameterError(
-        "O texto citado deve ter pelo menos 2 caracteres."
+        "O texto citado deve ter pelo menos 2 caracteres.",
       );
     }
 
     if (responseText.length < 2) {
       throw new InvalidParameterError(
-        "A mensagem de resposta deve ter pelo menos 2 caracteres."
+        "A mensagem de resposta deve ter pelo menos 2 caracteres.",
       );
     }
 
@@ -55,7 +55,7 @@ export default {
     await socket.sendMessage(
       remoteJid,
       { text: responseText },
-      { quoted: fakeQuoted }
+      { quoted: fakeQuoted },
     );
   },
 };

@@ -17,13 +17,7 @@ export default {
     "removeradvertencia",
     "advtremove",
   ],
-  handle: async ({
-    args,
-    isReply,
-    replyLid,
-    remoteJid,
-    sendReply,
-  }) => {
+  handle: async ({ args, isReply, replyLid, remoteJid, sendReply }) => {
     if (!args.length && !isReply) {
       throw new InvalidParameterError(
         "Mencione um usuário ou responda a uma mensagem.",
@@ -79,9 +73,7 @@ export default {
     }
 
     if (action) {
-      throw new InvalidParameterError(
-        'Use "list" ou o número da advertência.',
-      );
+      throw new InvalidParameterError('Use "list" ou o número da advertência.');
     }
 
     removeLastWarn(remoteJid, targetLid);

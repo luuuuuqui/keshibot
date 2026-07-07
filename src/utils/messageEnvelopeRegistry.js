@@ -109,7 +109,10 @@ export function verifyQuotedAuthor({ groupJid, stanzaId, participant }) {
     return { corroborated: false, contradicted: false };
   }
 
-  if (entry.participant !== participant && entry.participantAlt !== participant) {
+  if (
+    entry.participant !== participant &&
+    entry.participantAlt !== participant
+  ) {
     return { corroborated: false, contradicted: true };
   }
 

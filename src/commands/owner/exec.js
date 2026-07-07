@@ -86,7 +86,7 @@ Este comando pode causar danos críticos ao sistema.`,
 
     if (!fullArgs) {
       throw new DangerError(
-        `Uso correto: ${PREFIX}exec comando\n\nExecute qualquer comando do terminal. \nApenas operações destrutivas críticas são bloqueadas (formatação de disco, shutdown, fork bombs, etc).`
+        `Uso correto: ${PREFIX}exec comando\n\nExecute qualquer comando do terminal. \nApenas operações destrutivas críticas são bloqueadas (formatação de disco, shutdown, fork bombs, etc).`,
       );
     }
 
@@ -94,7 +94,7 @@ Este comando pode causar danos críticos ao sistema.`,
 
     if (!safetyCheck.safe) {
       throw new DangerError(
-        `⛔ Comando bloqueado por segurança!\n\nMotivo: ${safetyCheck.reason}\n\nEste comando pode causar danos críticos ao sistema.`
+        `⛔ Comando bloqueado por segurança!\n\nMotivo: ${safetyCheck.reason}\n\nEste comando pode causar danos críticos ao sistema.`,
       );
     }
 
@@ -133,9 +133,9 @@ Este comando pode causar danos críticos ao sistema.`,
 
         await sendSuccessReply(
           `Resultado do comando: \`${fullArgs}\`\n\n` +
-            `\`\`\`\n${output.trim()}\n\`\`\``
+            `\`\`\`\n${output.trim()}\n\`\`\``,
         );
-      }
+      },
     );
   },
 };

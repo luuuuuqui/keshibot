@@ -9,7 +9,7 @@ import { errorLog } from "../../utils/logger.js";
 async function extractAudio(videoPath) {
   const audioPath = path.resolve(
     TEMP_DIR,
-    `${getRandomNumber(10_000, 99_999)}.aac`
+    `${getRandomNumber(10_000, 99_999)}.aac`,
   );
 
   return new Promise((resolve, reject) => {
@@ -24,7 +24,7 @@ async function extractAudio(videoPath) {
         }
 
         resolve(audioPath);
-      }
+      },
     );
   });
 }
@@ -45,7 +45,7 @@ export default {
   }) => {
     if (!isVideo) {
       throw new InvalidParameterError(
-        "Por favor, envie este comando em resposta a um vídeo ou com um vídeo anexado."
+        "Por favor, envie este comando em resposta a um vídeo ou com um vídeo anexado.",
       );
     }
 

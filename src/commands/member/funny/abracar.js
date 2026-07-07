@@ -18,19 +18,19 @@ export default {
   }) => {
     if (!args.length && !isReply) {
       throw new InvalidParameterError(
-        "Você precisa mencionar ou marcar um membro!"
+        "Você precisa mencionar ou marcar um membro!",
       );
     }
 
     const targetLid = isReply
       ? replyLid
       : args[0]
-      ? `${onlyNumbers(args[0])}@lid`
-      : null;
+        ? `${onlyNumbers(args[0])}@lid`
+        : null;
 
     if (!targetLid) {
       await sendErrorReply(
-        "Você precisa mencionar um usuário ou responder uma mensagem para abraçar."
+        "Você precisa mencionar um usuário ou responder uma mensagem para abraçar.",
       );
 
       return;
@@ -42,7 +42,7 @@ export default {
     await sendGifFromFile(
       path.resolve(ASSETS_DIR, "images", "funny", "hug-darker-than-black.mp4"),
       `@${userNumber} deu um abraço apaixonante em @${targetNumber}!`,
-      [userLid, targetLid]
+      [userLid, targetLid],
     );
   },
 };

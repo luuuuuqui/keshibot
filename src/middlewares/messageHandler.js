@@ -33,7 +33,8 @@ export async function messageHandler(socket, webMessage) {
       return;
     }
 
-    const userLid = webMessage.key?.participant || webMessage.key?.participantAlt;
+    const userLid =
+      webMessage.key?.participant || webMessage.key?.participantAlt;
 
     if (!userLid) {
       return;

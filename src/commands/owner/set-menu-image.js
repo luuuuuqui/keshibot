@@ -26,7 +26,7 @@ export default {
   }) => {
     if (!isReply || !isImage) {
       throw new InvalidParameterError(
-        "Você precisa responder a uma mensagem que contenha uma imagem!"
+        "Você precisa responder a uma mensagem que contenha uma imagem!",
       );
     }
 
@@ -53,7 +53,7 @@ export default {
     } catch (error) {
       errorLog(`Erro ao alterar imagem do menu:  ${error}`);
       await sendErrorReply(
-        "Ocorreu um erro ao tentar alterar a imagem do menu. Por favor, tente novamente."
+        "Ocorreu um erro ao tentar alterar a imagem do menu. Por favor, tente novamente.",
       );
     }
   },

@@ -21,7 +21,7 @@ export default {
   }) => {
     if (!isImage) {
       throw new InvalidParameterError(
-        "Você precisa marcar uma imagem ou responder a uma imagem"
+        "Você precisa marcar uma imagem ou responder a uma imagem",
       );
     }
 
@@ -35,7 +35,7 @@ export default {
 
     if (!link) {
       throw new Error(
-        "Não consegui fazer o upload da imagem, tente novamente mais tarde!"
+        "Não consegui fazer o upload da imagem, tente novamente mais tarde!",
       );
     }
 
@@ -49,7 +49,7 @@ export default {
       await sendErrorReply(
         `Ocorreu um erro ao executar uma chamada remota para a Spider X API no comando inverter!
       
-📄 *Detalhes*: ${data.message}`
+📄 *Detalhes*: ${data.message}`,
       );
       return;
     }

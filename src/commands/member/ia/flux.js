@@ -16,7 +16,7 @@ export default {
   }) => {
     if (!args[0]) {
       return sendWarningReply(
-        "Você precisa fornecer uma descrição para a imagem."
+        "Você precisa fornecer uma descrição para a imagem.",
       );
     }
 
@@ -26,7 +26,7 @@ export default {
 
     if (!data?.image) {
       return sendWarningReply(
-        "Não foi possível gerar a imagem! Tente novamente mais tarde."
+        "Não foi possível gerar a imagem! Tente novamente mais tarde.",
       );
     }
 

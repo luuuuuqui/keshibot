@@ -43,7 +43,7 @@ class BadMacHandler {
         process.cwd(),
         "assets",
         "auth",
-        "baileys"
+        "baileys",
       );
 
       if (!fs.existsSync(baileysFolder)) {
@@ -68,7 +68,7 @@ class BadMacHandler {
 
       if (removedCount > 0) {
         warningLog(
-          `${removedCount} arquivos de sessão problemáticos removidos. Credenciais principais preservadas.`
+          `${removedCount} arquivos de sessão problemáticos removidos. Credenciais principais preservadas.`,
         );
         return true;
       }
@@ -97,7 +97,7 @@ class BadMacHandler {
 
     if (previousCount > 0) {
       warningLog(
-        `Reset do contador de Bad MAC errors. Contador anterior: ${previousCount}`
+        `Reset do contador de Bad MAC errors. Contador anterior: ${previousCount}`,
       );
     }
   }
@@ -116,13 +116,13 @@ class BadMacHandler {
 
     if (this.hasReachedLimit()) {
       warningLog(
-        `Limite de Bad MAC errors atingido (${this.maxRetries}). Considere reiniciar o bot.`
+        `Limite de Bad MAC errors atingido (${this.maxRetries}). Considere reiniciar o bot.`,
       );
       return true;
     }
 
     warningLog(
-      `Ignorando Bad MAC error e continuando operação... (${this.errorCount}/${this.maxRetries})`
+      `Ignorando Bad MAC error e continuando operação... (${this.errorCount}/${this.maxRetries})`,
     );
     return true;
   }
@@ -147,7 +147,7 @@ class BadMacHandler {
       lastReset: new Date(this.lastReset).toISOString(),
       timeUntilReset: Math.max(
         0,
-        this.resetInterval - (Date.now() - this.lastReset)
+        this.resetInterval - (Date.now() - this.lastReset),
       ),
     };
   }

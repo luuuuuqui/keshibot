@@ -21,14 +21,14 @@ export default {
     }
     if (!fullArgs) {
       throw new InvalidParameterError(
-        "Você precisa fornecer um novo nome para o grupo!"
+        "Você precisa fornecer um novo nome para o grupo!",
       );
     }
     const minLength = 3;
     const maxLength = 40;
     if (fullArgs.length < minLength || fullArgs.length > maxLength) {
       throw new InvalidParameterError(
-        `O nome do grupo deve ter entre ${minLength} e ${maxLength} caracteres!`
+        `O nome do grupo deve ter entre ${minLength} e ${maxLength} caracteres!`,
       );
     }
     try {
@@ -37,12 +37,12 @@ export default {
       const oldName = groupMetadata.subject;
       await socket.groupUpdateSubject(remoteJid, fullArgs);
       await sendSuccessReply(
-        `Nome do grupo alterado com sucesso!\n\n*Antigo*: ${oldName}\n\n*Novo*: ${fullArgs}`
+        `Nome do grupo alterado com sucesso!\n\n*Antigo*: ${oldName}\n\n*Novo*: ${fullArgs}`,
       );
     } catch (error) {
       errorLog("Error ao alterar o nome do grupo:", error);
       await sendErrorReply(
-        "Falha ao alterar o nome do grupo. Verifique se tenho permissão de administrador."
+        "Falha ao alterar o nome do grupo. Verifique se tenho permissão de administrador.",
       );
     }
   },

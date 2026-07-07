@@ -18,7 +18,7 @@ export default {
   }) => {
     if (!fullArgs.length) {
       throw new InvalidParameterError(
-        "Você precisa enviar uma URL do YouTube!"
+        "Você precisa enviar uma URL do YouTube!",
       );
     }
 
@@ -44,7 +44,7 @@ export default {
         
 *Descrição*: ${data.description}
 *Duração em segundos*: ${data.total_duration_in_seconds}
-*Canal*: ${data.channel.name}`
+*Canal*: ${data.channel.name}`,
       );
 
       await sendVideoFromURL(data.url);

@@ -57,9 +57,7 @@ export default {
     if (newCount >= limit) {
       await socket.groupParticipantsUpdate(remoteJid, [targetLid], "remove");
 
-      await sendReply(
-        "❌ Limite de advertências atingido. Usuário removido.",
-      );
+      await sendReply("❌ Limite de advertências atingido. Usuário removido.");
     }
   },
 };

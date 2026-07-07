@@ -16,7 +16,7 @@ export default {
   }) => {
     if (!args.length) {
       throw new InvalidParameterError(
-        "Você precisa informar o texto que deseja transformar em figurinha."
+        "Você precisa informar o texto que deseja transformar em figurinha.",
       );
     }
 
@@ -32,7 +32,7 @@ export default {
       await sendErrorReply(
         `Ocorreu um erro ao executar uma chamada remota para a Spider X API no comando attp!
       
-📄 *Detalhes*: ${data.message}`
+📄 *Detalhes*: ${data.message}`,
       );
       return;
     }

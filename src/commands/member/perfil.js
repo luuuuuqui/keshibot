@@ -20,7 +20,7 @@ export default {
   }) => {
     if (!isGroup(remoteJid)) {
       throw new InvalidParameterError(
-        "Este comando só pode ser usado em grupo."
+        "Este comando só pode ser usado em grupo.",
       );
     }
 
@@ -40,8 +40,8 @@ export default {
           `Erro ao tentar pegar dados do usuário ${targetLid}: ${JSON.stringify(
             error,
             null,
-            2
-          )}`
+            2,
+          )}`,
         );
         profilePicUrl = `${ASSETS_DIR}/images/default-user.png`;
       }
@@ -49,7 +49,7 @@ export default {
       const groupMetadata = await socket.groupMetadata(remoteJid);
 
       const participant = groupMetadata.participants.find(
-        (participant) => participant.id === targetLid
+        (participant) => participant.id === targetLid,
       );
 
       if (participant?.admin) {

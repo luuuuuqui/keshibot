@@ -12,7 +12,7 @@ export default {
 
     await sendImageFromFile(
       path.join(ASSETS_DIR, "images", "takeshi-bot.png"),
-      `\n\n${menuMessage(remoteJid)}`
+      `\n\n${menuMessage(remoteJid)}`,
     );
   },
 };

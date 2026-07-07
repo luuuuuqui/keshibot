@@ -26,7 +26,7 @@ ${prefix}add-auto-responder termo / o que eu devo responder`);
     }
 
     await sendSuccessReply(
-      `O termo "${term}" foi adicionado ao auto-responder com a resposta "${response}".`
+      `O termo "${term}" foi adicionado ao auto-responder com a resposta "${response}".`,
     );
   },
 };

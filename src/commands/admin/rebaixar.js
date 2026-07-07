@@ -20,7 +20,7 @@ export default {
     }
     if (!args.length || !args[0]) {
       return sendWarningReply(
-        "Por favor, marque um administrador para rebaixar."
+        "Por favor, marque um administrador para rebaixar.",
       );
     }
     const userId = args[0] ? `${onlyNumbers(args[0])}@lid` : null;
@@ -30,7 +30,7 @@ export default {
     } catch (error) {
       errorLog(`Erro ao rebaixar administrador: ${error.message}`);
       await sendErrorReply(
-        "Ocorreu um erro ao tentar rebaixar o usuário. Eu preciso ser administrador do grupo para rebaixar outros administradores!"
+        "Ocorreu um erro ao tentar rebaixar o usuário. Eu preciso ser administrador do grupo para rebaixar outros administradores!",
       );
     }
   },

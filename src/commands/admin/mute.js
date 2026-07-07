@@ -24,15 +24,15 @@ export default {
 
     if (!args.length && !replyLid) {
       throw new DangerError(
-        `Você precisa mencionar um usuário ou responder à mensagem do usuário que deseja mutar.\n\nExemplo: ${PREFIX}mute @fulano`
+        `Você precisa mencionar um usuário ou responder à mensagem do usuário que deseja mutar.\n\nExemplo: ${PREFIX}mute @fulano`,
       );
     }
 
     const userId = replyLid
       ? replyLid
       : args[0]
-      ? `${onlyNumbers(args[0])}@lid`
-      : null;
+        ? `${onlyNumbers(args[0])}@lid`
+        : null;
 
     const targetUserNumber = onlyNumbers(userId);
 
@@ -46,18 +46,18 @@ export default {
 
     const groupMetadata = await getGroupMetadata();
     const isUserInGroup = groupMetadata.participants.some(
-      (participant) => participant.id === userId
+      (participant) => participant.id === userId,
     );
 
     if (!isUserInGroup) {
       return sendErrorReply(
         `O usuário @${targetUserNumber} não está neste grupo.`,
-        [userId]
+        [userId],
       );
     }
 
     const isTargetAdmin = groupMetadata.participants.some(
-      (participant) => participant.id === userId && participant.admin
+      (participant) => participant.id === userId && participant.admin,
     );
 
     if (isTargetAdmin) {
@@ -67,7 +67,7 @@ export default {
     if (checkIfMemberIsMuted(remoteJid, userId)) {
       return sendErrorReply(
         `O usuário @${targetUserNumber} já está silenciado neste grupo.`,
-        [userId]
+        [userId],
       );
     }
 
@@ -75,7 +75,7 @@ export default {
 
     await sendSuccessReply(
       `@${targetUserNumber} foi mutado com sucesso neste grupo!`,
-      [userId]
+      [userId],
     );
   },
 };

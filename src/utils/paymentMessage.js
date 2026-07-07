@@ -49,7 +49,11 @@ export function hasPaymentMessage(webMessage) {
   return hasPaymentMessageKey(webMessage?.message);
 }
 
-function findQuotedPaymentContext(value, depth = 0, seenObjects = new WeakSet()) {
+function findQuotedPaymentContext(
+  value,
+  depth = 0,
+  seenObjects = new WeakSet(),
+) {
   if (
     !canScanObject(value) ||
     depth > MAX_PAYMENT_SCAN_DEPTH ||

@@ -10,7 +10,7 @@ export default {
   handle: async ({ fullArgs, sendSuccessReply }) => {
     if (fullArgs.length <= 1) {
       throw new InvalidParameterError(
-        "Você precisa fornecer uma pesquisa para o YouTube."
+        "Você precisa fornecer uma pesquisa para o YouTube.",
       );
     }
 
@@ -18,7 +18,7 @@ export default {
 
     if (fullArgs.length > maxLength) {
       throw new InvalidParameterError(
-        `O tamanho máximo da pesquisa é de ${maxLength} caracteres.`
+        `O tamanho máximo da pesquisa é de ${maxLength} caracteres.`,
       );
     }
 
@@ -26,7 +26,7 @@ export default {
 
     if (!data) {
       throw new WarningError(
-        "Não foi possível encontrar resultados para a pesquisa."
+        "Não foi possível encontrar resultados para a pesquisa.",
       );
     }
 

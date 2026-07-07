@@ -21,7 +21,7 @@ export default {
 
     if (!number || number < 1 || number > 6) {
       throw new DangerError(
-        `Por favor, escolha um número entre 1 e 6!\nExemplo: ${PREFIX}dado 3`
+        `Por favor, escolha um número entre 1 e 6!\nExemplo: ${PREFIX}dado 3`,
       );
     }
 
@@ -32,7 +32,7 @@ export default {
     const pushName = webMessage?.pushName || "Usuário";
 
     await sendStickerFromURL(
-      path.resolve(ASSETS_DIR, "stickers", "dice", `${result}.webp`)
+      path.resolve(ASSETS_DIR, "stickers", "dice", `${result}.webp`),
     );
 
     await delay(2000);
@@ -40,12 +40,12 @@ export default {
     if (number === result) {
       await sendReact("🏆");
       await sendReply(
-        `🎉 *${pushName} GANHOU!* Você apostou número *${number}* e o dado caiu em *${result}*! 🍀`
+        `🎉 *${pushName} GANHOU!* Você apostou número *${number}* e o dado caiu em *${result}*! 🍀`,
       );
     } else {
       await sendReact("😭");
       await sendReply(
-        `💥 *${pushName} PERDEU...* Você apostou no *${number}* mas o dado caiu em *${result}*! Tente novamente.`
+        `💥 *${pushName} PERDEU...* Você apostou no *${number}* mas o dado caiu em *${result}*! Tente novamente.`,
       );
     }
   },

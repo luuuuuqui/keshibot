@@ -19,7 +19,7 @@ export default {
   }) => {
     if (!isImage) {
       throw new InvalidParameterError(
-        "Você deve marcar ou responder uma imagem!"
+        "Você deve marcar ou responder uma imagem!",
       );
     }
 
@@ -34,7 +34,7 @@ export default {
 
     if (!link) {
       throw new Error(
-        "Erro ao fazer upload da imagem. Tente novamente mais tarde."
+        "Erro ao fazer upload da imagem. Tente novamente mais tarde.",
       );
     }
 

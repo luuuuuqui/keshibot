@@ -21,14 +21,14 @@ export default {
       await sendSuccessReply("Grupo aberto com sucesso!");
     } catch (error) {
       await sendErrorReply(
-        "Para abrir o grupo, eu preciso ser administrador dele!"
+        "Para abrir o grupo, eu preciso ser administrador dele!",
       );
       errorLog(
         `Ocorreu um erro ao abrir o grupo! Causa: ${JSON.stringify(
           error,
           null,
-          2
-        )}`
+          2,
+        )}`,
       );
     }
   },

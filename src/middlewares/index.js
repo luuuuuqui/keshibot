@@ -112,7 +112,7 @@ export async function isAdmin({ remoteJid, userLid, socket }) {
   const { participants, owner } = await socket.groupMetadata(remoteJid);
 
   const participant = participants.find(
-    (participant) => participant.id === userLid
+    (participant) => participant.id === userLid,
   );
 
   if (!participant) {
@@ -141,7 +141,7 @@ export async function checkPermission({ type, socket, userLid, remoteJid }) {
     const { participants, owner } = await socket.groupMetadata(remoteJid);
 
     const participant = participants.find(
-      (participant) => participant.id === userLid
+      (participant) => participant.id === userLid,
     );
 
     if (!participant) {
@@ -155,11 +155,11 @@ export async function checkPermission({ type, socket, userLid, remoteJid }) {
     const isAdmin = isOwner || participant.admin === "admin";
 
     const ownerStillInGroup = participants.some(
-      (participant) => participant.id === owner
+      (participant) => participant.id === owner,
     );
 
     const hasSuperAdmin = participants.some(
-      (participant) => participant.admin === "superadmin"
+      (participant) => participant.admin === "superadmin",
     );
 
     if (type === "admin") {

@@ -23,7 +23,7 @@ export default {
   }) => {
     if (!isImage && !isVideo) {
       throw new InvalidParameterError(
-        "Você precisa marcar uma imagem/vídeo ou responder a uma imagem/vídeo para revelá-la"
+        "Você precisa marcar uma imagem/vídeo ou responder a uma imagem/vídeo para revelá-la",
       );
     }
 
@@ -35,7 +35,7 @@ export default {
 
     const outputPath = path.resolve(
       TEMP_DIR,
-      `${getRandomName()}.${isImage ? "jpg" : "mp4"}`
+      `${getRandomName()}.${isImage ? "jpg" : "mp4"}`,
     );
 
     let inputPath;
@@ -56,7 +56,7 @@ export default {
                   sendSuccessReact().then(resolve);
                 });
               }
-            }
+            },
           );
         });
       } else if (isVideo) {
@@ -74,7 +74,7 @@ export default {
                   sendSuccessReact().then(resolve);
                 });
               }
-            }
+            },
           );
         });
       }

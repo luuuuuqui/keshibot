@@ -12,7 +12,7 @@ export default {
 
     if (!isImage && !isVideo) {
       throw new InvalidParameterError(
-        `Você precisa marcar ou responder a uma imagem/gif/vídeo!`
+        `Você precisa marcar ou responder a uma imagem/gif/vídeo!`,
       );
     }
 

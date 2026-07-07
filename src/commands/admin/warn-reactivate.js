@@ -12,13 +12,7 @@ export default {
     "reativaradvertencia",
     "reativaradvt",
   ],
-  handle: async ({
-    args,
-    isReply,
-    replyLid,
-    remoteJid,
-    sendReply,
-  }) => {
+  handle: async ({ args, isReply, replyLid, remoteJid, sendReply }) => {
     let targetLid = null;
 
     if (isReply && replyLid) {
@@ -74,9 +68,7 @@ export default {
     }
 
     if (action) {
-      throw new InvalidParameterError(
-        'Use "list" ou o número da advertência.',
-      );
+      throw new InvalidParameterError('Use "list" ou o número da advertência.');
     }
 
     const lastIndex = invalidWarns.length - 1;

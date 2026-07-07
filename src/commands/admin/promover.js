@@ -32,7 +32,7 @@ export default {
     } catch (error) {
       errorLog(`Erro ao promover usuário: ${error.message}`);
       await sendErrorReply(
-        "Ocorreu um erro ao tentar promover o usuário. Eu preciso ser administrador do grupo para promover outros usuários!"
+        "Ocorreu um erro ao tentar promover o usuário. Eu preciso ser administrador do grupo para promover outros usuários!",
       );
     }
   },

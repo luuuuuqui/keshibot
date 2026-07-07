@@ -21,7 +21,7 @@ export default {
   }) => {
     if (!args[0]) {
       return sendWarningReply(
-        "Você precisa fornecer uma descrição para a imagem."
+        "Você precisa fornecer uma descrição para a imagem.",
       );
     }
 
@@ -45,7 +45,7 @@ export default {
           await sendErrorReply(
             `Houve um erro ao processar a imagem. Tente novamente mais tarde!
             
-Detalhes: ${stderr}`
+Detalhes: ${stderr}`,
           );
         } else {
           await sendSuccessReact();
@@ -56,7 +56,7 @@ Detalhes: ${stderr}`
       });
     } else {
       await sendWarningReply(
-        "Não foi possível gerar a figurinha. Tente novamente mais tarde."
+        "Não foi possível gerar a figurinha. Tente novamente mais tarde.",
       );
     }
   },

@@ -21,7 +21,7 @@ export default {
 
     if (args[0].length < 8 || args[0].length > 25) {
       throw new InvalidParameterError(
-        "O token deve ter entre 8 e 25 caracteres!"
+        "O token deve ter entre 8 e 25 caracteres!",
       );
     }
 

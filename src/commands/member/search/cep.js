@@ -13,7 +13,7 @@ export default {
 
     if (!cep || ![8, 9].includes(cep.length)) {
       throw new InvalidParameterError(
-        "Você precisa enviar um CEP no formato 00000-000 ou 00000000!"
+        "Você precisa enviar um CEP no formato 00000-000 ou 00000000!",
       );
     }
 

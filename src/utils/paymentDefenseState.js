@@ -169,7 +169,12 @@ async function runDefense({ socket, remoteJid, userLid, messageKey }) {
  *
  * @returns {Promise<boolean>} true se o autor foi (ou já estava sendo) removido.
  */
-export function defendAgainstPayment({ socket, remoteJid, userLid, messageKey }) {
+export function defendAgainstPayment({
+  socket,
+  remoteJid,
+  userLid,
+  messageKey,
+}) {
   if (!remoteJid || !userLid) {
     return Promise.resolve(false);
   }

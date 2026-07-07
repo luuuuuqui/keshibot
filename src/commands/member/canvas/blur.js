@@ -17,7 +17,7 @@ export default {
   }) => {
     if (!isImage) {
       throw new InvalidParameterError(
-        "Você precisa marcar uma imagem ou responder a uma imagem"
+        "Você precisa marcar uma imagem ou responder a uma imagem",
       );
     }
 

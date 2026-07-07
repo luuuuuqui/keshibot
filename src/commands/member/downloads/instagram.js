@@ -17,7 +17,7 @@ export default {
   }) => {
     if (!fullArgs.length) {
       throw new InvalidParameterError(
-        "Você precisa enviar uma URL do Instagram!"
+        "Você precisa enviar uma URL do Instagram!",
       );
     }
 
