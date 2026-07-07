@@ -23,53 +23,52 @@ ${PREFIX}ban (mencionando uma mensagem)`,
     sendSuccessReact,
     sendErrorReply,
   }) => {
+    if (!args.length && !isReply) {
+      throw new InvalidParameterError(
+        "Você precisa mencionar ou marcar um membro!",
+      );
+    }
+
+    if (!isReply && !args[0]?.includes("@")) {
+      throw new InvalidParameterError(
+        'Você precisa mencionar um membro com "@"!',
+      );
+    }
+
+    const targetNumber = isReply ? "" : onlyNumbers(args[0]);
+    const memberToRemoveLid = isReply ? replyLid : `${targetNumber}@lid`;
+
+    if (!memberToRemoveLid || memberToRemoveLid === "@lid") {
+      throw new InvalidParameterError("Membro inválido!");
+    }
+
+    if (memberToRemoveLid === userLid) {
+      throw new DangerError("Você não pode remover você mesmo!");
+    }
+
+    const resolvedOwnerLid = OWNER_LID;
+
+    if (resolvedOwnerLid && memberToRemoveLid === resolvedOwnerLid) {
+      throw new DangerError("Você não pode remover o dono do bot!");
+    }
+
+    if (BOT_LID && memberToRemoveLid === BOT_LID) {
+      throw new DangerError("Você não pode me remover!");
+    }
+
     try {
-      if (!args.length && !isReply) {
-        throw new InvalidParameterError(
-          "Você precisa mencionar ou marcar um membro!"
-        );
-      }
-
-      if (args.length && !args[0].includes("@")) {
-        throw new InvalidParameterError(
-          'Você precisa mencionar um membro com "@"!'
-        );
-      }
-
-      const userId = args[0] ? `${onlyNumbers(args[0])}@lid` : null;
-
-      const memberToRemoveLid = isReply ? replyLid : userId;
-
-      if (!memberToRemoveLid) {
-        throw new InvalidParameterError("Membro inválido!");
-      }
-
-      if (memberToRemoveLid === userLid) {
-        throw new DangerError("Você não pode remover você mesmo!");
-      }
-
-      const resolvedOwnerLid = OWNER_LID;
-
-      if (resolvedOwnerLid && memberToRemoveLid === resolvedOwnerLid) {
-        throw new DangerError("Você não pode remover o dono do bot!");
-      }
-
-      if (BOT_LID && memberToRemoveLid === BOT_LID) {
-        throw new DangerError("Você não pode me remover!");
-      }
-
       await socket.groupParticipantsUpdate(
         remoteJid,
         [memberToRemoveLid],
-        "remove"
+        "remove",
       );
 
       await sendSuccessReact();
       await sendReply("Membro removido com sucesso!");
     } catch (error) {
-      errorLog(JSON.stringify(error, null, 2));
+      errorLog(`Erro ao remover membro: ${error.message}`);
       await sendErrorReply(
-        `Ocorreu um erro ao remover o membro: ${error.message}`
+        `Ocorreu um erro ao remover o membro: ${error.message}`,
       );
     }
   },

@@ -1,7 +1,6 @@
 import { BOT_LID, OWNER_LID } from "../../config.js";
 import { DangerError, InvalidParameterError } from "../../errors/index.js";
 import { onlyNumbers } from "../../utils/index.js";
-import { errorLog } from "../../utils/logger.js";
 import { addWarn, getWarnLimit } from "../../utils/warnSystem.js";
 
 export default {
@@ -15,55 +14,52 @@ export default {
     remoteJid,
     userLid,
     sendReply,
-    sendErrorReply,
     socket,
   }) => {
-    try {
-      if (!args.length && !isReply) {
-        throw new InvalidParameterError(
-          "Mencione um usuário ou responda a uma mensagem.",
-        );
-      }
+    if (!args.length && !isReply) {
+      throw new InvalidParameterError(
+        "Mencione um usuário ou responda a uma mensagem.",
+      );
+    }
 
-      if (args.length && !args[0].includes("@")) {
-        throw new InvalidParameterError('Use "@" ao mencionar um usuário.');
-      }
+    if (!isReply && !args[0]?.includes("@")) {
+      throw new InvalidParameterError('Use "@" ao mencionar um usuário.');
+    }
 
-      const targetLid = isReply ? replyLid : `${onlyNumbers(args[0])}@lid`;
+    const targetNumber = isReply ? "" : onlyNumbers(args[0]);
+    const targetLid = isReply ? replyLid : `${targetNumber}@lid`;
 
-      if (!targetLid) {
-        throw new InvalidParameterError("Membro inválido!");
-      }
+    if (!targetLid || targetLid === "@lid") {
+      throw new InvalidParameterError("Membro inválido!");
+    }
 
-      if (targetLid === userLid) {
-        throw new DangerError("Você não pode se advertir!");
-      }
+    if (targetLid === userLid) {
+      throw new DangerError("Você não pode se advertir!");
+    }
 
-      if (targetLid === BOT_LID || targetLid === OWNER_LID) {
-        throw new DangerError("Não é possível advertir este usuário.");
-      }
+    if (targetLid === BOT_LID || targetLid === OWNER_LID) {
+      throw new DangerError("Não é possível advertir este usuário.");
+    }
 
-      const reason = args.slice(1).join(" ") || "Advertência genérica";
-      const newCount = addWarn(remoteJid, targetLid, reason);
-      const limit = getWarnLimit(remoteJid);
+    const reasonStartIndex = isReply ? 0 : 1;
+    const reason =
+      args.slice(reasonStartIndex).join(" ") || "Advertência genérica";
+    const newCount = addWarn(remoteJid, targetLid, reason);
+    const limit = getWarnLimit(remoteJid);
+
+    await sendReply(
+      `⚠️ *@${targetLid.split("@")[0]}* foi advertido!\n` +
+        `Motivo: _"${reason}"_\n` +
+        `Total: ${newCount}/${limit} advertências`,
+      [targetLid],
+    );
+
+    if (newCount >= limit) {
+      await socket.groupParticipantsUpdate(remoteJid, [targetLid], "remove");
 
       await sendReply(
-        `⚠️ *@${targetLid.split("@")[0]}* foi advertido!\n` +
-          `Motivo: _"${reason}"_\n` +
-          `Total: ${newCount}/${limit} advertências`,
-        [targetLid],
+        "❌ Limite de advertências atingido. Usuário removido.",
       );
-
-      if (newCount >= limit) {
-        await socket.groupParticipantsUpdate(remoteJid, [targetLid], "remove");
-
-        await sendReply(
-          "❌ Limite de advertências atingido. Usuário removido.",
-        );
-      }
-    } catch (error) {
-      errorLog(JSON.stringify(error, null, 2));
-      await sendErrorReply(`Erro: ${error.message}`);
     }
   },
 };

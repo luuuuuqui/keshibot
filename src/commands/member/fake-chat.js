@@ -1,5 +1,6 @@
 import { PREFIX } from "../../config.js";
 import { InvalidParameterError } from "../../errors/index.js";
+import { onlyNumbers } from "../../utils/index.js";
 
 export default {
   name: "fake-chat",
@@ -16,9 +17,12 @@ export default {
     const quotedText = args[1];
     const responseText = args[2];
 
-    const mentionedLid = args[0]
-      ? `${args[0].replace(/[^0-9]/g, "")}@lid`
-      : null;
+    const mentionedNumber = onlyNumbers(args[0]);
+    const mentionedLid = mentionedNumber ? `${mentionedNumber}@lid` : null;
+
+    if (!mentionedLid) {
+      throw new InvalidParameterError("Mencione um usuário válido.");
+    }
 
     if (quotedText.length < 2) {
       throw new InvalidParameterError(
