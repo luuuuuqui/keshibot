@@ -7,9 +7,6 @@ export default {
   description: "Use a inteligência artificial GPT-5 Mini!",
   commands: ["gpt-5-mini", "gpt-5", "gpt"],
   usage: `${PREFIX}gpt-5-mini qual o sentido da vida?`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ sendSuccessReply, sendWaitReply, args }) => {
     const text = args[0];
 

@@ -12,9 +12,6 @@ export default {
     "Ativa/desativa o recurso de anti-image no grupo, apagando a mensagem de imagem se estiver ativo.",
   commands: ["anti-image", "anti-img", "anti-imagem", "anti-imagens"],
   usage: `${PREFIX}anti-image (1/0)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ remoteJid, isGroup, args, sendSuccessReply }) => {
     if (!isGroup) {
       throw new WarningError("Este comando só deve ser usado em grupos!");

@@ -1,6 +1,3 @@
-/**
- *
- */
 import { delay } from "baileys";
 import path from "node:path";
 import { ASSETS_DIR, PREFIX } from "../../../config.js";
@@ -12,9 +9,6 @@ export default {
   description: "Jogue um dado de 1 a 6 e tente acertar o número para ganhar!",
   commands: ["dado", "dice"],
   usage: `${PREFIX}dado número`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     args,
     sendWaitReply,

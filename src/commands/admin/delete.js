@@ -6,9 +6,6 @@ export default {
   description: "Excluo mensagens",
   commands: ["delete", "d"],
   usage: `${PREFIX}delete (mencione uma mensagem)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ deleteMessage, webMessage, remoteJid }) => {
     if (!webMessage?.message?.extendedTextMessage?.contextInfo) {
       throw new InvalidParameterError(

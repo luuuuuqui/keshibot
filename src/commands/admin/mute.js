@@ -1,6 +1,3 @@
-/**
- *
- */
 import { BOT_LID, OWNER_LID, PREFIX } from "../../config.js";
 import { DangerError } from "../../errors/index.js";
 import { checkIfMemberIsMuted, muteMember } from "../../utils/database.js";
@@ -12,9 +9,6 @@ export default {
     "Silencia um usuário no grupo (apaga as mensagens do usuário automáticamente).",
   commands: ["mute", "mutar"],
   usage: `${PREFIX}mute @usuario ou (responda à mensagem do usuário que deseja mutar)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     args,
     remoteJid,

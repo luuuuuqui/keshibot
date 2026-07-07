@@ -18,9 +18,6 @@ export default {
     "set-prefixo",
   ],
   usage: `${PREFIX}set-prefix =`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ remoteJid, args, sendSuccessReply }) => {
     if (!args.length) {
       throw new InvalidParameterError("Você deve fornecer um prefixo!");

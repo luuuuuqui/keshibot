@@ -7,9 +7,6 @@ export default {
   description: "Cria figurinhas de imagem, gif ou vídeo (máximo 10 segundos).",
   commands: ["f", "s", "sticker", "fig"],
   usage: `${PREFIX}sticker (marque ou responda uma imagem/gif/vídeo)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async (paramsHandler) => {
     const { isImage, isVideo, sendWaitReact, sendSuccessReact } = paramsHandler;
 

@@ -11,9 +11,6 @@ export default {
     "Gero uma montagem estilo cova de cemitério com a imagem que você enviar",
   commands: ["rip"],
   usage: `${PREFIX}rip (marque a imagem) ou ${PREFIX}rip (responda a imagem)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     isImage,
     downloadImage,

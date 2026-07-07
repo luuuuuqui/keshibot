@@ -13,9 +13,6 @@ export default {
     "close-group",
   ],
   usage: `${PREFIX}fechar`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ socket, remoteJid, sendSuccessReply, sendErrorReply }) => {
     try {
       await socket.groupSettingUpdate(remoteJid, "announcement");

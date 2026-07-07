@@ -8,9 +8,6 @@ export default {
   description: "Abraça um usuário desejado.",
   commands: ["abracar", "abraca", "abraco", "abracos"],
   usage: `${PREFIX}abracar @usuario`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     sendGifFromFile,
     sendErrorReply,

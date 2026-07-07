@@ -18,9 +18,6 @@ export default {
     "removeradvertencia",
     "advtremove",
   ],
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     args,
     isReply,

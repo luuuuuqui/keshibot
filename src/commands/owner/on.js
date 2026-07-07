@@ -7,9 +7,6 @@ export default {
   description: "Ativa o bot no grupo",
   commands: ["on"],
   usage: `${PREFIX}on`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ sendSuccessReply, remoteJid, isGroup }) => {
     if (!isGroup) {
       throw new WarningError("Este comando deve ser usado dentro de um grupo.");

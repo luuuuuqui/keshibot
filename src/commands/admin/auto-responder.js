@@ -11,9 +11,6 @@ export default {
   description: "Ativo/desativo o recurso de auto-responder no grupo.",
   commands: ["auto-responder"],
   usage: `${PREFIX}auto-responder (1/0)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ args, sendReply, sendSuccessReact, remoteJid }) => {
     if (!args.length) {
       throw new InvalidParameterError(

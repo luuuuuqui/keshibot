@@ -11,9 +11,6 @@ export default {
   description: "Gera imagem no estilo brat com o texto informado.",
   commands: ["brat"],
   usage: `${PREFIX}brat Nem judas mentiu tanto assim ☠️`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     sendWaitReact,
     fullArgs,

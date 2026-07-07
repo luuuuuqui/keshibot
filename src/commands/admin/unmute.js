@@ -1,6 +1,3 @@
-/**
- *
- */
 import { PREFIX } from "../../config.js";
 import { DangerError, WarningError } from "../../errors/index.js";
 import { checkIfMemberIsMuted, unmuteMember } from "../../utils/database.js";
@@ -10,9 +7,6 @@ export default {
   description: "Desativa o mute de um membro do grupo",
   commands: ["unmute", "desmutar"],
   usage: `${PREFIX}unmute @usuario`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ remoteJid, sendSuccessReply, args, isGroup, replyLid }) => {
     if (!isGroup) {
       throw new DangerError("Este comando só pode ser usado em grupos.");

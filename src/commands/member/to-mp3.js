@@ -35,9 +35,6 @@ export default {
   commands: ["to-mp3", "video2mp3", "mp3"],
   usage: `${PREFIX}to-mp3 (envie em cima de um vídeo ou responda um vídeo)`,
 
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     isVideo,
     webMessage,

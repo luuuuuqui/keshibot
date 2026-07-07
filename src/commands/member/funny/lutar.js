@@ -8,9 +8,6 @@ export default {
   description: "Lute um mano a mano ou bata no seu inimigo!",
   commands: ["lutar", "luta"],
   usage: `${PREFIX}lutar @usuario`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     sendGifFromFile,
     sendErrorReply,

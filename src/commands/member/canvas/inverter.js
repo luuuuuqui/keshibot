@@ -11,9 +11,6 @@ export default {
     "Gero uma montagem com cores invertidas com a imagem que você enviar",
   commands: ["invert", "inverter"],
   usage: `${PREFIX}inverter (marque a imagem) ou ${PREFIX}inverter (responda a imagem)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     isImage,
     downloadImage,

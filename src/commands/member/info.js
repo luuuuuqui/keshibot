@@ -8,9 +8,6 @@ export default {
   description: "Exibe as informações de um comando",
   commands: ["info", "info-cmd", "info-comando", "info-command"],
   usage: `${PREFIX}info <comando>`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ sendReply, sendWaitReact, sendSuccessReact, args }) => {
     const commandName = args[0];
 

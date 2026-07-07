@@ -7,9 +7,6 @@ export default {
   description: "Promove um usuário a administrador do grupo",
   commands: ["promover", "promove", "promote", "add-adm"],
   usage: `${PREFIX}promover @usuario`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     args,
     remoteJid,

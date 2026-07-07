@@ -16,9 +16,6 @@ export default {
     "set-menu-img",
   ],
   usage: `${PREFIX}set-menu-image (responda a uma imagem)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     isImage,
     isReply,

@@ -8,9 +8,6 @@ export default {
   description: "Busco imagens no Pinterest e envio em formato carrossel.",
   commands: ["pinterest", "pin"],
   usage: `${PREFIX}pinterest gatos fofos`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     fullArgs,
     sendWaitReact,

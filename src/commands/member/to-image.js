@@ -8,9 +8,6 @@ export default {
   description: "Transformo figurinhas estáticas em imagem",
   commands: ["toimage", "toimg"],
   usage: `${PREFIX}toimage (marque a figurinha) ou ${PREFIX}toimage (responda a figurinha)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     isSticker,
     downloadSticker,

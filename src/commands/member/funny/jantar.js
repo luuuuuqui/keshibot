@@ -8,9 +8,6 @@ export default {
   description: "Convite um usuário para jantar.",
   commands: ["jantar", "janta"],
   usage: `${PREFIX}jantar @usuario`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     sendGifFromFile,
     sendErrorReply,

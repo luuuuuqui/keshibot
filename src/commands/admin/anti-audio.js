@@ -12,9 +12,6 @@ export default {
     "Ativa/desativa o recurso de anti-audio no grupo, apagando a mensagem de áudio se estiver ativo.",
   commands: ["anti-audio", "anti-audios"],
   usage: `${PREFIX}anti-audio (1/0)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ remoteJid, isGroup, args, sendSuccessReply }) => {
     if (!isGroup) {
       throw new WarningError("Este comando só deve ser usado em grupos!");

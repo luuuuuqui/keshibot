@@ -10,9 +10,6 @@ export default {
   description: "Cria uma figurinha com base em uma descrição",
   commands: ["ia-sticker", "ia-fig"],
   usage: `${PREFIX}ia-sticker descrição`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     args,
     sendWaitReply,

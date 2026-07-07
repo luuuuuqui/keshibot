@@ -7,9 +7,6 @@ export default {
   description: "Faz figurinhas de texto.",
   commands: ["ttp"],
   usage: `${PREFIX}ttp teste`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     sendWaitReact,
     args,

@@ -11,9 +11,6 @@ export default {
     "Gero uma montagem como se a pessoa estivesse na cadeia com a imagem que você enviar",
   commands: ["cadeia", "jail"],
   usage: `${PREFIX}cadeia (marque a imagem) ou ${PREFIX}cadeia (responda a imagem)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     isImage,
     downloadImage,

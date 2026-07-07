@@ -16,9 +16,6 @@ export default {
     "remove-responder",
   ],
   usage: `${PREFIX}delete-auto-responder 1`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ sendSuccessReply, args, prefix, sendErrorReply }) => {
     if (args.length !== 1) {
       throw new InvalidParameterError(`Você deve informar o ID do termo a ser removido:

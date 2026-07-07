@@ -15,9 +15,6 @@ export default {
 Você também pode enviar uma imagem com o comando ${PREFIX}suporte
 
 Você também pode escrever o texto e responder a mensagem com o comando ${PREFIX}suporte`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     fullArgs,
     args,

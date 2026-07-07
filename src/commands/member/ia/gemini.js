@@ -7,9 +7,6 @@ export default {
   description: "Use a inteligência artificial da Google Gemini!",
   commands: ["gemini", "takeshi"],
   usage: `${PREFIX}gemini com quantos paus se faz uma canoa?`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ sendSuccessReply, sendWaitReply, args }) => {
     const text = args[0];
 

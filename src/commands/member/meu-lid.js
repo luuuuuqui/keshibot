@@ -6,9 +6,6 @@ export default {
   description: "Retorna o LID da pessoa",
   commands: ["meu-lid", "my-lid", "lid"],
   usage: `${PREFIX}meu-lid`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ sendSuccessReply, replyLid, userLid, args }) => {
     if (args.length) {
       throw new InvalidParameterError(`Não tem mais como por o número na frente.

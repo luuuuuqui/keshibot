@@ -9,9 +9,6 @@ export default {
   description: "Mostra informações de um usuário",
   commands: ["perfil", "profile"],
   usage: `${PREFIX}perfil ou perfil @usuario`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     args,
     socket,

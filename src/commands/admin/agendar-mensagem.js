@@ -1,6 +1,3 @@
-/**
- *
- */
 import { PREFIX } from "../../config.js";
 
 export default {
@@ -10,9 +7,6 @@ export default {
   usage: `${PREFIX}agendar-mensagem mensagem / tempo
   
 Exemplo: ${PREFIX}agendar-mensagem Reunião amanhã / 10m`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ args, sendErrorReply, sendSuccessReply, sendText }) => {
     if (args.length !== 2) {
       return await sendErrorReply(

@@ -23,9 +23,6 @@ export default {
     "so-admins",
   ],
   usage: `${PREFIX}only-admin 1`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ args, sendReply, sendSuccessReact, remoteJid }) => {
     if (!args.length) {
       throw new InvalidParameterError(

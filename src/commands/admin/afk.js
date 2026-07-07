@@ -7,9 +7,6 @@ export default {
   description: "Informa que você está ausente e registra o motivo.",
   commands: ["afk", "ausente"],
   usage: `${PREFIX}afk <motivo>`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     fullArgs,
     isGroup,

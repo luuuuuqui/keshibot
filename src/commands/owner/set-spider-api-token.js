@@ -14,9 +14,6 @@ export default {
     "spider-api-token",
   ],
   usage: `${PREFIX}set-spider-api-token token aqui`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ args, sendSuccessReply }) => {
     if (!args.length) {
       throw new InvalidParameterError("Você deve fornecer um token!");

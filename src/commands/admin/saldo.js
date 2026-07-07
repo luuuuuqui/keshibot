@@ -8,9 +8,6 @@ export default {
   description: "Consulta o saldo de requests restantes da Spider X API",
   commands: ["saldo", "balance"],
   usage: `${PREFIX}saldo`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ sendSuccessReply }) => {
     const token = getSpiderApiToken();
 

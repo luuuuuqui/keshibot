@@ -7,9 +7,6 @@ export default {
   description: "Use a inteligência artificial DeepSeek V4 Flash!",
   commands: ["deepseek", "deep-seek"],
   usage: `${PREFIX}deepseek Crie um resumo curto sobre inteligência artificial`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ sendSuccessReply, sendWaitReply, args }) => {
     const text = args[0];
 

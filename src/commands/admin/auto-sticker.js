@@ -12,9 +12,6 @@ export default {
   description: "Ativa/desativa o recurso de auto-figurinha no grupo.",
   commands: ["auto-sticker", "auto-figu", "auto-fig", "auto-stick"],
   usage: `${PREFIX}auto-sticker (1/0)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ args, sendReply, sendSuccessReact, remoteJid }) => {
     if (!args.length) {
       throw new InvalidParameterError(

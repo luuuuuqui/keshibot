@@ -7,9 +7,6 @@ export default {
   description: "Rebaixa um administrador para membro comum",
   commands: ["rebaixar", "rebaixa", "demote"],
   usage: `${PREFIX}rebaixar @usuario`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     args,
     remoteJid,

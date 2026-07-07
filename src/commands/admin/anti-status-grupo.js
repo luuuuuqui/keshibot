@@ -16,9 +16,6 @@ export default {
     "anti-marcação-status-grupo",
   ],
   usage: `${PREFIX}anti-status-grupo (1/0)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ remoteJid, isGroup, args, sendSuccessReply }) => {
     if (!isGroup) {
       throw new WarningError("Este comando só deve ser usado em grupos!");

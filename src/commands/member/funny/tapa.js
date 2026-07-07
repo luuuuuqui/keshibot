@@ -8,9 +8,6 @@ export default {
   description: "Dá um tapa em alguém.",
   commands: ["tapa"],
   usage: `${PREFIX}tapa @usuario`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     sendGifFromFile,
     sendErrorReply,

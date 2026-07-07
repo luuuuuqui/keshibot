@@ -9,9 +9,6 @@ export default {
   description: "Transformo figurinhas animadas em GIF",
   commands: ["togif", "gif"],
   usage: `${PREFIX}togif (marque a figurinha)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     isSticker,
     downloadSticker,

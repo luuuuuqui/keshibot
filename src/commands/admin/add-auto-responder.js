@@ -7,9 +7,6 @@ export default {
   description: "Adiciona um termo no auto-responder",
   commands: ["add-auto-responder", "add-auto", "add-responder"],
   usage: `${PREFIX}add-auto-responder termo / o que eu devo responder`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ sendSuccessReply, prefix, sendErrorReply, fullArgs }) => {
     const parts = fullArgs.split(/\s\/\s/);
 

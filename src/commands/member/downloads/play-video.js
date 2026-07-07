@@ -8,9 +8,6 @@ export default {
   description: "Faço o download de vídeos",
   commands: ["play-video", "pv"],
   usage: `${PREFIX}play-video MC Hariel`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     sendVideoFromURL,
     sendImageFromURL,

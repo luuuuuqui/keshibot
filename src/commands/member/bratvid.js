@@ -11,9 +11,6 @@ export default {
   description: "Gera figurinha animada no estilo brat com o texto informado.",
   commands: ["bratvid", "abrat"],
   usage: `${PREFIX}bratvid Nem judas mentiu tanto assim ☠️`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     sendWaitReact,
     fullArgs,

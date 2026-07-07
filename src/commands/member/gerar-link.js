@@ -9,9 +9,6 @@ export default {
   description: "Faço upload da imagens",
   commands: ["to-link", "up", "upload", "gera-link", "gerar-link"],
   usage: `${PREFIX}gerar-link (marque a imagem) ou ${PREFIX}gerar-link (responda a imagem)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     isImage,
     downloadImage,

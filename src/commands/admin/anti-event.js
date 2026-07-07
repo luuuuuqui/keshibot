@@ -12,9 +12,6 @@ export default {
     "Ativa/desativa o recurso de anti-event no grupo, apagando a mensagem de evento se estiver ativo.",
   commands: ["anti-event", "anti-evento", "anti-eventos"],
   usage: `${PREFIX}anti-event (1/0)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ remoteJid, isGroup, args, sendSuccessReply }) => {
     if (!isGroup) {
       throw new WarningError("Este comando só deve ser usado em grupos!");

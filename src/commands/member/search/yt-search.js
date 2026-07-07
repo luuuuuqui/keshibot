@@ -7,9 +7,6 @@ export default {
   description: "Consulta Google",
   commands: ["yt-search", "youtube-search"],
   usage: `${PREFIX}yt-search MC Hariel`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ fullArgs, sendSuccessReply }) => {
     if (fullArgs.length <= 1) {
       throw new InvalidParameterError(

@@ -8,9 +8,6 @@ export default {
   description: "Mata um usuário desejado.",
   commands: ["matar", "mata"],
   usage: `${PREFIX}matar @usuario`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     sendGifFromFile,
     sendErrorReply,

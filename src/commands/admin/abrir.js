@@ -15,9 +15,6 @@ export default {
     "open-group",
   ],
   usage: `${PREFIX}abrir`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ socket, remoteJid, sendSuccessReply, sendErrorReply }) => {
     try {
       await socket.groupSettingUpdate(remoteJid, "not_announcement");

@@ -1,7 +1,3 @@
-/**
- * Proteções de segurança implementadas
- *
- */
 import { exec as execChild } from "child_process";
 import { PREFIX } from "../../config.js";
 import { DangerError } from "../../errors/index.js";
@@ -83,9 +79,6 @@ Execute qualquer comando do terminal.
 Apenas operações destrutivas críticas são bloqueadas (formatação de disco, shutdown, fork bombs, etc)
 
 Este comando pode causar danos críticos ao sistema.`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ fullArgs, sendSuccessReply, sendErrorReply, userLid }) => {
     if (!isBotOwner({ userLid })) {
       throw new DangerError("Apenas o dono do bot pode usar este comando!");

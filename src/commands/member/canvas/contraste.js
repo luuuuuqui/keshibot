@@ -1,6 +1,3 @@
-/**
- *
- */
 import { PREFIX } from "../../../config.js";
 import { InvalidParameterError } from "../../../errors/index.js";
 import { Ffmpeg } from "../../../services/ffmpeg.js";
@@ -11,9 +8,6 @@ export default {
     "Gero uma montagem que ajusta o contraste da imagem que você enviar",
   commands: ["contraste", "contrast", "melhora", "melhorar", "hd", "to-hd"],
   usage: `${PREFIX}contraste (marque a imagem) ou ${PREFIX}contraste (responda a imagem)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     isImage,
     downloadImage,

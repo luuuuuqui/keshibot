@@ -10,9 +10,6 @@ export default {
   description: "Gero uma montagem do Bolsonaro com a imagem que você enviar",
   commands: ["bolsonaro"],
   usage: `${PREFIX}bolsonaro (marque a imagem) ou ${PREFIX}bolsonaro (responda a imagem)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     isImage,
     downloadImage,

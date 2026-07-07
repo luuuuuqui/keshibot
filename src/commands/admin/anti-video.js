@@ -12,9 +12,6 @@ export default {
     "Ativa/desativa o recurso de anti-video no grupo, apagando a mensagem de vídeo se estiver ativo.",
   commands: ["anti-video", "anti-videos"],
   usage: `${PREFIX}anti-video (1/0)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ remoteJid, isGroup, args, sendSuccessReply }) => {
     if (!isGroup) {
       throw new WarningError("Este comando só deve ser usado em grupos!");

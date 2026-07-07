@@ -17,9 +17,6 @@ export default {
     "limpar",
   ],
   usage: `${PREFIX}limpar-chat`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     socket,
     remoteJid,

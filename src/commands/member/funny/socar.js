@@ -8,9 +8,6 @@ export default {
   description: "Bate em um usuário com um soco.",
   commands: ["socar", "soca", "soco", "socao"],
   usage: `${PREFIX}socar @usuario`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     sendGifFromFile,
     sendErrorReply,

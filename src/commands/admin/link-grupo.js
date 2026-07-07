@@ -1,7 +1,3 @@
-/**
- * Comando para obter o link do grupo
- *
- */
 import { PREFIX } from "../../config.js";
 import { DangerError } from "../../errors/index.js";
 import { errorLog } from "../../utils/logger.js";
@@ -11,9 +7,6 @@ export default {
   description: "Obtém o link do grupo",
   commands: ["link-grupo", "link-gp"],
   usage: `${PREFIX}link-grupo`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     socket,
     sendReact,

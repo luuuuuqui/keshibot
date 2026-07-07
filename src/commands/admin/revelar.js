@@ -10,9 +10,6 @@ export default {
   description: "Revela uma imagem ou vídeo com visualização única",
   commands: ["revelar", "rv", "reveal"],
   usage: `${PREFIX}revelar (marque a imagem/vídeo) ou ${PREFIX}revelar (responda a imagem/vídeo).`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     isImage,
     isVideo,

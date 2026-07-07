@@ -16,9 +16,6 @@ export default {
   description: "Remove o fundo de imagens e figurinhas.",
   commands: ["removebg", "rmbg", "remove-bg"],
   usage: `${PREFIX}removebg (marque ou responda uma imagem/figurinha)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     isImage,
     isSticker,

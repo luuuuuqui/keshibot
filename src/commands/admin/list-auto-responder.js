@@ -8,9 +8,6 @@ export default {
   description: "Lista todos os termos do auto-responder",
   commands: ["list-auto-responder", "list-auto", "list-responder"],
   usage: `${PREFIX}list-auto-responder`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ sendSuccessReply, sendWaitReact }) => {
     await sendWaitReact();
     await delay(1000);

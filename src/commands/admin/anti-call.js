@@ -12,9 +12,6 @@ export default {
     "Ativa/desativa o recurso de anti-call no grupo, removendo quem iniciar ligação.",
   commands: ["anti-call", "anti-ligacao"],
   usage: `${PREFIX}anti-call (1/0)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ remoteJid, isGroup, args, sendSuccessReply }) => {
     if (!isGroup) {
       throw new WarningError("Este comando só deve ser usado em grupos!");

@@ -13,9 +13,6 @@ export default {
     "Inclui detecção de cobranças *ocultas* (stealth): mensagens de pagamento indecifráveis/direcionadas que admins e o bot não conseguem ver também removem o autor automaticamente.",
   commands: ["anti-payment", "anti-pagamento"],
   usage: `${PREFIX}anti-payment (1/0)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ remoteJid, isGroup, args, sendSuccessReply }) => {
     if (!isGroup) {
       throw new WarningError("Este comando só deve ser usado em grupos!");

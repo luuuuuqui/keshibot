@@ -11,9 +11,6 @@ export default {
   description: "Faço o download de músicas",
   commands: ["play-audio", "play", "pa"],
   usage: `${PREFIX}play-audio MC Hariel`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     sendAudioFromURL,
     sendImageFromURL,

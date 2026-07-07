@@ -12,9 +12,6 @@ export default {
     "Ativa/desativa o recurso de anti-sticker no grupo, apagando a figurinha se estiver ativo.",
   commands: ["anti-sticker", "anti-figu", "anti-figurinha", "anti-figurinhas"],
   usage: `${PREFIX}anti-sticker (1/0)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({ remoteJid, isGroup, args, sendSuccessReply }) => {
     if (!isGroup) {
       throw new WarningError("Este comando só deve ser usado em grupos!");

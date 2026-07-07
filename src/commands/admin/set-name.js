@@ -7,9 +7,6 @@ export default {
   description: "Altera o nome do grupo e salva o nome antigo",
   commands: ["set-name", "set-group-name", "mudar-nome-grupo", "nome-grupo"],
   usage: `${PREFIX}set-name novo nome do grupo`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     fullArgs,
     remoteJid,

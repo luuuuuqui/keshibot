@@ -7,9 +7,6 @@ export default {
   description: "Faz figurinhas animadas de texto.",
   commands: ["attp"],
   usage: `${PREFIX}attp teste`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     sendWaitReact,
     args,

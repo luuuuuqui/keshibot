@@ -12,9 +12,6 @@ export default {
 ou 
 
 ${PREFIX}ban (mencionando uma mensagem)`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     args,
     isReply,

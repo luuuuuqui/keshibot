@@ -8,9 +8,6 @@ export default {
   name: "warn",
   description: "Aplica advertência a um membro.",
   commands: ["warn", "advertir", "adverter", "advt"],
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     args,
     isReply,

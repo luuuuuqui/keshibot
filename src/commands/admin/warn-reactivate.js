@@ -13,9 +13,6 @@ export default {
     "reativaradvertencia",
     "reativaradvt",
   ],
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     args,
     isReply,

@@ -8,9 +8,6 @@ export default {
   description: "Faço o download de vídeos/reels do Instagram",
   commands: ["instagram", "ig", "inst", "insta"],
   usage: `${PREFIX}instagram https://www.instagram.com/reel/Cx789012345/`,
-  /**
-   * @param {CommandHandleProps} props
-   */
   handle: async ({
     sendVideoFromURL,
     fullArgs,
