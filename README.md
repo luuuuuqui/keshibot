@@ -790,7 +790,6 @@ Todos os arquivos de exemplo são armazenados em `assets/samples/`:
     - 📁 member ➔ _pasta onde ficam os comandos gerais (todos poderão utilizar)_
       - 📁 exemplos ➔ _pasta com 24 comandos de exemplo_
     - 📁 owner ➔ _pasta onde ficam os comandos de dono (grupo e bot)_
-    - 📝🤖-como-criar-comandos.js ➔ _arquivo de exemplo de como criar um comando_
   - 📁 errors ➔ _classes de erros usadas nos comandos_
   - 📁 middlewares ➔ _interceptadores de requisições_
   - 📁 services ➔ _serviços diversos_
@@ -803,7 +802,6 @@ Todos os arquivos de exemplo são armazenados em `assets/samples/`:
   - 📝 menu.js ➔ _menu do bot_
   - 📝 messages.js ➔ _arquivos de mensagens de boas vindas e saída_
 - 📝 .gitignore ➔ _arquivo para não subir certas pastas no GitHub_
-- 📝 ⚡-cases-estao-aqui.js ➔ _easter egg_
 - 📝 AGENTS.md ➔ _arquivo de instruções para IA's_
 - 📝 LICENSE ➔ _arquivo de licença_
 - 📝 package-lock.json ➔ _arquivo de cache das dependências do bot_

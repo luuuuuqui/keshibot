@@ -16,9 +16,10 @@ __pycache__/
 venv/
 
 # Bot runtime state
-assets/auth/baileys/
+assets/auth/
 assets/temp/
 database/*.json
+database/*.tmp
 
 # Local editor and environment files
 .vscode/

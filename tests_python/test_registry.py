@@ -58,7 +58,6 @@ class RegistryTest(unittest.TestCase):
         js_commands = {
             path.relative_to("src/commands").with_suffix("").as_posix()
             for path in Path("src", "commands").rglob("*.js")
-            if not path.name.startswith("\U0001f916")
         }
         py_modules = {
             path.relative_to("takeshi_bot/commands")
@@ -80,8 +79,6 @@ class RegistryTest(unittest.TestCase):
         }
         missing: list[str] = []
         for path in Path("src", "commands").rglob("*.js"):
-            if "como-criar-comandos" in path.name:
-                continue
             relative = path.relative_to("src/commands").with_suffix("").as_posix()
             for alias in self._js_command_aliases(path):
                 if format_command(alias) not in py_aliases:
