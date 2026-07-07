@@ -7,6 +7,7 @@ import fs from "node:fs";
 import { exitMessage, welcomeMessage } from "../messages.js";
 import { getProfileImageData } from "../services/baileys.js";
 import {
+  isChatAllowedToRespond,
   isActiveExitGroup,
   isActiveGroup,
   isActiveWelcomeGroup,
@@ -26,6 +27,10 @@ export async function onGroupParticipantsUpdate({
     }
 
     if (!isActiveGroup(remoteJid)) {
+      return;
+    }
+
+    if (!isChatAllowedToRespond(remoteJid)) {
       return;
     }
 

@@ -18,6 +18,7 @@ const ANTI_LINK_GROUPS_FILE = "anti-link-groups";
 const AUTO_RESPONDER_FILE = "auto-responder";
 const AUTO_RESPONDER_GROUPS_FILE = "auto-responder-groups";
 const AUTO_STICKER_GROUPS_FILE = "auto-sticker-groups";
+const CHAT_ACCESS_CONTROL_FILE = "chat-access-control";
 const CONFIG_FILE = "config";
 const EXIT_GROUPS_FILE = "exit-groups";
 const GROUP_RESTRICTIONS_FILE = "group-restrictions";
@@ -37,6 +38,14 @@ const DEFAULT_RESTRICTED_MESSAGES = {
   product: "productMessage",
   document: "documentMessage",
   event: "eventMessage",
+};
+
+const CHAT_ACCESS_MODES = ["blacklist", "whitelist"];
+
+const DEFAULT_CHAT_ACCESS_CONTROL = {
+  mode: "blacklist",
+  groups: [],
+  numbers: [],
 };
 
 function ensureDatabaseDirectory() {
@@ -67,6 +76,107 @@ function writeJSON(jsonFile, data, formatIfNotExists = []) {
   createIfNotExists(fullPath, formatIfNotExists);
 
   fs.writeFileSync(fullPath, JSON.stringify(data, null, 2), "utf8");
+}
+
+function normalizeChatAccessControl(data) {
+  const mode = CHAT_ACCESS_MODES.includes(data?.mode)
+    ? data.mode
+    : DEFAULT_CHAT_ACCESS_CONTROL.mode;
+
+  return {
+    mode,
+    groups: Array.isArray(data?.groups) ? [...new Set(data.groups)] : [],
+    numbers: Array.isArray(data?.numbers) ? [...new Set(data.numbers)] : [],
+  };
+}
+
+function getChatAccessListKey(typeOrJid) {
+  return typeOrJid?.endsWith?.("@g.us") || typeOrJid === "groups"
+    ? "groups"
+    : "numbers";
+}
+
+export function readChatAccessControl() {
+  return normalizeChatAccessControl(
+    readJSON(CHAT_ACCESS_CONTROL_FILE, DEFAULT_CHAT_ACCESS_CONTROL),
+  );
+}
+
+export function setChatAccessMode(mode) {
+  if (!CHAT_ACCESS_MODES.includes(mode)) {
+    return false;
+  }
+
+  const accessControl = readChatAccessControl();
+  accessControl.mode = mode;
+
+  writeJSON(
+    CHAT_ACCESS_CONTROL_FILE,
+    accessControl,
+    DEFAULT_CHAT_ACCESS_CONTROL,
+  );
+
+  return true;
+}
+
+export function addChatAccessEntry(type, jid) {
+  const accessControl = readChatAccessControl();
+  const listKey = getChatAccessListKey(type);
+
+  if (!accessControl[listKey].includes(jid)) {
+    accessControl[listKey].push(jid);
+  }
+
+  writeJSON(
+    CHAT_ACCESS_CONTROL_FILE,
+    accessControl,
+    DEFAULT_CHAT_ACCESS_CONTROL,
+  );
+}
+
+export function removeChatAccessEntry(type, jid) {
+  const accessControl = readChatAccessControl();
+  const listKey = getChatAccessListKey(type);
+  const index = accessControl[listKey].indexOf(jid);
+
+  if (index === -1) {
+    return false;
+  }
+
+  accessControl[listKey].splice(index, 1);
+
+  writeJSON(
+    CHAT_ACCESS_CONTROL_FILE,
+    accessControl,
+    DEFAULT_CHAT_ACCESS_CONTROL,
+  );
+
+  return true;
+}
+
+export function clearChatAccessEntries(type) {
+  const accessControl = readChatAccessControl();
+  const listKey = getChatAccessListKey(type);
+
+  accessControl[listKey] = [];
+
+  writeJSON(
+    CHAT_ACCESS_CONTROL_FILE,
+    accessControl,
+    DEFAULT_CHAT_ACCESS_CONTROL,
+  );
+}
+
+export function isChatAllowedToRespond(remoteJid) {
+  const accessControl = readChatAccessControl();
+  const listKey = getChatAccessListKey(remoteJid);
+  const isListed = accessControl[listKey].includes(remoteJid);
+
+  if (accessControl.mode === "whitelist") {
+    return isListed;
+  }
+
+  return !isListed;
 }
 
 export function setAfkMember(groupId, memberId, reason) {

@@ -8,6 +8,7 @@ import {
   handleQuotedPaymentRestriction,
 } from "../utils/antiPaymentAction.js";
 import {
+  isChatAllowedToRespond,
   readGroupRestrictions,
   readRestrictedMessageTypes,
 } from "../utils/database.js";
@@ -26,6 +27,10 @@ export async function messageHandler(socket, webMessage) {
     const { remoteJid, fromMe, id: messageId } = webMessage.key;
 
     if (!remoteJid?.endsWith("@g.us")) {
+      return;
+    }
+
+    if (!isChatAllowedToRespond(remoteJid)) {
       return;
     }
 

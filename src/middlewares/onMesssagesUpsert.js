@@ -5,7 +5,10 @@
  */
 import { DEVELOPER_MODE } from "../config.js";
 import { badMacHandler } from "../utils/badMacHandler.js";
-import { checkIfMemberIsMuted } from "../utils/database.js";
+import {
+  checkIfMemberIsMuted,
+  isChatAllowedToRespond,
+} from "../utils/database.js";
 import { dynamicCommand } from "../utils/dynamicCommand.js";
 import {
   GROUP_PARTICIPANT_ADD,
@@ -40,13 +43,15 @@ export async function onMessagesUpsert({ socket, messages, startProcess }) {
 
     try {
       const timestamp = webMessage.messageTimestamp;
+      const remoteJid = webMessage?.key?.remoteJid;
+      const accessAllowed = isChatAllowedToRespond(remoteJid);
 
       // Registra o envelope (id -> autor/estado) de TODA mensagem de grupo,
       // inclusive as indecifráveis, para corroborar marcações de pagamento e
       // impedir forja (banir inocente).
       recordMessageEnvelope(webMessage, hasPaymentMessage(webMessage));
 
-      if (webMessage?.message) {
+      if (webMessage?.message && accessAllowed) {
         messageHandler(socket, webMessage);
       }
 
@@ -55,6 +60,10 @@ export async function onMessagesUpsert({ socket, messages, startProcess }) {
       }
 
       if (isAddOrLeave.includes(webMessage.messageStubType)) {
+        if (!accessAllowed) {
+          return;
+        }
+
         let action = "";
         if (webMessage.messageStubType === GROUP_PARTICIPANT_ADD) {
           action = "add";
@@ -80,6 +89,18 @@ export async function onMessagesUpsert({ socket, messages, startProcess }) {
 
         return;
       }
+
+      const commonFunctions = loadCommonFunctions({ socket, webMessage });
+
+      if (!commonFunctions) {
+        continue;
+      }
+
+      if (!accessAllowed) {
+        await dynamicCommand(commonFunctions, startProcess);
+        continue;
+      }
+
       if (
         checkIfMemberIsMuted(
           webMessage?.key?.remoteJid,
@@ -104,12 +125,6 @@ export async function onMessagesUpsert({ socket, messages, startProcess }) {
         }
 
         return;
-      }
-
-      const commonFunctions = loadCommonFunctions({ socket, webMessage });
-
-      if (!commonFunctions) {
-        continue;
       }
 
       await customMiddleware({

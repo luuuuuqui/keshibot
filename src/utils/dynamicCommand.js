@@ -22,6 +22,7 @@ import { badMacHandler } from "./badMacHandler.js";
 import {
   getAutoResponderResponse,
   getPrefix,
+  isChatAllowedToRespond,
   isActiveAntiLinkGroup,
   isActiveAutoResponderGroup,
   isActiveAutoStickerGroup,
@@ -49,6 +50,13 @@ export async function dynamicCommand(paramsHandler, startProcess) {
     userLid,
     webMessage,
   } = paramsHandler;
+
+  const { type, command } = await findCommandImport(commandName);
+  const isAccessControlCommand = command?.name === "access-control";
+
+  if (!isChatAllowedToRespond(remoteJid) && !isAccessControlCommand) {
+    return;
+  }
 
   const activeGroup = isActiveGroup(remoteJid);
 
@@ -85,8 +93,6 @@ export async function dynamicCommand(paramsHandler, startProcess) {
     }
   }
 
-  const { type, command } = await findCommandImport(commandName);
-
   if (ONLY_GROUP_ID && ONLY_GROUP_ID !== remoteJid) {
     return;
   }
@@ -115,7 +121,10 @@ export async function dynamicCommand(paramsHandler, startProcess) {
       return;
     }
 
-    if (!(await checkPermission({ type, ...paramsHandler }))) {
+    if (
+      !isAccessControlCommand &&
+      !(await checkPermission({ type, ...paramsHandler }))
+    ) {
       await sendErrorReply(
         "Você não tem permissão para executar este comando!",
       );
@@ -123,6 +132,7 @@ export async function dynamicCommand(paramsHandler, startProcess) {
     }
 
     if (
+      !isAccessControlCommand &&
       isActiveOnlyAdmins(remoteJid) &&
       !(await isAdmin({ remoteJid, userLid, socket }))
     ) {

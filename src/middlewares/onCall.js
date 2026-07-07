@@ -1,5 +1,8 @@
 import { BOT_EMOJI, BOT_LID, OWNER_LID } from "../config.js";
-import { isActiveGroupRestriction } from "../utils/database.js";
+import {
+  isChatAllowedToRespond,
+  isActiveGroupRestriction,
+} from "../utils/database.js";
 import { errorLog } from "../utils/logger.js";
 import { isAdmin } from "./index.js";
 
@@ -15,6 +18,10 @@ async function handleCall({ socket, call }) {
   }
 
   const remoteJid = call.groupJid;
+
+  if (!isChatAllowedToRespond(remoteJid)) {
+    return;
+  }
 
   if (!isActiveGroupRestriction(remoteJid, "anti-call")) {
     return;
