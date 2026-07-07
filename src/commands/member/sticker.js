@@ -1,7 +1,3 @@
-/**
- * Implementação dos metadados feita por: MRX
- *
- */
 import { PREFIX } from "../../config.js";
 import { InvalidParameterError } from "../../errors/index.js";
 import { createSticker } from "../../services/sticker.js";

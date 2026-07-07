@@ -1,5 +1,4 @@
 /**
- * Desenvolvido por: Mkg
  *
  */
 import { delay } from "baileys";

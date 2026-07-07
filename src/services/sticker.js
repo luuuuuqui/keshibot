@@ -1,7 +1,6 @@
 /**
  * Serviços para processar figurinhas (stickers) no ffmpeg.
  *
- * @author MRX
  */
 import { exec } from "child_process";
 import webp from "node-webpmux";

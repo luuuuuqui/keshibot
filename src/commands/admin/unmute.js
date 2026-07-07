@@ -1,5 +1,4 @@
 /**
- * Desenvolvido por: Mkg
  *
  */
 import { PREFIX } from "../../config.js";

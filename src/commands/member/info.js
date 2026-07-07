@@ -1,6 +1,3 @@
-/**
- * @author MRX
- */
 import path from "path";
 import { COMMANDS_DIR, PREFIX } from "../../config.js";
 import { InvalidParameterError, WarningError } from "../../errors/index.js";

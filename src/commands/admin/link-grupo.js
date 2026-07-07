@@ -1,7 +1,6 @@
 /**
  * Comando para obter o link do grupo
  *
- * @author Valéria
  */
 import { PREFIX } from "../../config.js";
 import { DangerError } from "../../errors/index.js";

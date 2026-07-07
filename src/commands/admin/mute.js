@@ -1,5 +1,4 @@
 /**
- * Desenvolvido por: Mkg
  *
  */
 import { BOT_LID, OWNER_LID, PREFIX } from "../../config.js";

@@ -1,7 +1,6 @@
 /**
  * Sistema de advertências progressivas
  *
- * @author HunterTheCraft-OFICIAL
  */
 import fs from "fs";
 import path from "path";

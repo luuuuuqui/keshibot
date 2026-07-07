@@ -1,5 +1,4 @@
 /**
- * Desenvolvido por: Mkg
  * Proteções de segurança implementadas
  *
  */

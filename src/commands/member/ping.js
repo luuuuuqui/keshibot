@@ -1,7 +1,3 @@
-/**
- * Melhorado por: Mkg
- *
- */
 import { PREFIX } from "../../config.js";
 
 export default {

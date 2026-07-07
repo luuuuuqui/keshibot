@@ -1,5 +1,4 @@
 /**
- * Desenvolvido por: MRX
  *
  */
 import { PREFIX } from "../../../config.js";

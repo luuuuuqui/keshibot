@@ -1,7 +1,6 @@
 /**
  * Serviços de processamento de imagens usando ffmpeg.
  *
- * @author MRX
  */
 import { exec } from "child_process";
 import path from "node:path";
