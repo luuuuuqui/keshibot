@@ -1,7 +1,6 @@
 /**
  * Melhorado por: Mkg
  *
- * @author Dev Gui
  */
 import { PREFIX } from "../../config.js";
 

@@ -2,7 +2,6 @@
  * Funções de comunicação
  * com a API do Spider X.
  *
- * @author Dev Gui
  */
 import axios from "axios";
 

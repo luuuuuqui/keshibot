@@ -12,7 +12,6 @@
  * a menos que você saiba
  * o que está fazendo.
  *
- * @author Dev Gui
  */
 import makeWASocket, {
   DisconnectReason,

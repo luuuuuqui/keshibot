@@ -2,7 +2,6 @@
  * Direcionador
  * de comandos.
  *
- * @author Dev Gui
  */
 import { BOT_EMOJI, ONLY_GROUP_ID } from "../config.js";
 import {

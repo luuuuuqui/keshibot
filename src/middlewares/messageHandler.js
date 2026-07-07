@@ -1,7 +1,6 @@
 /**
  * Validador de mensagens
  *
- * @author Dev Gui
  */
 import { BOT_LID, OWNER_LID } from "../config.js";
 import {

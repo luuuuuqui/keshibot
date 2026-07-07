@@ -1,8 +1,6 @@
 /**
  * Desenvolvido por: Mkg
- * Refatorado por: Dev Gui
  *
- * @author Dev Gui
  */
 import { PREFIX } from "../../config.js";
 import { DangerError, WarningError } from "../../errors/index.js";

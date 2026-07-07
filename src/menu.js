@@ -1,7 +1,6 @@
 /**
  * Menu do bot
  *
- * @author Dev Gui
  */
 import pkg from "../package.json" with { type: "json" };
 import { BOT_NAME } from "./config.js";

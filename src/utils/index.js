@@ -1,7 +1,6 @@
 /**
  * Funções diversas.
  *
- * @author Dev Gui
  */
 import axios from "axios";
 import { delay, downloadContentFromMessage } from "baileys";

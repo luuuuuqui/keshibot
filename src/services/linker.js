@@ -1,7 +1,6 @@
 /**
  * Serviços de upload de imagem e geração de link.
  *
- * @author Dev Gui
  */
 import axios from "axios";
 import FormData from "form-data";

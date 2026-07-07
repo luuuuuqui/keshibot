@@ -1,8 +1,6 @@
 /**
  * Desenvolvido por: Mkg
- * Refatorado por: Dev Gui
  *
- * @author Dev Gui
  */
 import { delay } from "baileys";
 import path from "node:path";

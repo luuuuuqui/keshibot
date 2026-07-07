@@ -5,7 +5,6 @@
  *
  * Para colocar a menção ao membro, use "@member" na mensagem.
  *
- * @author Dev Gui
  */
 export const welcomeMessage = "Seja bem vindo ao nosso grupo, @member!";
 export const exitMessage =

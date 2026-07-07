@@ -2,7 +2,6 @@
  * Evento chamado quando um usuário
  * entra ou sai de um grupo de WhatsApp.
  *
- * @author Dev Gui
  */
 import fs from "node:fs";
 import { exitMessage, welcomeMessage } from "../messages.js";

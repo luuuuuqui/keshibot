@@ -3,6 +3,7 @@
   "version": "8.7.0",
   "description": "Um bot de WhatsApp multifunções.",
   "main": "index.js",
+  "private": true,
   "type": "module",
   "scripts": {
     "start": "node ./src/index.js"
@@ -12,7 +13,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "dependencies": {
     "@cacheable/node-cache": "^3.0.0",
     "axios": "^1.14.0",
