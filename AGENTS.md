@@ -183,8 +183,6 @@ Runtime and dependency snapshot is in the root `package.json`
 Project-level scripts:
 
 - `npm start`
-- `npm test`
-- `npm run test:all`
 
 ## HOSTING_AND_PTERODACTYL
 
@@ -195,9 +193,9 @@ Installation tutorials stay in `README.md`.
 
 If the topic is about hosting, VPS setup, startup configuration, schedules, SFTP, Pterodactyl panel usage, or backup flow, agents should also load:
 
-- `.skills/pterodactyl-specialist/SKILL.md`
+- `README.md`
 
-That skill is the specialized source for Pterodactyl guidance.
+This trimmed copy no longer includes the local Pterodactyl specialist skill.
 
 ## STABILITY_AND_ERRORS
 
@@ -232,22 +230,8 @@ Agents working in this repository should follow these rules:
 
 ## SKILLS
 
-This repository uses a local skills pattern to help AI agents load specialized context only when needed.
-
-Current local skill directory:
-
-- `.skills/pterodactyl-specialist/`
-
-Current local skill:
-
-- `pterodactyl-specialist` → focused instructions for Pterodactyl panel usage, hosting workflows, files, databases, backups, schedules, bots, and APIs
-
-Skill usage rule:
-
-- if the topic is about hosting or **Pterodactyl**, load `.skills/pterodactyl-specialist/SKILL.md`
-
-This keeps support and agent workflows selective instead of forcing every answer to carry all hosting knowledge by default.
+This trimmed copy does not include local repository skills.
 
 ## DOESN'T RUNS
 
-Do not run `npm test`, `npm test:all` or `npm start` in this repository.
+Do not run `npm start` in this repository.

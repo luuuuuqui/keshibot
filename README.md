@@ -3,7 +3,6 @@
 ![Takeshi Bot](./assets/images/takeshi-bot.png)
 
 [![Version](https://img.shields.io/badge/Vers%C3%A3o-8.7.0-blue)](https://github.com/guiireal/takeshi-bot)
-[![Tests](https://github.com/guiireal/takeshi-bot-private/actions/workflows/test.yml/badge.svg)](https://github.com/guiireal/takeshi-bot-private/actions/workflows/test.yml)
 
 > Base para bots de WhatsApp multifuncional com diversos comandos prontos.
 
@@ -16,8 +15,6 @@
 
 [CRIANDO UM BOT DE WHATSAPP DO ZERO (GUIA DEFINITIVO) - BASE COMPLETA + 6 COMANDOS - JAVASCRIPT](https://youtu.be/6zr2NYIYIyc)
 
-![Logger](./assets/images/logger.png)
-
 ## 📋 Sumário
 
 1. [Idiomas Disponíveis](#-acesse-o-takeshi-bot-em-outros-idiomas)
@@ -25,7 +22,6 @@
 3. [Sobre o Projeto](#sobre-este-projeto)
 4. [Instalação](#instalação-no-termux)
     - [No Termux](#instalação-no-termux)
-    - [Nas principais hosts do Brasil](#instalação-nas-principais-hosts-do-brasil)
     - [No Windows](#instalação-no-windows)
     - [Em VPS (Debian/Ubuntu)](#instalação-em-vps-debianubuntu)
 5. [Diagrama de conexão](#diagrama-de-conexão)
@@ -40,11 +36,10 @@
 13. [Custom Middleware - Personalize o bot sem modificar arquivos principais](#custom-middleware---personalize-o-bot-sem-modificar-arquivos-principais)
 14. [Estrutura de pastas](#estrutura-de-pastas)
 15. [Atualizar o bot](#atualizar-o-bot)
-16. [Testes](#testes)
-17. [Erros comuns](#erros-comuns)
-18. [Inscreva-se no canal](#inscreva-se-no-canal)
-19. [Contribuindo com o projeto](#contribuindo-com-o-projeto)
-20. [Licença e Disclaimer](#licença)
+16. [Erros comuns](#erros-comuns)
+17. [Inscreva-se no canal](#inscreva-se-no-canal)
+18. [Contribuindo com o projeto](#contribuindo-com-o-projeto)
+19. [Licença e Disclaimer](#licença)
 
 ## 🌐 Acesse o Takeshi Bot em outros idiomas
 
@@ -161,17 +156,17 @@ As principais hosts já oferecem o Takeshi como **bot padrão**, não sendo nece
 | Bronxys | NexFuture | Speed Cloud |
 |---------|-----------|-------------|
 | [Grupo oficial](https://chat.whatsapp.com/HWeFfnUNR2mBGEw3F9GF5G) | [Grupo oficial](https://chat.whatsapp.com/Fl5FzZQC00J5CZp07AZVwQ?mode=r_c) | [Grupo oficial](https://chat.whatsapp.com/HsZDn6DJrx34z5lbNbNB2M) |
-| [![Bronxys](./assets/images/bronxys.png)](https://bronxyshost.com/) | [![NexFuture](./assets/images/nexfuture.png)](https://nexfuture.com.br/) | [![Speed Cloud](./assets/images/speed-cloud.png)](https://speedhosting.cloud/) |
+| [Bronxys](https://bronxyshost.com/) | [NexFuture](https://nexfuture.com.br/) | [Speed Cloud](https://speedhosting.cloud/) |
 
 | TED Host | Cebolinha Host | Lumina Cloud |
 |----------|----------------|--------------|
 | [Grupo oficial](https://chat.whatsapp.com/I4EpMkbeaxCI4z4gQ3Pdif) | [Grupo oficial](https://chat.whatsapp.com/CCf2Pw9guan12orwGg0TqC?mode=gi_t) | [Grupo oficial](https://chat.whatsapp.com/DRfvf9SfekaAAFCIR8lGbj) |
-| [![TED Host](./assets/images/ted-host.png)](https://loja.tedhost.com.br/) | [![Cebolinha Host](./assets/images/cebolinha-host.jpeg)]( https://dash.cebolinhahost.com) | [![Lumina Cloud](./assets/images/lumina-logo.png)](https://loja.luminacloud.space/) |
+| [TED Host](https://loja.tedhost.com.br/) | [Cebolinha Host](https://dash.cebolinhahost.com) | [Lumina Cloud](https://loja.luminacloud.space/) |
 
 | Raikken Host | LordeHost | Jexa for Developers |
 |--------------|-----------|---------------------|
 | [Grupo oficial](https://chat.whatsapp.com/BzSDYUHbjHGF6gQmJfh2C7?mode=gi_t) | [Grupo oficial](https://chat.whatsapp.com/BKlKf8cE5gqHM2W3OOplAc) | [Grupo oficial](https://chat.whatsapp.com/EDWFGZVri3gEaW2HJxK4YV) |
-| [![Raikken](./assets/images/raikken-host.png)](https://painel.raikken.com.br) | [![LordeHost](./assets/images/lordehost.jpeg)](https://lordehost.com.br) | [![Jexa for Developers](./assets/images/jexa-for-developers.png)](https://devs.jexa.lat/) |
+| [Raikken](https://painel.raikken.com.br) | [LordeHost](https://lordehost.com.br) | [Jexa for Developers](https://devs.jexa.lat/) |
 
 ## Instalação no Windows
 
@@ -338,8 +333,6 @@ Digite **exatamente** como está no WhatsApp e apenas números.
 
 Não adicione o 9º dígito em números que não sejam de SP ou RJ.
 
-![tutorial-vps-1](./assets/images/tutorial-vps-1.png)
-
 14 - Conecte o bot no PM2
 
 ```sh
@@ -348,27 +341,15 @@ pm2 start npm --name "takeshi-bot" -- start
 
 15 - O bot exibirá um **código de pareamento** que deve ser colocado em `dispositivos conectados` no seu WhatsApp.
 
-![tutorial-vps-2](./assets/images/tutorial-vps-2.png)
-
 16 - Vá em `dispositivos conectados` no seu WhatsApp.
-
-![tutorial-vps-3](./assets/images/tutorial-vps-3.png)
 
 17 - Clique em `conectar dispositivo`
 
-![tutorial-vps-4](./assets/images/tutorial-vps-4.png)
-
 18 - No canto inferior, clique em `Conectar com número de telefone`
-
-![tutorial-vps-5](./assets/images/tutorial-vps-5.png)
 
 19 - Coloque o **código de pareamento** que você recebeu no terminal, que foi feito no passo `15`.
 
-![tutorial-vps-6](./assets/images/tutorial-vps-6.png)
-
 20 - Após isso, no terminal que ficou parado, ele deve exibir que **foi conectado com sucesso**
-
-![tutorial-vps-7](./assets/images/tutorial-vps-7.png)
 
 21 - Digite `CTRL + C` para parar o bot.
 
@@ -377,8 +358,6 @@ pm2 start npm --name "takeshi-bot" -- start
 ```sh
 pm2 start npm --name "takeshi-bot" -- start
 ```
-
-![tutorial-vps-8](./assets/images/tutorial-vps-8.png)
 
 23 - Aguarde 10 segundos, depois digite `CTRL + C` para parar o bot.
 
@@ -408,8 +387,6 @@ export const OWNER_LID = "12345678901234567890@lid";
 Lembre-se de trocar os números acima pelos seus números, obviamente e tbm ver se o seu prefixo é a barra /.
 
 24 - Por fim, teste o bot!
-
-![tutorial-vps-9](./assets/images/tutorial-vps-9.png)
 
 ## Diagrama de conexão
 
@@ -640,28 +617,21 @@ export async function customMiddleware({ type, commonFunctions }) {
 
 ## Estrutura de pastas
 
-- 📁 .github ➔ _workflows de CI/CD e arquivo para o agente do copilot_
 - 📁 assets ➔ _arquivos de mídia_
   - 📁 auth ➔ _arquivos da conexão do bot_
   - 📁 images ➔ _arquivos de imagem_
     - 📁 funny ➔ _gifs de comandos de diversão_
-  - 📁 samples ➔ _arquivos de exemplo para testes_
   - 📁 temp ➔ _arquivos temporários_
 - 📁 database ➔ _arquivos de dados_
-- 📁 diagrams ➔ _diagramas de fluxos de dados e execução do Bot_
-- 📁 node_modules ➔ _módulos do Node.js_
 - 📁 src ➔ _código fonte do bot (geralmente você mexerá mais aqui)_
   - 📁 @types ➔ _pasta onde fica as definições de tipos_
   - 📁 commands ➔ _pasta onde ficam os comandos_
     - 📁 admin ➔ _pasta onde ficam os comandos administrativos_
     - 📁 member ➔ _pasta onde ficam os comandos gerais (todos poderão utilizar)_
-      - 📁 exemplos ➔ _pasta de exemplos apenas para exploração e reaproveitamento em comandos próprios_
     - 📁 owner ➔ _pasta onde ficam os comandos de dono (grupo e bot)_
-    - 📝🤖-como-criar-comandos.js ➔ _arquivo de exemplo de como criar um comando_
   - 📁 errors ➔ _classes de erros usadas nos comandos_
   - 📁 middlewares ➔ _interceptadores de requisições_
   - 📁 services ➔ _serviços diversos_
-  - 📁 test ➔ _testes_
   - 📁 utils ➔ _utilitários_
   - 📝 config.js ➔ _arquivo de configurações do bot_
   - 📝 connection.js ➔ _script de conexão do bot com a biblioteca Baileys_
@@ -669,12 +639,8 @@ export async function customMiddleware({ type, commonFunctions }) {
   - 📝 loader.js ➔ _script de carga de funções_
   - 📝 menu.js ➔ _menu do bot_
   - 📝 messages.js ➔ _arquivos de mensagens de boas vindas e saída_
-  - 📝 test.js ➔ _script de testes_
 - 📝 .gitignore ➔ _arquivo para não subir certas pastas no GitHub_
-- 📝 ⚡-cases-estao-aqui.js ➔ _easter egg_
 - 📝 AGENTS.md ➔ _arquivo de instruções para IA's_
-- 📝 CLAUDE.md ➔ _arquivo de instruções para a IA Claude_
-- 📝 GEMINI.md ➔ _arquivo de instruções para a IA Gemini_
 - 📝 CONTRIBUTING.md ➔ _guia de contribuição_
 - 📝 LICENSE ➔ _arquivo de licença_
 - 📝 package-lock.json ➔ _arquivo de cache das dependências do bot_
@@ -687,10 +653,6 @@ export async function customMiddleware({ type, commonFunctions }) {
 
 Execute `bash update.sh`
 
-## Testes
-
-Execute `npm run test:all`
-
 ## Erros comuns
 
 ### 📁 Operação negada ao extrair a pasta
@@ -698,8 +660,6 @@ Execute `npm run test:all`
 O erro abaixo acontece quando é feito o download do arquivo ZIP direto no celular em algumas versões do apk ZArchiver e também de celulares sem root.
 
 Para resolver, siga o [tutorial de instalação via git clone](#instalação-no-termux).
-
-![erro comum 1](./assets/images/erro-comum-1.jpg)
 
 ### 🔄 Remoção dos arquivos de sessão e conectar novamente
 
@@ -717,8 +677,6 @@ o procedimento de iniciar o bot com `npm start`.
 Quando o bot fica muito tempo desligado (por exemplo, horas ou um dia inteiro), ao religar ele pode tentar processar muitas mensagens acumuladas de uma vez.
 Isso pode disparar erro de `rate-overlimit` durante a sincronização.
 
-![erro comum 3](./assets/images/erro-comum-3.png)
-
 Para corrigir, reinicie a autenticação do Baileys:
 
 ```sh
@@ -728,8 +686,6 @@ bash reset-qr-auth.sh
 Em seguida, conecte o número novamente no WhatsApp em "dispositivos conectados".
 
 ### 🔐 Permission denied (permissão negada) ao acessar `cd /sdcard`
-
-![erro comum 2](./assets/images/erro-comum-2.png)
 
 Abra o termux, digite `termux-setup-storage` e depois, aceite as permissões
 
