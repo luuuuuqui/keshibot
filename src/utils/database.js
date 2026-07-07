@@ -29,9 +29,28 @@ const PREFIX_GROUPS_FILE = "prefix-groups";
 const RESTRICTED_MESSAGES_FILE = "restricted-messages";
 const WELCOME_GROUPS_FILE = "welcome-groups";
 
+const DEFAULT_RESTRICTED_MESSAGES = {
+  sticker: "stickerMessage",
+  lottieSticker: "lottieStickerMessage",
+  video: "videoMessage",
+  image: "imageMessage",
+  audio: "audioMessage",
+  product: "productMessage",
+  document: "documentMessage",
+  event: "eventMessage",
+};
+
+function ensureDatabaseDirectory() {
+  if (!fs.existsSync(databasePath)) {
+    fs.mkdirSync(databasePath, { recursive: true });
+  }
+}
+
 function createIfNotExists(fullPath, formatIfNotExists = []) {
+  ensureDatabaseDirectory();
+
   if (!fs.existsSync(fullPath)) {
-    fs.writeFileSync(fullPath, JSON.stringify(formatIfNotExists));
+    fs.writeFileSync(fullPath, JSON.stringify(formatIfNotExists, null, 2));
   }
 }
 
@@ -330,7 +349,7 @@ export function isActiveAutoStickerGroup(groupId) {
 export function muteMember(groupId, memberId) {
   const filename = MUTE_FILE;
 
-  const mutedMembers = readJSON(filename, JSON.stringify({}));
+  const mutedMembers = readJSON(filename, {});
 
   if (!mutedMembers[groupId]) {
     mutedMembers[groupId] = [];
@@ -346,7 +365,7 @@ export function muteMember(groupId, memberId) {
 export function unmuteMember(groupId, memberId) {
   const filename = MUTE_FILE;
 
-  const mutedMembers = readJSON(filename, JSON.stringify({}));
+  const mutedMembers = readJSON(filename, {});
 
   if (!mutedMembers[groupId]) {
     return;
@@ -364,7 +383,7 @@ export function unmuteMember(groupId, memberId) {
 export function checkIfMemberIsMuted(groupId, memberId) {
   const filename = MUTE_FILE;
 
-  const mutedMembers = readJSON(filename, JSON.stringify({}));
+  const mutedMembers = readJSON(filename, {});
 
   if (!mutedMembers[groupId]) {
     return false;
@@ -439,15 +458,7 @@ export function updateIsActiveGroupRestriction(groupId, restriction, isActive) {
 }
 
 export function readRestrictedMessageTypes() {
-  return readJSON(RESTRICTED_MESSAGES_FILE, {
-    sticker: "stickerMessage",
-    video: "videoMessage",
-    image: "imageMessage",
-    audio: "audioMessage",
-    product: "productMessage",
-    document: "documentMessage",
-    event: "eventMessage",
-  });
+  return readJSON(RESTRICTED_MESSAGES_FILE, DEFAULT_RESTRICTED_MESSAGES);
 }
 
 export function setPrefix(groupJid, prefix) {

@@ -129,7 +129,7 @@ Do not modify core middleware flow unless there is a real architectural need.
 
 ## DATA_RULES
 
-The bot uses JSON files in `database/` for persistence.
+The bot uses runtime JSON files in `database/` for persistence. This directory is ignored by Git and must be created automatically by the persistence helpers when needed.
 
 Important files:
 

@@ -499,7 +499,7 @@ Obtenha sua API Key em: [https://linker.devgui.dev](https://linker.devgui.dev)
 
 ## Auto responder
 
-O Takeshi Bot possui um auto-responder embutido, edite o arquivo em `./database/auto-responder.json`:
+O Takeshi Bot possui um auto-responder embutido. Os dados ficam em `./database/auto-responder.json`, criado automaticamente quando o recurso é usado.
 
 ```json
 [
@@ -622,7 +622,7 @@ export async function customMiddleware({ type, commonFunctions }) {
   - 📁 images ➔ _arquivos de imagem_
     - 📁 funny ➔ _gifs de comandos de diversão_
   - 📁 temp ➔ _arquivos temporários_
-- 📁 database ➔ _arquivos de dados_
+- 📁 database ➔ _arquivos de dados criados automaticamente em runtime_
 - 📁 src ➔ _código fonte do bot (geralmente você mexerá mais aqui)_
   - 📁 @types ➔ _pasta onde fica as definições de tipos_
   - 📁 commands ➔ _pasta onde ficam os comandos_
