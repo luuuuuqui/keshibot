@@ -4,9 +4,15 @@ from pathlib import Path
 
 from takeshi_bot.context import CommandContext
 from takeshi_bot.errors import InvalidParameterError
+from takeshi_bot.logger import error_log
 from takeshi_bot.paths import TEMP_DIR
 from takeshi_bot.services.ffmpeg import Ffmpeg
-from takeshi_bot.utils import get_nested_message, random_name, remove_file_if_exists
+from takeshi_bot.utils import (
+    as_dict,
+    get_nested_message,
+    random_name,
+    remove_file_if_exists,
+)
 
 
 MAX_VIDEO_STICKER_DURATION_SECONDS = 10
@@ -26,6 +32,13 @@ def _validate_video_sticker_duration(ctx: CommandContext) -> None:
             f"{MAX_VIDEO_STICKER_DURATION_SECONDS} segundos! "
             "Envie um video menor."
         )
+
+
+def _has_direct_sticker_media(ctx: CommandContext) -> bool:
+    message = as_dict(ctx.web_message.get("message"))
+    return isinstance(message.get("imageMessage"), dict) or isinstance(
+        message.get("videoMessage"), dict
+    )
 
 
 async def create_sticker(ctx: CommandContext) -> str:
@@ -106,3 +119,16 @@ async def create_sticker(ctx: CommandContext) -> str:
 def is_animated_sticker(file_path: str) -> bool:
     data = Path(file_path).read_bytes()
     return b"ANIM" in data or b"ANMF" in data
+
+
+async def process_auto_sticker(ctx: CommandContext) -> bool:
+    if not _has_direct_sticker_media(ctx):
+        return False
+
+    try:
+        await create_sticker(ctx)
+        await ctx.send_react("\u2705")
+        return True
+    except Exception as error:  # noqa: BLE001 - auto-sticker must not block routing
+        error_log("Erro no processamento automatico de sticker:", error)
+        return False

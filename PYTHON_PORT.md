@@ -102,6 +102,9 @@ command registry and JS-to-Python command mapping.
   for WhatsApp EXIF metadata.
 - Sticker creation rejects videos without a valid duration or above 10 seconds
   before downloading/converting media, matching the JavaScript command limit.
+- `auto-sticker` now mirrors the JavaScript flow by processing only direct
+  image/video messages and ignoring conversion failures without blocking command
+  routing.
 - `ia-sticker` downloads the generated Spider X image and converts it to local
   WebP with FFmpeg before sending, matching the JavaScript sticker workflow more
   closely.

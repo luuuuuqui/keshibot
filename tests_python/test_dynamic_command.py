@@ -53,6 +53,16 @@ class FakeBridge:
         self.calls.append(("add_sticker_metadata", input_path, output_path, metadata))
         return output_path
 
+    async def download_media(
+        self,
+        web_message: dict[str, Any],
+        context: str,
+        file_name: str,
+        extension: str,
+    ) -> str:
+        self.calls.append(("download_media", context, file_name, extension))
+        raise RuntimeError("download failed")
+
 
 def make_context(text: str, user_lid: str = config.OWNER_LID) -> CommandContext:
     web_message = {
@@ -124,6 +134,49 @@ class DynamicCommandTest(unittest.IsolatedAsyncioTestCase):
         self.assertTrue(
             any(call[0] == "group_participants_update" for call in third.bridge.calls)
         )
+
+    async def test_auto_sticker_ignores_quoted_media_and_runs_command(self) -> None:
+        database.activate_auto_sticker_group("123@g.us")
+        web_message = {
+            "key": {
+                "remoteJid": "123@g.us",
+                "participant": config.OWNER_LID,
+                "id": "ABC",
+            },
+            "message": {
+                "extendedTextMessage": {
+                    "text": "/ping",
+                    "contextInfo": {
+                        "quotedMessage": {"imageMessage": {"mimetype": "image/png"}}
+                    },
+                }
+            },
+        }
+        ctx = CommandContext.from_web_message(FakeBridge(), web_message, 1.0)
+        assert ctx is not None
+
+        await dynamic_command(ctx)
+
+        self.assertFalse(any(call[0] == "download_media" for call in ctx.bridge.calls))
+        sent = [call for call in ctx.bridge.calls if call[0] == "send_message"]
+        self.assertTrue(any("Pong!" in call[2].get("text", "") for call in sent))
+
+    async def test_auto_sticker_failure_does_not_escape_router(self) -> None:
+        database.activate_auto_sticker_group("123@g.us")
+        web_message = {
+            "key": {
+                "remoteJid": "123@g.us",
+                "participant": "member@lid",
+                "id": "ABC",
+            },
+            "message": {"imageMessage": {"mimetype": "image/png"}},
+        }
+        ctx = CommandContext.from_web_message(FakeBridge(), web_message, 1.0)
+        assert ctx is not None
+
+        await dynamic_command(ctx)
+
+        self.assertTrue(any(call[0] == "download_media" for call in ctx.bridge.calls))
 
 
 if __name__ == "__main__":

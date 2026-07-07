@@ -22,7 +22,7 @@ from takeshi_bot.middlewares.permissions import (
     is_link,
     verify_prefix,
 )
-from takeshi_bot.services.sticker import create_sticker
+from takeshi_bot.services.sticker import process_auto_sticker
 from takeshi_bot.utils import as_dict
 
 
@@ -60,8 +60,7 @@ async def dynamic_command(ctx: CommandContext) -> None:
         return
 
     if active_group and is_active_auto_sticker_group(ctx.remote_jid):
-        if ctx.is_image or ctx.is_video:
-            await create_sticker(ctx)
+        if await process_auto_sticker(ctx):
             return
 
     if active_group:
