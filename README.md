@@ -506,3 +506,7 @@ Não compartilhe nem comite:
 - prints com código de pareamento.
 
 Este é um repositório privado. Mantenha a configuração real fora do histórico do Git sempre que possível.
+
+## Licença
+
+Este projeto usa uma licença privada. Consulte `LICENSE`.
