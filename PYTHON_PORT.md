@@ -100,6 +100,8 @@ command registry and JS-to-Python command mapping.
   empty/zero schedules covered by regression tests.
 - Sticker creation and `rename` use `node-webpmux` through the Baileys sidecar
   for WhatsApp EXIF metadata.
+- Sticker creation rejects videos without a valid duration or above 10 seconds
+  before downloading/converting media, matching the JavaScript command limit.
 - `ia-sticker` downloads the generated Spider X image and converts it to local
   WebP with FFmpeg before sending, matching the JavaScript sticker workflow more
   closely.

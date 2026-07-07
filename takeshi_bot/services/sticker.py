@@ -6,7 +6,26 @@ from takeshi_bot.context import CommandContext
 from takeshi_bot.errors import InvalidParameterError
 from takeshi_bot.paths import TEMP_DIR
 from takeshi_bot.services.ffmpeg import Ffmpeg
-from takeshi_bot.utils import random_name, remove_file_if_exists
+from takeshi_bot.utils import get_nested_message, random_name, remove_file_if_exists
+
+
+MAX_VIDEO_STICKER_DURATION_SECONDS = 10
+
+
+def _video_duration_seconds(ctx: CommandContext) -> int | None:
+    video_message = get_nested_message(ctx.web_message, "video") or {}
+    seconds = video_message.get("seconds")
+    return seconds if isinstance(seconds, int) else None
+
+
+def _validate_video_sticker_duration(ctx: CommandContext) -> None:
+    seconds = _video_duration_seconds(ctx)
+    if not seconds or seconds > MAX_VIDEO_STICKER_DURATION_SECONDS:
+        raise InvalidParameterError(
+            "O video enviado tem mais de "
+            f"{MAX_VIDEO_STICKER_DURATION_SECONDS} segundos! "
+            "Envie um video menor."
+        )
 
 
 async def create_sticker(ctx: CommandContext) -> str:
@@ -38,6 +57,7 @@ async def create_sticker(ctx: CommandContext) -> str:
                 output_path,
             )
         else:
+            _validate_video_sticker_duration(ctx)
             input_path = await ctx.download_video("sticker-input")
             if not input_path:
                 raise RuntimeError("Nao consegui baixar o video.")

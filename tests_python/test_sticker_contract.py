@@ -6,7 +6,9 @@ from pathlib import Path
 from typing import Any
 
 import takeshi_bot.commands.member.rename as rename_command
+import takeshi_bot.services.sticker as sticker_service
 from takeshi_bot.context import CommandContext
+from takeshi_bot.errors import InvalidParameterError
 
 
 class FakeBridge:
@@ -33,6 +35,15 @@ class FakeBridge:
         return output_path
 
 
+class FakeFfmpeg:
+    async def execute(self, *args: str) -> None:
+        Path(args[-1]).write_bytes(b"RIFF----WEBP")
+
+    async def cleanup(self, file_path: str | None) -> None:
+        if file_path:
+            Path(file_path).unlink(missing_ok=True)
+
+
 class StickerContractTest(unittest.IsolatedAsyncioTestCase):
     async def test_rename_calls_bridge_metadata_with_pack_and_author(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -53,6 +64,71 @@ class StickerContractTest(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(len(metadata_calls), 1)
             self.assertEqual(metadata_calls[0][3]["packName"], "Pacote")
             self.assertEqual(metadata_calls[0][3]["packPublisher"], "Autor")
+
+    async def test_create_sticker_rejects_direct_video_longer_than_js_limit(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            video = Path(tmp) / "video.mp4"
+            video.write_bytes(b"video")
+            bridge = FakeBridge(str(video))
+            web_message = {
+                "key": {"remoteJid": "123@g.us", "participant": "user@lid"},
+                "message": {"videoMessage": {"seconds": 11}},
+            }
+            ctx = CommandContext.from_web_message(bridge, web_message)
+            assert ctx is not None
+
+            with self.assertRaisesRegex(InvalidParameterError, "mais de 10 segundos"):
+                await sticker_service.create_sticker(ctx)
+
+            self.assertFalse(
+                any(call[0] == "download_media" for call in bridge.calls),
+                "videos too long should be rejected before downloading media",
+            )
+
+    async def test_create_sticker_rejects_quoted_video_longer_than_js_limit(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            video = Path(tmp) / "video.mp4"
+            video.write_bytes(b"video")
+            bridge = FakeBridge(str(video))
+            web_message = {
+                "key": {"remoteJid": "123@g.us", "participant": "user@lid"},
+                "message": {
+                    "extendedTextMessage": {
+                        "text": "/sticker",
+                        "contextInfo": {
+                            "quotedMessage": {"videoMessage": {"seconds": 42}}
+                        },
+                    }
+                },
+            }
+            ctx = CommandContext.from_web_message(bridge, web_message)
+            assert ctx is not None
+
+            with self.assertRaisesRegex(InvalidParameterError, "mais de 10 segundos"):
+                await sticker_service.create_sticker(ctx)
+
+            self.assertFalse(any(call[0] == "download_media" for call in bridge.calls))
+
+    async def test_create_sticker_accepts_video_within_js_limit(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            video = Path(tmp) / "video.mp4"
+            video.write_bytes(b"video")
+            bridge = FakeBridge(str(video))
+            web_message = {
+                "key": {"remoteJid": "123@g.us", "participant": "user@lid"},
+                "message": {"videoMessage": {"seconds": 10}},
+            }
+            ctx = CommandContext.from_web_message(bridge, web_message)
+            assert ctx is not None
+            original_ffmpeg = sticker_service.Ffmpeg
+            sticker_service.Ffmpeg = FakeFfmpeg  # type: ignore[assignment]
+            try:
+                await sticker_service.create_sticker(ctx)
+            finally:
+                sticker_service.Ffmpeg = original_ffmpeg
+
+            self.assertTrue(any(call[0] == "download_media" for call in bridge.calls))
+            self.assertTrue(any(call[0] == "send_file_message" for call in bridge.calls))
 
 
 if __name__ == "__main__":
