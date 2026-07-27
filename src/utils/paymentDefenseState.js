@@ -16,8 +16,10 @@
  * Tudo é volátil de propósito, como o messageEnvelopeRegistry: o modo de falha
  * ao reiniciar é ficar mais conservador, nunca menos seguro.
  *
+ * @author Dev Gui
  */
 import { sendCleanChat } from "./cleanChat.js";
+import { deletePaymentMessageWithFallback } from "./deletePaymentMessage.js";
 import { errorLog } from "./logger.js";
 
 const RECENT_PARTICIPANT_TTL_MS = 60 * 1000;
@@ -141,9 +143,17 @@ async function runDefense({ socket, remoteJid, userLid, messageKey }) {
           `Erro ao banir membro pelo anti-payment. Detalhes: ${error.message}`,
         );
       }),
+    // Best-effort: payments quase nunca saem com delete admin puro.
+    // Roda em paralelo com ban/fechamento; se o hack falhar, cai no delete normal.
     messageKey
       ? runStep(
-          () => socket.sendMessage(remoteJid, { delete: messageKey }),
+          () =>
+            deletePaymentMessageWithFallback({
+              socket,
+              remoteJid,
+              messageKey,
+              settleMs: 250,
+            }),
           "Erro ao apagar a mensagem de pagamento.",
         )
       : Promise.resolve(),
@@ -169,12 +179,7 @@ async function runDefense({ socket, remoteJid, userLid, messageKey }) {
  *
  * @returns {Promise<boolean>} true se o autor foi (ou já estava sendo) removido.
  */
-export function defendAgainstPayment({
-  socket,
-  remoteJid,
-  userLid,
-  messageKey,
-}) {
+export function defendAgainstPayment({ socket, remoteJid, userLid, messageKey }) {
   if (!remoteJid || !userLid) {
     return Promise.resolve(false);
   }
