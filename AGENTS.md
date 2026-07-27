@@ -1,10 +1,14 @@
 # guia do agente
 
-este repositório é uma cópia privada do Takeshi Bot para uso próprio.
+este repositório é uma cópia do takeshi bot para uso próprio.
+
+este guia complementa o `AGENTS.md` global do usuário com regras específicas deste projeto.
 
 ## objetivo do projeto
 
-manter um bot de WhatsApp funcional, enxuto e fácil de rodar no termux.
+manter um bot de whatsapp funcional, enxuto e fácil de rodar no termux.
+
+este repositório foi simplificado para uso próprio. ele não deve depender de arquivos locais versionados, sessões do whatsapp, bancos de dados persistidos ou outros artefatos gerados em runtime.
 
 prioridades:
 
@@ -15,10 +19,10 @@ prioridades:
 
 ## stack
 
-- Node.js 22.8 ou superior;
-- Baileys;
-- FFmpeg;
-- JSON local para persistência em runtime.
+- node.js 22.8 ou superior;
+- baileys;
+- ffmpeg;
+- json local para persistência em runtime.
 
 script principal:
 
@@ -28,19 +32,55 @@ npm start
 
 não rode `npm start` automaticamente neste repositório.
 
+## configuração
+
+as opções principais ficam em `src/config.js`.
+
+ao adicionar novas configurações:
+
+- preserve a organização existente;
+- utilize nomes consistentes com as demais constantes;
+- mantenha comentários e descrições quando fizer sentido.
+
+tokens e credenciais devem permanecer apenas na configuração local. nunca escreva valores reais no código.
+
 ## estrutura importante
 
 - `src/index.js`: entrada principal do bot;
-- `src/connection.js`: conexão com WhatsApp e estado do Baileys;
+- `src/connection.js`: conexão com whatsapp e estado do baileys;
 - `src/loader.js`: registro dos eventos;
 - `src/middlewares/onMesssagesUpsert.js`: pipeline principal de mensagens;
 - `src/utils/dynamicCommand.js`: resolução e execução de comandos;
 - `src/utils/loadCommonFunctions.js`: helpers injetados nos comandos;
-- `src/utils/database.js`: persistência JSON;
-- `src/services/`: integrações, mídia, stickers e APIs;
+- `src/utils/database.js`: persistência local;
+- `src/services/`: integrações, mídia, stickers e apis;
 - `src/commands/owner/`: comandos do dono;
 - `src/commands/admin/`: comandos administrativos;
 - `src/commands/member/`: comandos de membros.
+
+## comandos
+
+novos comandos devem seguir o mesmo padrão utilizado pelos existentes.
+
+antes de criar novas abstrações:
+
+- reutilize os helpers disponíveis;
+- utilize os helpers recebidos no `handle()`;
+- mantenha a organização por permissão;
+- preserve o estilo dos comandos já existentes.
+
+## persistência
+
+toda persistência local deve passar por `src/utils/database.js`.
+
+o diretório `database/` é criado automaticamente em runtime e nunca faz parte do código-fonte.
+
+ao adicionar novos arquivos de persistência:
+
+- utilize json;
+- mantenha um arquivo por responsabilidade;
+- preserve compatibilidade com instalações existentes;
+- não exija criação manual da pasta.
 
 ## arquivos que não entram no git
 
@@ -53,19 +93,34 @@ nunca versionar:
 - `.vscode/`;
 - tokens, chaves, sessões e arquivos gerados em runtime.
 
-`database/` deve ser criado automaticamente pelo código quando necessário.
-
 ## regras de alteração
 
-- leia o código ao redor antes de alterar;
+antes de alterar qualquer arquivo:
+
+- leia o código ao redor;
 - preserve mudanças existentes do usuário;
 - não reverta trabalho que você não fez;
-- não crie abstrações sem necessidade;
-- use helpers existentes antes de criar novos;
-- em comandos, use os helpers recebidos no `handle()`;
-- para persistência, use `src/utils/database.js`;
-- ao mexer em mídia, confira `src/services/` e `src/utils/loadCommonFunctions.js`;
-- ao mexer em mensagens de grupo, confira middlewares e `src/messages.js`.
+- prefira mudanças pequenas;
+- evite criar abstrações sem necessidade.
+
+também observe:
+
+- utilize `src/utils/database.js` para persistência;
+- confira `src/services/` antes de alterar integrações;
+- ao mexer em mídia, confira `src/utils/loadCommonFunctions.js`;
+- ao mexer em mensagens de grupo, confira os middlewares e `src/messages.js`;
+- preserve compatibilidade com a estrutura atual do projeto.
+
+## serviços externos
+
+alguns comandos dependem de serviços externos.
+
+ao alterar essas integrações:
+
+- preserve a compatibilidade com `src/config.js`;
+- nunca exponha tokens;
+- trate falhas de forma amigável para o usuário;
+- evite alterar contratos existentes sem necessidade.
 
 ## segurança
 
@@ -102,7 +157,7 @@ estilo das mensagens:
 
 - sem prefixos como `feat:` ou `fix:`;
 - verbo no presente;
-- letras minúsculas;
+- letras minúsculas fora de aspas e crases;
 - crase para arquivos, diretórios e identificadores.
 
 exemplos:
@@ -117,15 +172,21 @@ ajusta leitura de contexto do suporte
 
 não rode `npm start` automaticamente.
 
-pode rodar validações estáticas como:
+antes de considerar uma alteração concluída:
+
+- confira se o código continua consistente;
+- valide arquivos modificados com `node --check` quando possível;
+- não altere dados de runtime apenas para facilitar testes.
+
+validações recomendadas:
 
 ```sh
 node --check src/index.js
 node --check src/utils/database.js
 ```
 
-se `node_modules/` não existir, não tente importar dependências externas só para validar.
+se `node_modules/` não existir, não tente importar dependências externas apenas para validar.
 
 ## comunicação
 
-responda de forma direta, em português, com foco no que foi feito e no que precisa de atenção.
+responda de forma direta com foco no que foi feito, no que mudou e no que precisa de atenção.

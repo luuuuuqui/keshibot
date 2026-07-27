@@ -6,6 +6,50 @@ import { BOT_EMOJI, OPENAI_API_KEY, PREFIX } from "../../config.js";
 import { DangerError, WarningError } from "../../errors/index.js";
 import { getRandomName } from "../../utils/index.js";
 
+// Identifiers commonly stuck after ``` by models (```javascript, ```bash, etc).
+const CODE_FENCE_LANGUAGES =
+  "javascript|js|jsx|typescript|ts|tsx|bash|sh|shell|zsh|json|jsonc|yaml|yml|toml|xml|html|css|scss|go|golang|python|py|ruby|rb|php|java|kotlin|kt|rust|rs|c|cpp|csharp|cs|swift|dart|sql|graphql|md|markdown|diff|dockerfile|docker|powershell|ps1|cmd|bat|ini|env|text|txt|plaintext|vue|svelte|lua|r|perl|scala|nginx|makefile|proto|protobuf|nodejs|node";
+
+/**
+ * Only transforms fences like ```javascript / ```bash / ```ts into bare ```.
+ * Does not touch language names written in normal prose.
+ */
+function normalizeWhatsAppCodeBlocks(text) {
+  return String(text || "").replace(
+    new RegExp(`\`\`\`(?:${CODE_FENCE_LANGUAGES})(?=[\\s\\r\\n]|$)`, "gi"),
+    "```",
+  );
+}
+
+/**
+ * Removes unsolicited calls to continue the conversation from prose while
+ * preserving code blocks. The system prompt should prevent these, but this is
+ * a final guard because the command must answer the current request only.
+ */
+function removeUnsolicitedFollowUps(text) {
+  const continuationPattern =
+    /(?:^|\s)(?:se\s+quiser|se\s+preferir|caso\s+queira)[,:]?\s*(?:eu\s+)?(?:posso|te\s+(?:passo|envio|mostro|explico|ajudo)|lhe\s+(?:passo|envio|mostro|explico)|preparo|forneço)\b|^\s*(?:posso\s+(?:também\s+)?(?:te|lhe)\s+(?:passar|enviar|mostrar|explicar)|quer\s+que\s+eu\s+(?:te\s+)?(?:passe|envie|mostre|explique))/i;
+
+  let insideCodeBlock = false;
+
+  return String(text || "")
+    .split(/\r?\n/)
+    .map((line) => {
+      if (line.trimStart().startsWith("```")) {
+        insideCodeBlock = !insideCodeBlock;
+        return line;
+      }
+
+      if (insideCodeBlock) return line;
+
+      const match = line.match(continuationPattern);
+      return match ? line.slice(0, match.index).trimEnd() : line;
+    })
+    .filter((line, index, lines) => line || lines[index - 1] || lines[index + 1])
+    .join("\n")
+    .trim();
+}
+
 export default {
   name: "suporte",
   description: "Suporte inteligente do Takeshi usando IA treinada",
@@ -15,6 +59,9 @@ export default {
 Você também pode enviar uma imagem com o comando ${PREFIX}suporte
 
 Você também pode escrever o texto e responder a mensagem com o comando ${PREFIX}suporte`,
+  /**
+   * @param {CommandHandleProps} props
+   */
   handle: async ({
     fullArgs,
     args,
@@ -115,8 +162,6 @@ machine learning ou assuntos relacionados ao Takeshi Bot.
 Responda apenas em português do Brasil.
 Seja direto e objetivo nas respostas, salvo se o usuário solicitar explicações mais aprofundadas.
 
-REGRA DE TAMANHO (obrigatória): a parte em PROSA da resposta deve ter no máximo 3 parágrafos curtos ou 150 palavras, salvo se o usuário pedir explicação aprofundada. Blocos de código NÃO contam nesse limite: inclua sempre o código completo e funcional necessário, mesmo que longo, sem truncar imports, fechamentos ou partes essenciais. Respostas objetivas não precisam de introdução nem de conclusão. Vá direto à solução.
-
 Escreva como alguém que realmente sabe do que está falando e vai direto ao ponto, logo, não escreva demais, apenas o suficiente para ser objetivo. 
 Sem frases de abertura do tipo "Claro!", "Ótima pergunta!", "Com certeza!" ou similares. 
 Sem encerramento do tipo "Espero ter ajudado!" ou "Qualquer dúvida é só perguntar!". 
@@ -128,7 +173,26 @@ Use exemplos concretos quando ajudar a explicar algo. Se tiver uma opinião sobr
 Quando receber imagens, analise o conteúdo visual primeiro e interprete-o considerando o contexto técnico do Takeshi Bot.
 
 Se alguém te pedir o link de alguma Host, envie as que você já conhece, 
-sem mencionar Pterodactyl, pois os iniciantes não sabem o que é (exceto se perguntarem sobre)!`,
+sem mencionar Pterodactyl, pois os iniciantes não sabem o que é (exceto se perguntarem sobre)!
+
+REGRA DE TAMANHO (obrigatória): a parte em PROSA da resposta deve ter no máximo 3 parágrafos curtos ou 150 palavras, salvo se o usuário pedir explicação aprofundada. Blocos de código NÃO contam nesse limite: inclua sempre o código completo e funcional necessário, mesmo que longo, sem truncar imports, fechamentos ou partes essenciais. Respostas objetivas não precisam de introdução nem de conclusão. Vá direto à solução.
+
+REGRA DE ENCERRAMENTO (obrigatória): entregue somente o que foi solicitado e encerre a resposta ao concluir. Nunca ofereça continuação, ajuda adicional, scripts, métodos, funções, exemplos ou próximos passos que o usuário não pediu. São proibidas frases como "Se quiser, posso...", "Posso te passar...", "Quer que eu...", "Caso queira..." e equivalentes, mesmo como última frase.
+
+REGRA DE CÓDIGO NO WHATSAPP (obrigatória): nunca cole a linguagem no fence.
+Errado: \`\`\`javascript  |  \`\`\`bash  |  \`\`\`js  |  \`\`\`ts  |  \`\`\`go
+Certo: apenas \`\`\` sozinho na abertura e no fechamento.
+Você pode citar a linguagem no texto normal se precisar, mas NUNCA logo após as três crases.
+
+Exemplo correto:
+\`\`\`
+const x = 1;
+\`\`\`
+
+Exemplo errado (não use):
+\`\`\`javascript
+const x = 1;
+\`\`\``,
       },
     ];
 
@@ -144,6 +208,14 @@ sem mencionar Pterodactyl, pois os iniciantes não sabem o que é (exceto se per
       role: "system",
       content: fs.readFileSync(
         path.resolve(__dirname, "..", "..", "..", "README.md"),
+        "utf-8",
+      ),
+    });
+
+    messages.push({
+      role: "system",
+      content: fs.readFileSync(
+        path.resolve(__dirname, "..", "..", "..", "CONTRIBUTING.md"),
         "utf-8",
       ),
     });
@@ -247,7 +319,9 @@ sem mencionar Pterodactyl, pois os iniciantes não sabem o que é (exceto se per
       max_completion_tokens: 2048,
     });
 
-    const answer = response.choices[0].message.content.trim();
+    const answer = removeUnsolicitedFollowUps(
+      normalizeWhatsAppCodeBlocks(response.choices[0].message.content.trim()),
+    );
 
     if (!answer) {
       throw new DangerError(

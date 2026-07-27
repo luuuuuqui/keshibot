@@ -1,36 +1,36 @@
-# Takeshi Bot
+# takeshi bot
 
-Bot privado de WhatsApp baseado em Baileys, com comandos modulares e persistência local em JSON.
+bot de whatsapp baseado em baileys, com comandos modulares e persistência local em json.
 
-Este repositório foi enxugado para uso próprio, principalmente no Termux. Ele não inclui `node_modules/`, sessões do WhatsApp, banco local, documentação pública de contribuição ou arquivos de publicação.
+este repositório foi enxugado para uso próprio, principalmente no termux. ele não inclui `node_modules/`, sessões do whatsapp, banco local, documentação pública de contribuição ou arquivos de publicação.
 
-## Sumário
+## sumário
 
-1. [Requisitos](#requisitos)
-2. [Instalação no Termux](#instalação-no-termux)
-3. [Primeira execução](#primeira-execução)
-4. [Configuração](#configuração)
-5. [Dados locais](#dados-locais)
-6. [Comandos](#comandos)
-7. [APIs externas](#apis-externas)
-8. [Estrutura do projeto](#estrutura-do-projeto)
-9. [Personalização](#personalização)
-10. [Manutenção](#manutenção)
-11. [Problemas comuns](#problemas-comuns)
+1. [requisitos](#requisitos)
+2. [instalação no termux](#instalação-no-termux)
+3. [primeira execução](#primeira-execução)
+4. [configuração](#configuração)
+5. [dados locais](#dados-locais)
+6. [comandos](#comandos)
+7. [apis externas](#apis-externas)
+8. [estrutura do projeto](#estrutura-do-projeto)
+9. [personalização](#personalização)
+10. [manutenção](#manutenção)
+11. [problemas comuns](#problemas-comuns)
 
-## Requisitos
+## requisitos
 
-- Node.js `22.8.0` ou superior.
+- node.js `22.8.0` ou superior.
 - npm.
-- Git.
-- FFmpeg.
-- WhatsApp com acesso a "dispositivos conectados".
+- git.
+- ffmpeg.
+- whatsapp com acesso a "dispositivos conectados".
 
-No Termux, prefira `nodejs-lts`.
+no termux, prefira `nodejs-lts`.
 
-## Instalação no Termux
+## instalação no termux
 
-Atualize o Termux e instale os pacotes:
+atualize o termux e instale os pacotes:
 
 ```sh
 pkg update -y
@@ -38,94 +38,94 @@ pkg upgrade -y
 pkg install git nodejs-lts ffmpeg -y
 ```
 
-Libere acesso ao armazenamento, se for usar uma pasta do celular:
+libere acesso ao armazenamento, se for usar uma pasta do celular:
 
 ```sh
 termux-setup-storage
 ```
 
-Escolha a pasta onde o bot vai ficar:
+escolha a pasta onde o bot vai ficar:
 
 ```sh
-cd ~/storage/shared
+cd ~/storage/shared/
 ```
 
-Clone o repositório privado:
+clone o repositório:
 
 ```sh
 git clone <url-do-repositorio>
 cd takeshibot
 ```
 
-Instale as dependências:
+instale as dependências:
 
 ```sh
 npm install
 ```
 
-## Primeira execução
+## primeira execução
 
-Inicie o bot:
+inicie o bot:
 
 ```sh
 npm start
 ```
 
-O bot vai pedir o número de telefone. Digite apenas números, com DDI e DDD.
+o bot vai pedir o número de telefone. digite apenas números, com ddi e ddd.
 
-Depois, abra o WhatsApp:
+depois, abra o whatsapp:
 
 1. vá em "dispositivos conectados";
 2. toque em "conectar dispositivo";
 3. escolha a opção de conectar com número de telefone;
-4. informe o código que apareceu no Termux.
+4. informe o código que apareceu no termux.
 
-Quando conectar, pare o bot com `CTRL + C`, revise `src/config.js` e rode novamente:
+quando conectar, pare o bot com `Ctrl + C`, revise `src/config.js` e rode novamente:
 
 ```sh
 npm start
 ```
 
-## Configuração
+## configuração
 
-As opções principais ficam em `src/config.js`.
+as opções principais ficam em `src/config.js`.
 
-| Constante | Uso |
+| constante | uso |
 | --- | --- |
 | `PREFIX` | prefixo padrão dos comandos |
 | `BOT_EMOJI` | emoji usado em respostas e reações |
 | `BOT_NAME` | nome exibido no menu |
-| `BOT_LID` | LID do número do bot |
-| `OWNER_LID` | LID do dono |
+| `BOT_LID` | lid do número do bot |
+| `OWNER_LID` | lid do dono |
 | `ONLY_GROUP_ID` | limita o bot a um grupo específico quando preenchido |
 | `DEVELOPER_MODE` | aumenta logs de mensagens recebidas |
-| `SPIDER_API_TOKEN` | token da Spider API |
+| `SPIDER_API_TOKEN` | token da spider api |
 | `LINKER_API_KEY` | chave usada pelo comando `gerar-link` |
 | `OPENAI_API_KEY` | chave usada pelo comando `suporte` |
 
-Para descobrir seu LID, use:
+para descobrir seu lid, use:
 
 ```text
 /meu-lid
 ```
 
-Para descobrir o ID do grupo, use:
+para descobrir o id do grupo, use:
 
 ```text
 /get-group-id
 ```
 
-Também é possível trocar o token da Spider API em runtime:
+também é possível trocar o token da spider api em runtime:
 
 ```text
 /set-spider-api-token seu_token
 ```
 
-## Dados locais
+## dados locais
 
-A pasta `database/` não entra no Git. Ela é criada automaticamente em runtime.
+a pasta `database/` não entra no git. ela é criada automaticamente em runtime.
 
-Arquivos criados conforme o uso:
+arquivos criados conforme o uso:
 
 - `database/config.json`: configurações mutáveis, como token salvo por comando.
 - `database/prefix-groups.json`: prefixos por grupo.
@@ -141,13 +141,13 @@ Arquivos criados conforme o uso:
 - `database/warns.json`: advertências.
 - `database/afk-groups.json`: membros em modo ausente.
 
-Não comite `database/`.
+não comite `database/`.
 
-## Comandos
+## comandos
 
-O menu do bot é gerado em `src/menu.js`.
+o menu do bot é gerado em `src/menu.js`.
 
-### Dono
+### dono
 
 - `/exec`
 - `/get-group-id`
@@ -157,7 +157,7 @@ O menu do bot é gerado em `src/menu.js`.
 - `/set-prefix`
 - `/set-spider-api-token`
 
-### Administração
+### administração
 
 - `/abrir`
 - `/add-auto-responder`
@@ -194,7 +194,7 @@ O menu do bot é gerado em `src/menu.js`.
 - `/unmute`
 - `/welcome 1|0`
 
-### Membros
+### membros
 
 - `/attp`
 - `/brat`
@@ -217,7 +217,7 @@ O menu do bot é gerado em `src/menu.js`.
 - `/ttp`
 - `/yt-search`
 
-### Downloads
+### downloads
 
 - `/facebook`
 - `/instagram`
@@ -229,7 +229,7 @@ O menu do bot é gerado em `src/menu.js`.
 - `/yt-mp3`
 - `/yt-mp4`
 
-### Brincadeiras
+### brincadeiras
 
 - `/abracar`
 - `/beijar`
@@ -240,7 +240,7 @@ O menu do bot é gerado em `src/menu.js`.
 - `/socar`
 - `/tapa`
 
-### IA
+### ia
 
 - `/deepseek`
 - `/flux`
@@ -248,7 +248,7 @@ O menu do bot é gerado em `src/menu.js`.
 - `/gpt-5-mini`
 - `/ia-sticker`
 
-### Canvas
+### canvas
 
 - `/blur`
 - `/bolsonaro`
@@ -260,50 +260,50 @@ O menu do bot é gerado em `src/menu.js`.
 - `/pixel`
 - `/rip`
 
-## APIs externas
+## apis externas
 
-Alguns comandos dependem de API externa.
+alguns comandos dependem de api externa.
 
-### Spider API
+### spider api
 
-Usada por comandos de downloads, IA, stickers de texto, saldo e alguns recursos de imagem.
+usada por comandos de downloads, ia, stickers de texto, saldo e alguns recursos de imagem.
 
-Configure em `src/config.js`:
+configure em `src/config.js`:
 
 ```js
 export const SPIDER_API_TOKEN = "seu_token_aqui";
 ```
 
-Ou via comando:
+ou via comando:
 
 ```text
 /set-spider-api-token seu_token
 ```
 
-### Linker
+### linker
 
-Usada pelo comando `gerar-link`.
+usada pelo comando `/gerar-link`.
 
 ```js
 export const LINKER_BASE_URL = "https://linker.devgui.dev/api";
 export const LINKER_API_KEY = "seu_token_aqui";
 ```
 
-### OpenAI
+### openai
 
-Usada pelo comando `suporte`.
+usada pelo comando `/suporte`.
 
 ```js
 export const OPENAI_API_KEY = "sua_chave";
 ```
 
-Se `OPENAI_API_KEY` estiver vazia, o comando `suporte` responde que o suporte inteligente não está disponível.
+se `OPENAI_API_KEY` estiver vazia, o comando `/suporte` responde que o suporte inteligente não está disponível.
 
-## Estrutura do projeto
+## estrutura do projeto
 
 ```text
 assets/
-  auth/              estado de autenticação do WhatsApp
+  auth/              estado de autenticação do whatsapp
   images/            imagens usadas pelo bot
   stickers/          stickers locais
   temp/              arquivos temporários
@@ -318,14 +318,14 @@ src/
   services/          integrações e processamento de mídia
   utils/             helpers e persistência
   config.js          configuração principal
-  connection.js      conexão do Baileys
+  connection.js      conexão do baileys
   index.js           entrada do bot
   loader.js          registro dos eventos
   menu.js            texto do menu
   messages.js        mensagens de boas-vindas e saída
 ```
 
-Arquivos ignorados:
+arquivos ignorados:
 
 - `node_modules/`
 - `database/`
@@ -333,49 +333,29 @@ Arquivos ignorados:
 - `assets/temp/`
 - `.vscode/`
 
-## Personalização
+## personalização
 
-### Menu
+### menu
 
-Edite:
+edite `src/menu.js`.
 
-```text
-src/menu.js
-```
+### mensagens de entrada e saída
 
-### Mensagens de entrada e saída
+edite `src/messages.js`.
 
-Edite:
+### imagem do menu
 
-```text
-src/messages.js
-```
+troque o arquivo `assets/images/takeshi-bot.png` ou use o comando `/set-menu-image` respondendo a uma imagem.
 
-### Imagem do menu
+### novos comandos
 
-Troque o arquivo:
-
-```text
-assets/images/takeshi-bot.png
-```
-
-Ou use o comando:
-
-```text
-/set-menu-image
-```
-
-respondendo a uma imagem.
-
-### Novos comandos
-
-Crie arquivos em uma das pastas:
+crie arquivos em uma das pastas:
 
 - `src/commands/owner/`
 - `src/commands/admin/`
 - `src/commands/member/`
 
-Modelo básico:
+modelo básico:
 
 ```js
 import { PREFIX } from "../../config.js";
@@ -396,45 +376,41 @@ export default {
 };
 ```
 
-Use os helpers recebidos no `handle()` antes de criar lógica de baixo nível.
+use os helpers recebidos no `handle()` antes de criar lógica de baixo nível.
 
-### Middleware customizado
+### middleware customizado
 
-Use:
+use `src/middlewares/customMiddleware.js`.
 
-```text
-src/middlewares/customMiddleware.js
-```
+esse é o ponto mais seguro para adicionar regras globais sem mexer no fluxo principal.
 
-Esse é o ponto mais seguro para adicionar regras globais sem mexer no fluxo principal.
+## manutenção
 
-## Manutenção
-
-Instalar dependências:
+instalar dependências:
 
 ```sh
 npm install
 ```
 
-Rodar o bot:
+rodar o bot:
 
 ```sh
 npm start
 ```
 
-Resetar sessão do WhatsApp:
+resetar sessão do whatsapp:
 
 ```sh
 bash reset-qr-auth.sh
 ```
 
-Verificar arquivos versionados:
+verificar arquivos versionados:
 
 ```sh
 git status --short
 ```
 
-Subir mudanças:
+subir mudanças:
 
 ```sh
 git add -A
@@ -442,71 +418,71 @@ git commit -m "mensagem em português"
 git push
 ```
 
-## Problemas comuns
+## problemas comuns
 
-### O bot não reconhece configuração nova
+### o bot não reconhece configuração nova
 
-Confira se você está rodando a mesma pasta que editou.
+confira se você está rodando a mesma pasta que editou.
 
-No Termux, é comum ter uma cópia em `/sdcard`, outra em `~/storage/shared` ou outra em `Download`.
+no termux, é comum ter uma cópia em `/sdcard/`, outra em `~/storage/shared/` ou outra em `Downloads/`.
 
-### Erro de conexão ou sessão corrompida
+### erro de conexão ou sessão corrompida
 
-Rode:
+rode:
 
 ```sh
 bash reset-qr-auth.sh
 ```
 
-Depois remova o dispositivo conectado no WhatsApp e faça o pareamento novamente.
+depois remova o dispositivo conectado no whatsapp e faça o pareamento novamente.
 
 ### `permission denied` ao acessar armazenamento
 
-Rode:
+rode:
 
 ```sh
 termux-setup-storage
 ```
 
-Aceite a permissão no Android e tente novamente.
+aceite a permissão no android e tente novamente.
 
 ### `ffmpeg` não encontrado
 
-Instale:
+instale:
 
 ```sh
 pkg install ffmpeg -y
 ```
 
-### Dependências ausentes
+### dependências ausentes
 
-Rode:
+rode:
 
 ```sh
 npm install
 ```
 
-### Comando não encontrado
+### comando não encontrado
 
-Confira:
+confira:
 
 - se o arquivo está em `src/commands/admin/`, `src/commands/member/` ou `src/commands/owner/`;
 - se o export default tem `commands: [...]`;
-- se o nome digitado no WhatsApp está dentro de `commands`;
+- se o nome digitado no whatsapp está dentro de `commands`;
 - se o prefixo do grupo está correto.
 
-## Segurança
+## segurança
 
-Não compartilhe nem comite:
+não compartilhe nem comite:
 
-- tokens de API;
+- tokens de api;
 - arquivos de `database/`;
 - arquivos de `assets/auth/baileys/`;
 - logs com dados sensíveis;
 - prints com código de pareamento.
 
-Este é um repositório privado. Mantenha a configuração real fora do histórico do Git sempre que possível.
+mantenha as configurações locais e sensíveis fora do histórico do git sempre que possível.
 
-## Licença
+## licença
 
-Este projeto usa uma licença privada. Consulte `LICENSE`.
+este projeto é licenciado sob a gnu general public license (gpl). consulte o arquivo `LICENSE` para mais detalhes.

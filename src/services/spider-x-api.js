@@ -139,6 +139,80 @@ export async function deepseekV4Flash(text) {
   return data.response;
 }
 
+export async function transcribe(audioBuffer, mimeType, fileName) {
+  if (!audioBuffer) {
+    throw new Error("Você precisa informar o buffer do áudio!");
+  }
+
+  const spiderApiToken = requireSpiderApiToken();
+  const formData = new FormData();
+  const blob = new Blob([audioBuffer], { type: mimeType || "audio/ogg" });
+
+  formData.append("audio", blob, fileName || "audio.ogg");
+
+  const { data } = await axios.post(
+    `${SPIDER_API_BASE_URL}/ai/whisper-v3-turbo?api_key=${spiderApiToken}`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    },
+  );
+
+  if (!data?.success || !data.transcription) {
+    throw new Error(data?.message || "Não foi possível transcrever o áudio.");
+  }
+
+  return data.transcription;
+}
+
+const TTS_ALLOWED_VOICES = ["joao", "joão", "ana", "pedro"];
+const TTS_MIN_TEXT_LENGTH = 5;
+const TTS_MAX_TEXT_LENGTH = 2048;
+
+export async function tts(text, voice = "joao") {
+  if (!text) {
+    throw new Error("Você precisa informar o texto para converter em áudio!");
+  }
+
+  const normalizedText = String(text).trim();
+
+  if (normalizedText.length < TTS_MIN_TEXT_LENGTH) {
+    throw new Error(
+      `O texto deve ter no mínimo ${TTS_MIN_TEXT_LENGTH} caracteres.`,
+    );
+  }
+
+  if (normalizedText.length > TTS_MAX_TEXT_LENGTH) {
+    throw new Error(
+      `O texto deve ter no máximo ${TTS_MAX_TEXT_LENGTH} caracteres.`,
+    );
+  }
+
+  const normalizedVoice = String(voice || "joao").trim().toLowerCase();
+
+  if (!TTS_ALLOWED_VOICES.includes(normalizedVoice)) {
+    throw new Error("Voz inválida! Use: joao, ana ou pedro.");
+  }
+
+  const spiderApiToken = requireSpiderApiToken();
+
+  const { data } = await axios.post(
+    `${SPIDER_API_BASE_URL}/ai/tts?api_key=${spiderApiToken}`,
+    {
+      text: normalizedText,
+      voice: normalizedVoice,
+    },
+  );
+
+  if (!data?.success || !data.url) {
+    throw new Error(data?.message || "Não foi possível gerar o áudio.");
+  }
+
+  return data.url;
+}
+
 export async function attp(text) {
   if (!text) {
     throw new Error("Você precisa informar o parâmetro de texto!");

@@ -1,12 +1,17 @@
-Licenca privada
+GNU GENERAL PUBLIC LICENSE
+Version 3, 29 June 2007
 
-Copyright (c) 2026 Lucas Duarte
+Copyright (C) 2026 Lucas Duarte
 
-Este repositorio e um projeto privado. Nenhuma permissao de uso, copia,
-modificacao, distribuicao, sublicenciamento ou venda e concedida a terceiros
-sem autorizacao expressa do proprietario.
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-O acesso ao codigo nao implica permissao para reutilizacao fora deste
-repositorio ou dos ambientes autorizados pelo proprietario.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-Este software e fornecido sem garantias de qualquer tipo.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.

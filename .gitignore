@@ -1,5 +1,6 @@
-assets/auth/baileys/
+.vscode/
+assets/auth/*
 assets/temp/*
+assets/temp/wa-logs.txt
 database/
 node_modules/
-.vscode/
