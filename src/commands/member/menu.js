@@ -7,7 +7,15 @@ export default {
   description: "Menu de comandos",
   commands: ["menu", "help"],
   usage: `${PREFIX}menu`,
-  handle: async ({ remoteJid, sendImageFromFile, sendSuccessReact }) => {
+  /**
+   * @param {CommandHandleProps} props
+   */
+  handle: async ({
+    remoteJid,
+    sendSuccessReact,
+    sendImageFromFile,
+    sendGifFromFile,
+  }) => {
     await sendSuccessReact();
 
     await sendImageFromFile(
