@@ -1,14 +1,15 @@
 /**
  * Validador de mensagens
  *
+ * @author Dev Gui
  */
 import { BOT_LID, OWNER_LID } from "../config.js";
 import {
   applyAntiPaymentRestriction,
   handleQuotedPaymentRestriction,
 } from "../utils/antiPaymentAction.js";
+import { handleQuotedLinkRestriction } from "../utils/quotedLinkAction.js";
 import {
-  isChatAllowedToRespond,
   readGroupRestrictions,
   readRestrictedMessageTypes,
 } from "../utils/database.js";
@@ -30,16 +31,11 @@ export async function messageHandler(socket, webMessage) {
       return;
     }
 
-    if (!isChatAllowedToRespond(remoteJid)) {
-      return;
-    }
-
     if (fromMe) {
       return;
     }
 
-    const userLid =
-      webMessage.key?.participant || webMessage.key?.participantAlt;
+    const userLid = webMessage.key?.participant || webMessage.key?.participantAlt;
 
     if (!userLid) {
       return;
@@ -51,14 +47,22 @@ export async function messageHandler(socket, webMessage) {
       return;
     }
 
+    const antiGroups = readGroupRestrictions();
+    const isAntiLinkActive = !!antiGroups[remoteJid]?.["anti-link"];
+    const isAntiPaymentActive = !!antiGroups[remoteJid]?.["anti-payment"];
+
+    if (
+      isAntiLinkActive &&
+      (await handleQuotedLinkRestriction({ socket, remoteJid, webMessage }))
+    ) {
+      return;
+    }
+
     const userIsAdmin = await isAdmin({ remoteJid, userLid, socket });
 
     if (userIsAdmin) {
       return;
     }
-
-    const antiGroups = readGroupRestrictions();
-    const isAntiPaymentActive = !!antiGroups[remoteJid]?.["anti-payment"];
 
     if (isAntiPaymentActive && hasPaymentMessage(webMessage)) {
       await applyAntiPaymentRestriction({
