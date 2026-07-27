@@ -1,6 +1,7 @@
 /**
  * Logs
  *
+ * @author Dev Gui
  */
 import pkg from "../../package.json" with { type: "json" };
 
@@ -17,6 +18,13 @@ export function installConsoleNoiseFilter() {
     if (args[0] === "Closing session:") {
       warningLog(
         "O WhatsApp fechou uma sessão criptografada antiga para renovar as chaves. Isso é um aviso normal da conexão e não indica erro no bot.",
+      );
+      return;
+    }
+
+    if (args[0] === "Removing old closed session:") {
+      warningLog(
+        "O WhatsApp removeu uma sessão criptografada antiga já fechada. Isso é limpeza normal do histórico de chaves e não indica erro no bot.",
       );
       return;
     }
