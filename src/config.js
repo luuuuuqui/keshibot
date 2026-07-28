@@ -13,12 +13,12 @@ export const BOT_EMOJI = "🤖";
 // Nome do bot (mude se preferir).
 export const BOT_NAME = "Takeshi Bot";
 
-// LID do bot.
+// LID do bot (no caso, o que você rodará o bot).
 // Para obter o LID do bot, use o comando <prefixo>lid respondendo em cima de uma mensagem do número do bot
 // Troque o <prefixo> pelo prefixo do bot (ex: /lid).
 export const BOT_LID = "12345678901234567890@lid";
 
-// LID do dono do bot.
+// LID do dono do bot (no caso, o seu!).
 // Para obter o LID do dono do bot, use o comando <prefixo>meu-lid
 // Troque o <prefixo> pelo prefixo do bot (ex: /meu-lid).
 export const OWNER_LID = "12345678901234567890@lid";
@@ -50,7 +50,7 @@ export const SPIDER_API_TOKEN = "seu_token_aqui";
 export const LINKER_BASE_URL = "https://linker.devgui.dev/api";
 
 // Obtenha sua chave em: https://linker.devgui.dev.
-// Voce tambem pode usar seu token da Spider X API aqui.
+// Se não configurar esta chave, o bot usa automaticamente o token da Spider X API.
 export const LINKER_API_KEY = "seu_token_aqui";
 
 // Caso queira responder apenas um grupo específico,

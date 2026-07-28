@@ -1,6 +1,7 @@
 /**
  * Menu do bot
  *
+ * @author Dev Gui
  */
 import pkg from "../package.json" with { type: "json" };
 import { BOT_NAME } from "./config.js";
@@ -68,6 +69,7 @@ export function menuMessage(groupJid) {
 ▢ • ${prefix}rebaixar
 ▢ • ${prefix}revelar
 ▢ • ${prefix}saldo
+▢ • ${prefix}set-proxy
 ▢ • ${prefix}unmute
 ▢ • ${prefix}welcome (1/0)
 ▢
@@ -79,12 +81,14 @@ export function menuMessage(groupJid) {
 ▢ • ${prefix}brat
 ▢ • ${prefix}bratvid
 ▢ • ${prefix}cep
+▢ • ${prefix}exemplos-de-mensagens
 ▢ • ${prefix}fake-chat
 ▢ • ${prefix}gerar-link
 ▢ • ${prefix}info
 ▢ • ${prefix}meu-lid
 ▢ • ${prefix}perfil
 ▢ • ${prefix}ping
+▢ • ${prefix}raw-message
 ▢ • ${prefix}rename
 ▢ • ${prefix}removebg
 ▢ • ${prefix}sticker
@@ -130,6 +134,8 @@ export function menuMessage(groupJid) {
 ▢ • ${prefix}gemini
 ▢ • ${prefix}gpt-5-mini
 ▢ • ${prefix}ia-sticker
+▢ • ${prefix}transcrever
+▢ • ${prefix}tts
 ▢
 ╰━━─「🚀」─━━
 
