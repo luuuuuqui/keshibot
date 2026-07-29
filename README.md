@@ -1,4 +1,4 @@
-# takeshi bot
+# keshi bot
 
 bot de whatsapp baseado em baileys, com comandos modulares e persistência local em json.
 
@@ -54,7 +54,7 @@ clone o repositório:
 
 ```sh
 git clone <url-do-repositorio>
-cd takeshibot
+cd keshibot
 ```
 
 instale as dependências:
@@ -345,7 +345,7 @@ edite `src/messages.js`.
 
 ### imagem do menu
 
-troque o arquivo `assets/images/takeshi-bot.png` ou use o comando `/set-menu-image` respondendo a uma imagem.
+troque o arquivo `assets/images/keshi-bot.png` ou use o comando `/set-menu-image` respondendo a uma imagem.
 
 ### novos comandos
 
