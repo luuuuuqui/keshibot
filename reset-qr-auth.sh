@@ -1,14 +1,14 @@
 #!/bin/bash
 
-# Script para reset da autenticação do Takeshi Bot
+# Script para reset da autenticação do Keshi Bot
 # Versão: 0.9.0-BETA
 
-echo "🤖 Takeshi Bot - Reset da Autenticação"
+echo "🤖 Keshi Bot - Reset da Autenticação"
 echo "====================================="
 echo ""
 
 if [ ! -d "assets" ]; then
-    echo "❌ Erro: Você deve executar este script no diretório raiz do Takeshi Bot"
+    echo "❌ Erro: Você deve executar este script no diretório raiz do Keshi Bot"
     echo "   Certifique-se de estar na pasta onde estão as pastas 'assets' e 'src'"
     exit 1
 fi

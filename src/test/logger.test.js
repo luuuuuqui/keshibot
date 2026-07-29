@@ -27,7 +27,7 @@ describe("Logger Functions", () => {
 
       assert.strictEqual(consoleLogMock.mock.calls.length, 1);
       const args = consoleLogMock.mock.calls[0].arguments;
-      assert.strictEqual(args[0], "\x1b[36m[TAKESHI BOT | TALK]\x1b[0m");
+      assert.strictEqual(args[0], "\x1b[36m[KESHI BOT | TALK]\x1b[0m");
       assert.strictEqual(args[1], "Teste de mensagem");
     });
 
@@ -46,7 +46,7 @@ describe("Logger Functions", () => {
 
       assert.strictEqual(consoleLogMock.mock.calls.length, 1);
       const args = consoleLogMock.mock.calls[0].arguments;
-      assert.strictEqual(args[0], "\x1b[30m[TAKESHI BOT | INPUT]\x1b[0m");
+      assert.strictEqual(args[0], "\x1b[30m[KESHI BOT | INPUT]\x1b[0m");
       assert.strictEqual(args[1], "Entrada do usuário");
     });
   });
@@ -57,7 +57,7 @@ describe("Logger Functions", () => {
 
       assert.strictEqual(consoleLogMock.mock.calls.length, 1);
       const args = consoleLogMock.mock.calls[0].arguments;
-      assert.strictEqual(args[0], "\x1b[34m[TAKESHI BOT | INFO]\x1b[0m");
+      assert.strictEqual(args[0], "\x1b[34m[KESHI BOT | INFO]\x1b[0m");
       assert.strictEqual(args[1], "Informação importante");
     });
 
@@ -74,7 +74,7 @@ describe("Logger Functions", () => {
 
       assert.strictEqual(consoleLogMock.mock.calls.length, 1);
       const args = consoleLogMock.mock.calls[0].arguments;
-      assert.strictEqual(args[0], "\x1b[32m[TAKESHI BOT | SUCCESS]\x1b[0m");
+      assert.strictEqual(args[0], "\x1b[32m[KESHI BOT | SUCCESS]\x1b[0m");
       assert.strictEqual(args[1], "Operação bem-sucedida");
     });
 
@@ -93,7 +93,7 @@ describe("Logger Functions", () => {
 
       assert.strictEqual(consoleLogMock.mock.calls.length, 1);
       const args = consoleLogMock.mock.calls[0].arguments;
-      assert.strictEqual(args[0], "\x1b[31m[TAKESHI BOT | ERROR]\x1b[0m");
+      assert.strictEqual(args[0], "\x1b[31m[KESHI BOT | ERROR]\x1b[0m");
       assert.strictEqual(args[1], "Erro crítico");
     });
 
@@ -119,7 +119,7 @@ describe("Logger Functions", () => {
 
       assert.strictEqual(consoleLogMock.mock.calls.length, 1);
       const args = consoleLogMock.mock.calls[0].arguments;
-      assert.strictEqual(args[0], "\x1b[33m[TAKESHI BOT | WARNING]\x1b[0m");
+      assert.strictEqual(args[0], "\x1b[33m[KESHI BOT | WARNING]\x1b[0m");
       assert.strictEqual(args[1], "Aviso importante");
     });
 
@@ -226,7 +226,7 @@ describe("Logger Functions", () => {
   });
 
   describe("Prefixes", () => {
-    it("all logs should have prefix [TAKESHI BOT]", () => {
+    it("all logs should have prefix [KESHI BOT]", () => {
       const logFunctions = [
         logger.sayLog,
         logger.inputLog,
@@ -244,8 +244,8 @@ describe("Logger Functions", () => {
         const prefix = args[0];
 
         assert.ok(
-          prefix.includes("TAKESHI BOT"),
-          "Should include 'TAKESHI BOT' in prefix"
+          prefix.includes("KESHI BOT"),
+          "Should include 'KESHI BOT' in prefix"
         );
       }
     });
@@ -303,7 +303,7 @@ describe("Logger Functions", () => {
       assert.strictEqual(consoleLogMock.mock.calls.length, 1);
 
       const args = consoleLogMock.mock.calls[0].arguments;
-      assert.strictEqual(args[0], "\x1b[33m[TAKESHI BOT | WARNING]\x1b[0m");
+      assert.strictEqual(args[0], "\x1b[33m[KESHI BOT | WARNING]\x1b[0m");
       assert.ok(args[1].includes("sessão criptografada antiga"));
       assert.ok(args[1].includes("não indica erro no bot"));
     });
