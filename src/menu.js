@@ -69,7 +69,6 @@ export function menuMessage(groupJid) {
 ▢ • ${prefix}rebaixar
 ▢ • ${prefix}revelar
 ▢ • ${prefix}saldo
-▢ • ${prefix}set-proxy
 ▢ • ${prefix}unmute
 ▢ • ${prefix}welcome (1/0)
 ▢
@@ -126,18 +125,6 @@ export function menuMessage(groupJid) {
 ▢ • ${prefix}socar
 ▢
 ╰━━─「🎡」─━━
-
-╭━━⪩ IA ⪨━━
-▢
-▢ • ${prefix}deepseek
-▢ • ${prefix}flux
-▢ • ${prefix}gemini
-▢ • ${prefix}gpt-5-mini
-▢ • ${prefix}ia-sticker
-▢ • ${prefix}transcrever
-▢ • ${prefix}tts
-▢
-╰━━─「🚀」─━━
 
 ╭━━⪩ CANVAS ⪨━━
 ▢
