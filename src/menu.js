@@ -126,12 +126,6 @@ export function menuMessage(groupJid) {
 ▢
 ╰━━─「🎡」─━━
 
-╭━━⪩ IA ⪨━━
-▢
-▢ • ${prefix}transcrever
-▢
-╰━━─「🚀」─━━
-
 ╭━━⪩ CANVAS ⪨━━
 ▢
 ▢ • ${prefix}blur
