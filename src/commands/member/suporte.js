@@ -215,14 +215,6 @@ const x = 1;
     messages.push({
       role: "system",
       content: fs.readFileSync(
-        path.resolve(__dirname, "..", "..", "..", "CONTRIBUTING.md"),
-        "utf-8",
-      ),
-    });
-
-    messages.push({
-      role: "system",
-      content: fs.readFileSync(
         path.resolve(__dirname, "..", "..", "..", "package.json"),
         "utf-8",
       ),
