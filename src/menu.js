@@ -128,13 +128,7 @@ export function menuMessage(groupJid) {
 
 ╭━━⪩ IA ⪨━━
 ▢
-▢ • ${prefix}deepseek
-▢ • ${prefix}flux
-▢ • ${prefix}gemini
-▢ • ${prefix}gpt-5-mini
-▢ • ${prefix}ia-sticker
 ▢ • ${prefix}transcrever
-▢ • ${prefix}tts
 ▢
 ╰━━─「🚀」─━━
 
