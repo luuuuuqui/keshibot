@@ -40,9 +40,7 @@ export default {
         .slice(0, 3);
 
       if (!images.length) {
-        await sendErrorReply(
-          "Não foi possível enviar as imagens retornadas.",
-        );
+        await sendErrorReply("Não foi possível enviar as imagens retornadas.");
         return;
       }
 

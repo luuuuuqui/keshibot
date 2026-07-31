@@ -194,7 +194,7 @@ describe("Logger Functions", () => {
 
         assert.ok(
           colorCode.includes("\x1b[0m"),
-          `${name} should include color reset code`
+          `${name} should include color reset code`,
         );
       }
     });
@@ -245,7 +245,7 @@ describe("Logger Functions", () => {
 
         assert.ok(
           prefix.includes("KESHI BOT"),
-          "Should include 'KESHI BOT' in prefix"
+          "Should include 'KESHI BOT' in prefix",
         );
       }
     });
@@ -319,7 +319,7 @@ describe("Logger Functions", () => {
       assert.strictEqual(consoleInfoMock.mock.calls.length, 1);
       assert.strictEqual(
         consoleInfoMock.mock.calls[0].arguments[0],
-        "Conexão estabelecida"
+        "Conexão estabelecida",
       );
     });
   });

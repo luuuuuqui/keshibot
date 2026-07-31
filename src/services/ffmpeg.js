@@ -48,7 +48,9 @@ class Ffmpeg {
     });
 
     if (!firstFrameBuffer) {
-      throw new Error("Nao foi possivel extrair o primeiro frame da figurinha.");
+      throw new Error(
+        "Nao foi possivel extrair o primeiro frame da figurinha.",
+      );
     }
 
     const firstFramePath = await this._createTempFilePath("webp");

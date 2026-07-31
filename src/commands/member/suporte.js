@@ -45,7 +45,9 @@ function removeUnsolicitedFollowUps(text) {
       const match = line.match(continuationPattern);
       return match ? line.slice(0, match.index).trimEnd() : line;
     })
-    .filter((line, index, lines) => line || lines[index - 1] || lines[index + 1])
+    .filter(
+      (line, index, lines) => line || lines[index - 1] || lines[index + 1],
+    )
     .join("\n")
     .trim();
 }

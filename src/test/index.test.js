@@ -34,7 +34,7 @@ describe("Utility Functions", () => {
     it("should strip non-digit characters before converting", () => {
       assert.strictEqual(
         utils.toUserLid("(55) 11 99999-9999"),
-        "5511999999999@lid"
+        "5511999999999@lid",
       );
     });
   });
@@ -47,14 +47,14 @@ describe("Utility Functions", () => {
     it("should remove spaces", () => {
       assert.strictEqual(
         utils.onlyLettersAndNumbers("hello world"),
-        "helloworld"
+        "helloworld",
       );
     });
 
     it("should remove special characters", () => {
       assert.strictEqual(
         utils.onlyLettersAndNumbers("test-command_2024"),
-        "testcommand2024"
+        "testcommand2024",
       );
     });
   });
@@ -63,21 +63,21 @@ describe("Utility Functions", () => {
     it("should remove accents", () => {
       assert.strictEqual(
         utils.removeAccentsAndSpecialCharacters("café"),
-        "cafe"
+        "cafe",
       );
     });
 
     it("should remove accents in uppercase", () => {
       assert.strictEqual(
         utils.removeAccentsAndSpecialCharacters("JOSÉ"),
-        "JOSE"
+        "JOSE",
       );
     });
 
     it("should handle multiple accents", () => {
       assert.strictEqual(
         utils.removeAccentsAndSpecialCharacters("ação é útil"),
-        "acao e util"
+        "acao e util",
       );
     });
 
@@ -85,7 +85,7 @@ describe("Utility Functions", () => {
       assert.strictEqual(utils.removeAccentsAndSpecialCharacters(null), "");
       assert.strictEqual(
         utils.removeAccentsAndSpecialCharacters(undefined),
-        ""
+        "",
       );
     });
   });
@@ -377,7 +377,7 @@ describe("Utility Functions", () => {
       const recentTimestamp = Math.floor(Date.now() / 1000) - 60;
       assert.strictEqual(
         utils.isAtLeastMinutesInPast(recentTimestamp, 5),
-        false
+        false,
       );
     });
 
@@ -385,7 +385,7 @@ describe("Utility Functions", () => {
       const currentTimestamp = Math.floor(Date.now() / 1000);
       assert.strictEqual(
         utils.isAtLeastMinutesInPast(currentTimestamp, 5),
-        false
+        false,
       );
     });
 
@@ -420,7 +420,7 @@ describe("Utility Functions", () => {
 
     it("should return empty strings for nonexistent command", async () => {
       const result = await utils.findCommandImport(
-        "comando_que_nao_existe_xyz123"
+        "comando_que_nao_existe_xyz123",
       );
 
       assert.strictEqual(result.type, "");
