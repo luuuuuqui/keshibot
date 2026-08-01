@@ -165,115 +165,127 @@ o menu do bot é gerado em `src/menu.js`.
 
 ### dono
 
-- `/access-control`
-- `/exec`
-- `/get-group-id`
-- `/off`
-- `/on`
-- `/set-menu-image`
-- `/set-prefix`
-- `/set-spider-api-token`
+| comando | permissão | descrição |
+| --- | --- | --- |
+| `/access-control` | owner | controla a quais grupos e números o bot responde |
+| `/exec` | owner | executa comandos de terminal pelo bot |
+| `/get-group-id` | owner | mostra o id completo do grupo no formato jid |
+| `/off` | owner | desativa o bot no grupo |
+| `/on` | owner | ativa o bot no grupo |
+| `/set-menu-image` | owner | altera a imagem do menu |
+| `/set-prefix` | owner | muda o prefixo dos comandos |
+| `/set-spider-api-token` | owner | atualiza o token da spider x api |
 
 ### administração
 
-- `/abrir`
-- `/add-auto-responder`
-- `/afk`
-- `/agendar-mensagem`
-- `/anti-audio 1|0`
-- `/anti-call 1|0`
-- `/anti-document 1|0`
-- `/anti-event 1|0`
-- `/anti-image 1|0`
-- `/anti-link 1|0`
-- `/anti-lottie-sticker 1|0`
-- `/anti-payment 1|0`
-- `/anti-product 1|0`
-- `/anti-sticker 1|0`
-- `/anti-status-grupo 1|0`
-- `/anti-video 1|0`
-- `/auto-responder 1|0`
-- `/auto-sticker 1|0`
-- `/ban`
-- `/block-wpp`
-- `/delete`
-- `/delete-auto-responder`
-- `/exit 1|0`
-- `/fechar`
-- `/hidetag`
-- `/limpar-chat`
-- `/link-grupo`
-- `/list-auto-responder`
-- `/mute`
-- `/only-admin 1|0`
-- `/promover`
-- `/rebaixar`
-- `/revelar`
-- `/saldo`
-- `/set-name`
-- `/unmute`
-- `/unwarn`
-- `/warn`
-- `/warn-reactivate`
-- `/welcome 1|0`
+| comando | permissão | descrição |
+| --- | --- | --- |
+| `/abrir` | admin | abre o grupo |
+| `/add-auto-responder` | admin | adiciona um termo ao auto-responder |
+| `/afk` | admin | informa que você está ausente e registra o motivo |
+| `/agendar-mensagem` | admin | agenda uma mensagem para ser enviada depois |
+| `/anti-audio 1\|0` | admin | ativa ou desativa bloqueio de áudio |
+| `/anti-call 1\|0` | admin | ativa ou desativa bloqueio de chamadas |
+| `/anti-document 1\|0` | admin | ativa ou desativa bloqueio de documentos |
+| `/anti-event 1\|0` | admin | ativa ou desativa bloqueio de eventos |
+| `/anti-image 1\|0` | admin | ativa ou desativa bloqueio de imagens |
+| `/anti-link 1\|0` | admin | ativa ou desativa bloqueio de links |
+| `/anti-lottie-sticker 1\|0` | admin | ativa ou desativa bloqueio de stickers animados |
+| `/anti-payment 1\|0` | admin | ativa ou desativa bloqueio de pagamentos |
+| `/anti-product 1\|0` | admin | ativa ou desativa bloqueio de produtos |
+| `/anti-status-grupo 1\|0` | admin | ativa ou desativa bloqueio de marcação de status |
+| `/anti-sticker 1\|0` | admin | ativa ou desativa bloqueio de stickers |
+| `/anti-video 1\|0` | admin | ativa ou desativa bloqueio de vídeos |
+| `/auto-responder 1\|0` | admin | ativa ou desativa respostas automáticas |
+| `/auto-sticker 1\|0` | admin | ativa ou desativa conversão automática de sticker |
+| `/ban` | admin | remove um membro do grupo |
+| `/block-wpp` | admin | bloqueia um número no whatsapp do bot |
+| `/delete` | admin | apaga mensagens do bot |
+| `/delete-auto-responder` | admin | remove um termo do auto-responder pelo id |
+| `/exit 1\|0` | admin | ativa ou desativa mensagem de saída do grupo |
+| `/fechar` | admin | fecha o grupo |
+| `/hidetag` | admin | marca todos do grupo invisivelmente |
+| `/limpar-chat` | admin | limpa o histórico de mensagens do grupo |
+| `/link-grupo` | admin | envia o link de convite do grupo |
+| `/list-auto-responder` | admin | lista todos os termos do auto-responder |
+| `/mute` | admin | silencia um membro no grupo |
+| `/only-admin 1\|0` | admin | restringe comandos a administradores |
+| `/promover` | admin | promove um usuário a administrador |
+| `/rebaixar` | admin | rebaixa um administrador a membro |
+| `/revelar` | admin | revela imagem ou vídeo de visualização única |
+| `/saldo` | admin | consulta o saldo de requests da spider x api |
+| `/set-name` | admin | altera o nome do grupo |
+| `/unmute` | admin | remove o silêncio de um membro |
+| `/unwarn` | admin | remove ou lista advertências |
+| `/warn` | admin | aplica advertência a um membro |
+| `/warn-reactivate` | admin | reativa uma advertência inválida |
+| `/welcome 1\|0` | admin | ativa ou desativa mensagem de boas-vindas |
 
 ### membros
 
-- `/attp`
-- `/brat`
-- `/bratvid`
-- `/cep`
-- `/fake-chat`
-- `/gerar-link`
-- `/info`
-- `/meu-lid`
-- `/menu`
-- `/perfil`
-- `/ping`
-- `/rename`
-- `/removebg`
-- `/sticker`
-- `/suporte`
-- `/to-gif`
-- `/to-image`
-- `/to-mp3`
-- `/ttp`
-- `/yt-search`
+| comando | permissão | descrição |
+| --- | --- | --- |
+| `/attp` | member | cria sticker animado de texto |
+| `/brat` | member | gera imagem no estilo brat |
+| `/bratvid` | member | gera sticker animado no estilo brat |
+| `/cep` | member | consulta endereço por cep |
+| `/fake-chat` | member | cria uma citação falsa mencionando um usuário |
+| `/gerar-link` | member | faz upload de imagem e gera link |
+| `/info` | member | exibe informações de um comando |
+| `/meu-lid` | member | retorna o lid do usuário |
+| `/menu` | member | exibe o menu de comandos |
+| `/perfil` | member | mostra informações de um usuário |
+| `/ping` | member | verifica se o bot está online, latência e uptime |
+| `/rename` | member | adiciona metadados à figurinha |
+| `/removebg` | member | remove o fundo de imagens e figurinhas |
+| `/sticker` | member | cria figurinha de imagem, gif ou vídeo |
+| `/suporte` | member | suporte inteligente com ia |
+| `/to-gif` | member | converte figurinha animada em gif |
+| `/to-image` | member | extrai imagem de figurinha estática |
+| `/to-mp3` | member | extrai áudio de vídeo em mp3 |
+| `/ttp` | member | cria sticker de texto |
+| `/yt-search` | member | busca vídeos no youtube |
 
 ### downloads
 
-- `/facebook`
-- `/instagram`
-- `/play-audio`
-- `/play-video`
-- `/pinterest`
-- `/tik-tok`
-- `/tik-tok-audio`
-- `/yt-mp3`
-- `/yt-mp4`
+| comando | permissão | descrição |
+| --- | --- | --- |
+| `/facebook` | member | baixa vídeo do facebook |
+| `/instagram` | member | baixa vídeo/reel do instagram |
+| `/play-audio` | member | busca e baixa música |
+| `/play-video` | member | busca e baixa vídeo |
+| `/pinterest` | member | busca imagens no pinterest |
+| `/tik-tok` | member | baixa vídeo do tiktok |
+| `/tik-tok-audio` | member | baixa áudio de vídeo do tiktok |
+| `/yt-mp3` | member | baixa áudio do youtube pelo link |
+| `/yt-mp4` | member | baixa vídeo do youtube pelo link |
 
 ### brincadeiras
 
-- `/abracar`
-- `/beijar`
-- `/dado`
-- `/jantar`
-- `/lutar`
-- `/matar`
-- `/socar`
-- `/tapa`
+| comando | permissão | descrição |
+| --- | --- | --- |
+| `/abracar` | member | abraça um usuário |
+| `/beijar` | member | beija um usuário |
+| `/dado` | member | joga um dado d6 |
+| `/jantar` | member | convida um usuário para jantar |
+| `/lutar` | member | luta com um usuário |
+| `/matar` | member | mata um usuário |
+| `/socar` | member | dá um soco em um usuário |
+| `/tapa` | member | dá um tapa em alguém |
 
 ### canvas
 
-- `/blur`
-- `/bolsonaro`
-- `/cadeia`
-- `/contraste`
-- `/espelhar`
-- `/gray`
-- `/inverter`
-- `/pixel`
-- `/rip`
+| comando | permissão | descrição |
+| --- | --- | --- |
+| `/blur` | member | aplica desfoque na imagem |
+| `/bolsonaro` | member | meme do bolsonaro com a imagem |
+| `/cadeia` | member | meme de cadeia com a imagem |
+| `/contraste` | member | ajusta o contraste da imagem |
+| `/espelhar` | member | espelha a imagem |
+| `/gray` | member | converte a imagem para preto e branco |
+| `/inverter` | member | inverte as cores da imagem |
+| `/pixel` | member | aplica efeito pixel-art na imagem |
+| `/rip` | member | meme de lápide com a imagem |
 
 ## apis externas
 
