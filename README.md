@@ -506,7 +506,7 @@ git push
 
 confira se você está rodando a mesma pasta que editou.
 
-no termux, é comum ter uma cópia em `/sdcard/`, outra em `~/storage/shared/` ou outra em `Downloads/`.
+no termux, por exemplo, é comum ter uma cópia em `/sdcard/`, outra em `~/storage/shared/` ou outra em `Downloads/`.
 
 ### erro de conexão ou sessão corrompida
 
@@ -518,7 +518,7 @@ bash reset-qr-auth.sh
 
 depois remova o dispositivo conectado no whatsapp e faça o pareamento novamente.
 
-### `permission denied` ao acessar armazenamento
+### `permission denied` ao acessar armazenamento (termux)
 
 rode:
 
