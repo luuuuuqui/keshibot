@@ -339,7 +339,7 @@ o menu do bot é gerado em `src/menu.js`.
 
 ## apis externas
 
-alguns comandos dependem de api externa.
+alguns comandos dependem de serviços externos.
 
 ### spider x api
 
