@@ -44,13 +44,51 @@ bot de whatsapp com comandos modulares, persistência local em json e suporte a 
 
 no termux, prefira `nodejs-lts`.
 
-## instalação no termux
+## instalação
 
-atualize o termux e instale os pacotes:
+### baixar o projeto
+
+antes de clonar, entre na pasta onde quer que o bot fique:
 
 ```sh
-pkg update -y
-pkg upgrade -y
+# termux
+cd ~/storage/shared/
+
+# linux / windows
+mkdir -p ~/projetos
+cd ~/projetos
+```
+
+clone o repositório pelo git:
+
+```sh
+git clone https://github.com/luuuuuqui/keshibot.git
+```
+
+ou pelo github cli:
+
+```sh
+gh repo clone luuuuuqui/keshibot
+```
+
+e entre no diretório:
+
+```sh
+cd keshibot
+```
+
+### instalar dependências
+
+```sh
+npm install
+```
+
+### instalação de dependências por sistema
+
+#### termux (android)
+
+```sh
+pkg update -y && pkg upgrade -y
 pkg install git nodejs-lts ffmpeg -y
 ```
 
@@ -60,23 +98,27 @@ libere acesso ao armazenamento, se for usar uma pasta do celular:
 termux-setup-storage
 ```
 
-escolha a pasta onde o bot vai ficar:
+#### ubuntu / debian
 
 ```sh
-cd ~/storage/shared/
+sudo apt update
+sudo apt install -y nodejs npm git ffmpeg
 ```
 
-clone o repositório:
+#### windows
+
+1. instale o Node.js.
+2. instale o Git.
+3. instale o FFmpeg.
+4. adicione `node`, `npm`, `git` e `ffmpeg` ao `PATH` durante a instalação ou nas configurações de sistema.
+
+### verificação
 
 ```sh
-git clone <url-do-repositorio>
-cd keshibot
-```
-
-instale as dependências:
-
-```sh
-npm install
+node -v
+npm -v
+git --version
+ffmpeg -version
 ```
 
 ## primeira execução
@@ -488,11 +530,23 @@ aceite a permissão no android e tente novamente.
 
 ### `ffmpeg` não encontrado
 
-instale:
+instale o ffmpeg:
+
+#### para termux
 
 ```sh
 pkg install ffmpeg -y
 ```
+
+#### para ubuntu/debian
+
+```sh
+sudo apt install ffmpeg -y
+```
+
+#### para windows
+
+baixe em <https://ffmpeg.org> ou use chocolatey/winget e adicione `ffmpeg` ao `PATH`.
 
 ### dependências ausentes
 
