@@ -49,6 +49,44 @@ no termux, prefira `nodejs-lts`.
 
 ## instalação
 
+### instalação das ferramentas do sistema
+
+#### termux (android)
+
+```sh
+pkg update -y && pkg upgrade -y
+pkg install git nodejs-lts ffmpeg -y
+```
+
+libere acesso ao armazenamento, se for usar uma pasta do celular:
+
+```sh
+termux-setup-storage
+```
+
+#### ubuntu / debian
+
+```sh
+sudo apt update
+sudo apt install -y nodejs npm git ffmpeg
+```
+
+#### windows
+
+1. instale o Node.js.
+2. instale o Git.
+3. instale o FFmpeg.
+4. adicione `node`, `npm`, `git` e `ffmpeg` ao `PATH` durante a instalação ou nas configurações de sistema.
+
+#### verificação
+
+```sh
+node -v
+npm -v
+git --version
+ffmpeg -version
+```
+
 ### baixar o projeto
 
 antes de clonar, entre na pasta onde quer que o bot fique:
@@ -80,48 +118,10 @@ e entre no diretório:
 cd keshibot
 ```
 
-### instalar dependências
+### instalar dependências do node
 
 ```sh
 npm install
-```
-
-### instalação de dependências por sistema
-
-#### termux (android)
-
-```sh
-pkg update -y && pkg upgrade -y
-pkg install git nodejs-lts ffmpeg -y
-```
-
-libere acesso ao armazenamento, se for usar uma pasta do celular:
-
-```sh
-termux-setup-storage
-```
-
-#### ubuntu / debian
-
-```sh
-sudo apt update
-sudo apt install -y nodejs npm git ffmpeg
-```
-
-#### windows
-
-1. instale o Node.js.
-2. instale o Git.
-3. instale o FFmpeg.
-4. adicione `node`, `npm`, `git` e `ffmpeg` ao `PATH` durante a instalação ou nas configurações de sistema.
-
-### verificação
-
-```sh
-node -v
-npm -v
-git --version
-ffmpeg -version
 ```
 
 ## primeira execução
