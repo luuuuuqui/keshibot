@@ -169,6 +169,8 @@ as opções principais ficam em `src/config.js`.
 | `LINKER_API_KEY` | chave usada pelo comando `gerar-link` |
 | `OPENAI_API_KEY` | chave usada pelo comando `suporte` |
 
+### comportamento
+
 para descobrir seu lid, use:
 
 ```text
