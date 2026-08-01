@@ -149,6 +149,7 @@ o menu do bot é gerado em `src/menu.js`.
 
 ### dono
 
+- `/access-control`
 - `/exec`
 - `/get-group-id`
 - `/off`
@@ -161,6 +162,7 @@ o menu do bot é gerado em `src/menu.js`.
 
 - `/abrir`
 - `/add-auto-responder`
+- `/afk`
 - `/agendar-mensagem`
 - `/anti-audio 1|0`
 - `/anti-call 1|0`
@@ -177,6 +179,7 @@ o menu do bot é gerado em `src/menu.js`.
 - `/auto-responder 1|0`
 - `/auto-sticker 1|0`
 - `/ban`
+- `/block-wpp`
 - `/delete`
 - `/delete-auto-responder`
 - `/exit 1|0`
@@ -191,7 +194,11 @@ o menu do bot é gerado em `src/menu.js`.
 - `/rebaixar`
 - `/revelar`
 - `/saldo`
+- `/set-name`
 - `/unmute`
+- `/unwarn`
+- `/warn`
+- `/warn-reactivate`
 - `/welcome 1|0`
 
 ### membros
@@ -239,14 +246,6 @@ o menu do bot é gerado em `src/menu.js`.
 - `/matar`
 - `/socar`
 - `/tapa`
-
-### ia
-
-- `/deepseek`
-- `/flux`
-- `/gemini`
-- `/gpt-5-mini`
-- `/ia-sticker`
 
 ### canvas
 
