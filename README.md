@@ -554,7 +554,7 @@ sudo apt install ffmpeg -y
 
 #### para windows
 
-baixe em <https://ffmpeg.org> ou use chocolatey/winget e adicione `ffmpeg` ao `PATH`.
+baixe em <https://ffmpeg.org/download.html> ou use chocolatey/winget e adicione `ffmpeg` ao `PATH`.
 
 ### dependências ausentes
 
