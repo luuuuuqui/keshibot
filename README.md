@@ -115,6 +115,11 @@ as opções principais ficam em `src/config.js`.
 | `OWNER_LID` | lid do dono |
 | `ONLY_GROUP_ID` | limita o bot a um grupo específico quando preenchido |
 | `DEVELOPER_MODE` | aumenta logs de mensagens recebidas |
+
+### apis
+
+| constante | uso |
+| --- | --- |
 | `SPIDER_API_TOKEN` | token da spider api |
 | `LINKER_API_KEY` | chave usada pelo comando `gerar-link` |
 | `OPENAI_API_KEY` | chave usada pelo comando `suporte` |
