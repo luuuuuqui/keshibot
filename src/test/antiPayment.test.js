@@ -299,7 +299,10 @@ describe("anti-payment", () => {
 
     await messageHandler(createSocket(calls, altLid), webMessage);
 
-    assert.ok(findRemove(calls, altLid), "deve remover o autor via participantAlt");
+    assert.ok(
+      findRemove(calls, altLid),
+      "deve remover o autor via participantAlt",
+    );
     assert.ok(
       findDelete(calls, "alt-payment-message-id", altLid),
       "deve apagar a mensagem do autor via participantAlt",

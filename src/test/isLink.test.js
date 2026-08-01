@@ -207,7 +207,7 @@ describe("isLink Middleware", () => {
       strictEqual(
         result,
         expected,
-        `Para entrada "${input}", esperado ${expected} mas recebeu ${result}`
+        `Para entrada "${input}", esperado ${expected} mas recebeu ${result}`,
       );
     });
   });

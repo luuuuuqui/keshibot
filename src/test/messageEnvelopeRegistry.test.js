@@ -18,7 +18,10 @@ describe("message envelope registry", () => {
 
   it("corroborates a quote that matches the recorded participant", () => {
     recordMessageEnvelope(
-      { key: { remoteJid: groupJid, id: stanzaId, participant: authorLid }, message: null },
+      {
+        key: { remoteJid: groupJid, id: stanzaId, participant: authorLid },
+        message: null,
+      },
       true,
     );
 

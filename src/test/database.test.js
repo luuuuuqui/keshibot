@@ -37,7 +37,7 @@ function cleanupJsonFile(fileName, backup) {
       } catch (deleteError) {
         console.error(
           `Failed to delete ${fileName}.json:`,
-          deleteError.message
+          deleteError.message,
         );
       }
     }
@@ -90,7 +90,7 @@ describe("Database Functions", () => {
     before(() => {
       const welcomeGroupsPath = path.resolve(
         testDatabasePath,
-        "welcome-groups.json"
+        "welcome-groups.json",
       );
       if (fs.existsSync(welcomeGroupsPath)) {
         welcomeGroupsBackup = fs.readFileSync(welcomeGroupsPath, "utf8");
@@ -120,7 +120,7 @@ describe("Database Functions", () => {
     before(() => {
       const inactiveGroupsPath = path.resolve(
         testDatabasePath,
-        "inactive-groups.json"
+        "inactive-groups.json",
       );
       if (fs.existsSync(inactiveGroupsPath)) {
         inactiveGroupsBackup = fs.readFileSync(inactiveGroupsPath, "utf8");
@@ -153,7 +153,7 @@ describe("Database Functions", () => {
     before(() => {
       const autoResponderPath = path.resolve(
         testDatabasePath,
-        "auto-responder.json"
+        "auto-responder.json",
       );
       if (fs.existsSync(autoResponderPath)) {
         autoResponderBackup = fs.readFileSync(autoResponderPath, "utf8");
@@ -166,7 +166,7 @@ describe("Database Functions", () => {
 
     it("should return null for nonexistent match", () => {
       const response = database.getAutoResponderResponse(
-        "texto_inexistente_xyz"
+        "texto_inexistente_xyz",
       );
       assert.strictEqual(response, null);
     });
@@ -243,12 +243,12 @@ describe("Database Functions", () => {
     before(() => {
       const autoResponderGroupsPath = path.resolve(
         testDatabasePath,
-        "auto-responder-groups.json"
+        "auto-responder-groups.json",
       );
       if (fs.existsSync(autoResponderGroupsPath)) {
         autoResponderGroupsBackup = fs.readFileSync(
           autoResponderGroupsPath,
-          "utf8"
+          "utf8",
         );
       }
     });
@@ -261,7 +261,7 @@ describe("Database Functions", () => {
       database.activateAutoResponderGroup(testGroupId);
       assert.strictEqual(
         database.isActiveAutoResponderGroup(testGroupId),
-        true
+        true,
       );
     });
 
@@ -270,7 +270,7 @@ describe("Database Functions", () => {
       database.deactivateAutoResponderGroup(testGroupId);
       assert.strictEqual(
         database.isActiveAutoResponderGroup(testGroupId),
-        false
+        false,
       );
     });
   });
@@ -282,7 +282,7 @@ describe("Database Functions", () => {
     before(() => {
       const antiLinkGroupsPath = path.resolve(
         testDatabasePath,
-        "anti-link-groups.json"
+        "anti-link-groups.json",
       );
       if (fs.existsSync(antiLinkGroupsPath)) {
         antiLinkGroupsBackup = fs.readFileSync(antiLinkGroupsPath, "utf8");
@@ -325,7 +325,7 @@ describe("Database Functions", () => {
       database.muteMember(testGroupId, testMemberId);
       assert.strictEqual(
         database.checkIfMemberIsMuted(testGroupId, testMemberId),
-        true
+        true,
       );
     });
 
@@ -334,14 +334,14 @@ describe("Database Functions", () => {
       database.unmuteMember(testGroupId, testMemberId);
       assert.strictEqual(
         database.checkIfMemberIsMuted(testGroupId, testMemberId),
-        false
+        false,
       );
     });
 
     it("should return false for non-muted member", () => {
       const result = database.checkIfMemberIsMuted(
         testGroupId,
-        "9999999999@s.whatsapp.net"
+        "9999999999@s.whatsapp.net",
       );
       assert.strictEqual(result, false);
     });
@@ -394,7 +394,7 @@ describe("Database Functions", () => {
     before(() => {
       const prefixGroupsPath = path.resolve(
         testDatabasePath,
-        "prefix-groups.json"
+        "prefix-groups.json",
       );
       if (fs.existsSync(prefixGroupsPath)) {
         prefixGroupsBackup = fs.readFileSync(prefixGroupsPath, "utf8");
@@ -473,11 +473,11 @@ describe("Database Functions", () => {
       database.updateIsActiveGroupRestriction(
         testGroupId,
         testRestriction,
-        true
+        true,
       );
       const isActive = database.isActiveGroupRestriction(
         testGroupId,
-        testRestriction
+        testRestriction,
       );
       assert.strictEqual(isActive, true);
     });
@@ -486,11 +486,11 @@ describe("Database Functions", () => {
       database.updateIsActiveGroupRestriction(
         testGroupId,
         testRestriction,
-        false
+        false,
       );
       const isActive = database.isActiveGroupRestriction(
         testGroupId,
-        testRestriction
+        testRestriction,
       );
       assert.strictEqual(isActive, false);
     });
@@ -498,7 +498,7 @@ describe("Database Functions", () => {
     it("should return false for nonexistent restriction", () => {
       const isActive = database.isActiveGroupRestriction(
         "grupo_inexistente@g.us",
-        "video"
+        "video",
       );
       assert.strictEqual(isActive, false);
     });
@@ -510,12 +510,12 @@ describe("Database Functions", () => {
     before(() => {
       const restrictedMessagesPath = path.resolve(
         testDatabasePath,
-        "restricted-messages.json"
+        "restricted-messages.json",
       );
       if (fs.existsSync(restrictedMessagesPath)) {
         restrictedMessagesBackup = fs.readFileSync(
           restrictedMessagesPath,
-          "utf8"
+          "utf8",
         );
       }
     });
