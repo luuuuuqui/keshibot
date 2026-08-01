@@ -523,4 +523,11 @@ mantenha as configurações locais e sensíveis fora do histórico do git sempre
 
 ## licença
 
-este projeto é licenciado sob a gnu general public license (gpl). consulte o arquivo `LICENSE` para mais detalhes.
+distribuído sob a GPL-3.0.
+veja [`LICENSE`](LICENSE) para mais informações.
+
+---
+
+baseado no projeto [takeshi-bot](https://github.com/guiireal/takeshi-bot), de [Guilherme França](https://devgui.dev/).
+
+mantido por [Lucas Duarte](https://github.com/luuuuuqui).
