@@ -407,11 +407,11 @@ se `OPENAI_API_KEY` estiver vazia, o comando `/suporte` responde que o suporte i
 
 arquivos ignorados:
 
-- `node_modules/`
-- `database/`
-- `assets/auth/baileys/`
-- `assets/temp/`
-- `.vscode/`
+- `node_modules/`: dependências do npm.
+- `database/`: arquivos de persistência local.
+- `assets/auth/baileys/`: estado de autenticação do whatsapp.
+- `assets/temp/`: arquivos temporários de mídia.
+- `.vscode/`: configurações do vscode.
 
 ## personalização
 
