@@ -329,27 +329,31 @@ se `OPENAI_API_KEY` estiver vazia, o comando `/suporte` responde que o suporte i
 ## estrutura do projeto
 
 ```text
-assets/
-  auth/              estado de autenticação do whatsapp
-  images/            imagens usadas pelo bot
-  stickers/          stickers locais
-  temp/              arquivos temporários
-src/
-  @types/            tipos e documentação dos helpers
-  commands/
-    admin/           comandos administrativos
-    member/          comandos de membros
-    owner/           comandos do dono
-  errors/            classes de erro usadas pelo fluxo de comandos
-  middlewares/       pipeline de mensagens, grupos e chamadas
-  services/          integrações e processamento de mídia
-  utils/             helpers e persistência
-  config.js          configuração principal
-  connection.js      conexão do baileys
-  index.js           entrada do bot
-  loader.js          registro dos eventos
-  menu.js            texto do menu
-  messages.js        mensagens de boas-vindas e saída
+./
+├─ assets/
+│  ├─ auth/               estado de autenticação do whatsapp
+│  ├─ images/             imagens usadas pelo bot
+│  ├─ stickers/           stickers locais
+│  └─ temp/               arquivos temporários
+├─ src/
+│  ├─ commands/
+│  │  ├─ admin/           comandos administrativos
+│  │  ├─ member/          comandos de membros
+│  │  └─ owner/           comandos do dono
+│  ├─ errors/             classes de erro usadas pelo fluxo de comandos
+│  ├─ middlewares/        pipeline de mensagens, grupos e chamadas
+│  ├─ services/           integrações e processamento de mídia
+│  ├─ utils/              helpers e persistência
+│  ├─ config.js           configuração principal
+│  ├─ connection.js       conexão do baileys
+│  ├─ index.js            entrada do bot
+│  ├─ loader.js           registro dos eventos
+│  ├─ menu.js             texto do menu
+│  └─ messages.js         mensagens de boas-vindas e saída
+├─ package.json
+├─ package-lock.json
+├─ README.md
+└─ LICENSE
 ```
 
 arquivos ignorados:
