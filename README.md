@@ -136,7 +136,10 @@ depois, abra o whatsapp:
 1. vá em "dispositivos conectados";
 2. toque em "conectar dispositivo";
 3. escolha a opção de conectar com número de telefone;
-4. informe o código que apareceu no termux.
+4. informe o código que apareceu no terminal.
+
+> [!TIP]
+> a pasta `assets/auth/` será criada automaticamente e armazenará a sessão do whatsapp.
 
 quando conectar, pare o bot com `Ctrl + C`, revise `src/config.js` e rode novamente:
 
