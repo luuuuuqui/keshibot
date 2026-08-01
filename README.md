@@ -23,7 +23,7 @@ bot de whatsapp com comandos modulares, persistência local em json e suporte a 
 ## sumário
 
 1. [requisitos](#requisitos)
-2. [instalação no termux](#instalação-no-termux)
+2. [instalação](#instalação)
 3. [primeira execução](#primeira-execução)
 4. [configuração](#configuração)
 5. [dados locais](#dados-locais)
@@ -31,8 +31,11 @@ bot de whatsapp com comandos modulares, persistência local em json e suporte a 
 7. [apis externas](#apis-externas)
 8. [estrutura do projeto](#estrutura-do-projeto)
 9. [personalização](#personalização)
-10. [manutenção](#manutenção)
-11. [problemas comuns](#problemas-comuns)
+10. [desenvolvimento](#desenvolvimento)
+11. [atualização](#atualização)
+12. [problemas comuns](#problemas-comuns)
+13. [segurança](#segurança)
+14. [licença](#licença)
 
 ## requisitos
 
