@@ -420,9 +420,9 @@ use `src/middlewares/customMiddleware.js`.
 
 esse é o ponto mais seguro para adicionar regras globais sem mexer no fluxo principal.
 
-## manutenção
+## desenvolvimento
 
-instalar dependências:
+instalar ou atualizar dependências:
 
 ```sh
 npm install
@@ -439,6 +439,8 @@ resetar sessão do whatsapp:
 ```sh
 bash reset-qr-auth.sh
 ```
+
+## atualização
 
 verificar arquivos versionados:
 
