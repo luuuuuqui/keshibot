@@ -120,7 +120,7 @@ as opções principais ficam em `src/config.js`.
 
 | constante | uso |
 | --- | --- |
-| `SPIDER_API_TOKEN` | token da spider api |
+| `SPIDER_API_TOKEN` | token da spider x api |
 | `LINKER_API_KEY` | chave usada pelo comando `gerar-link` |
 | `OPENAI_API_KEY` | chave usada pelo comando `suporte` |
 
@@ -136,7 +136,7 @@ para descobrir o id do grupo, use:
 /get-group-id
 ```
 
-também é possível trocar o token da spider api em runtime:
+também é possível trocar o token da spider x api em runtime:
 
 ```text
 /set-spider-api-token seu_token
@@ -296,7 +296,7 @@ o menu do bot é gerado em `src/menu.js`.
 
 alguns comandos dependem de api externa.
 
-### spider api
+### spider x api
 
 usada por comandos de downloads, ia, stickers de texto, saldo e alguns recursos de imagem.
 
@@ -320,6 +320,8 @@ usada pelo comando `/gerar-link`.
 export const LINKER_BASE_URL = "https://linker.devgui.dev/api";
 export const LINKER_API_KEY = "seu_token_aqui";
 ```
+
+se a api do linker não estiver configurada, alguns comandos podem usar a spider x api como fallback.
 
 ### openai
 
