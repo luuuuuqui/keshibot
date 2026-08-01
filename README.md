@@ -1,8 +1,24 @@
 # keshi bot
 
-bot de whatsapp baseado em baileys, com comandos modulares e persistência local em json.
+[![versão do bot (v8.10.0)](https://img.shields.io/badge/versão-8.10.0-blue)](https://github.com/luuuuuqui/keshibot)
+[![node (>=v22.8.0)](https://img.shields.io/badge/node.js-%3E%3D22.8.0-green)](https://nodejs.org)
+[![licença (GPL-3.0)](https://img.shields.io/badge/licença-GPL--3.0-orange)](LICENSE)
 
-este repositório foi enxugado para uso próprio, principalmente no termux. ele não inclui `node_modules/`, sessões do whatsapp, banco local, documentação pública de contribuição ou arquivos de publicação.
+> [!WARNING]
+> o projeto possui algumas funcionalidades dependentes de APIs externas.
+
+fork enxuto do [takeshi-bot](https://github.com/guiireal/takeshi-bot), de [guiireal](https://github.com/guiireal), adaptado pra uso próprio via whatsapp/baileys.
+
+bot de whatsapp com comandos modulares, persistência local em json e suporte a mídia. roda no termux, pc ou qualquer lugar com node.js e ffmpeg.
+
+## o que faz
+
+- **administração de grupo**: ban, mute, anti-link, anti-mídia, boas-vindas, etc.
+- **downloads**: youtube, tiktok, instagram, facebook, pinterest.
+- **stickers e canvas**: cria stickers, aplica filtros de imagem, attp, ttp, brat.
+- **auto-responder e auto-sticker**: respostas automáticas por gatilho e conversão automática de imagens em sticker.
+- **utilitários**: busca de cep, busca no youtube, gerador de link, perfil, ping.
+- **suporte com ia**: integração com openai para respostas inteligentes.
 
 ## sumário
 
