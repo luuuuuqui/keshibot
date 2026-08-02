@@ -73,9 +73,9 @@ sudo apt install -y nodejs npm git ffmpeg
 
 #### windows
 
-1. instale o node.js em <https://nodejs.org/pt-br/download>.
-2. instale o git em <https://git-scm.com/install/windows>.
-3. instale o ffmpeg em <https://ffmpeg.org/download.html>.
+1. instale o node.js em [nodejs.org](https://nodejs.org).
+2. instale o git em [git-scm.com](https://git-scm.com).
+3. instale o ffmpeg em [ffmpeg.org/download.html](https://ffmpeg.org/download.html) ou via [chocolatey](https://chocolatey.org)/[winget](https://learn.microsoft.com/pt-br/windows/package-manager/winget).
 4. adicione `node`, `npm`, `git` e `ffmpeg` ao `PATH` durante a instalação ou nas configurações de sistema.
 
 #### verificação
