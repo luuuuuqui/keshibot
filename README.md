@@ -508,6 +508,18 @@ git commit -m "mensagem em português"
 git push
 ```
 
+## segurança
+
+não compartilhe nem comite:
+
+- tokens de api;
+- arquivos de `database/`;
+- arquivos de `assets/auth/baileys/`;
+- logs com dados sensíveis;
+- prints com código de pareamento.
+
+mantenha as configurações locais e sensíveis fora do histórico do git sempre que possível.
+
 ## problemas comuns
 
 ### o bot não reconhece configuração nova
@@ -572,18 +584,6 @@ confira:
 - se o export default tem `commands: [...]`;
 - se o nome digitado no whatsapp está dentro de `commands`;
 - se o prefixo do grupo está correto.
-
-## segurança
-
-não compartilhe nem comite:
-
-- tokens de api;
-- arquivos de `database/`;
-- arquivos de `assets/auth/baileys/`;
-- logs com dados sensíveis;
-- prints com código de pareamento.
-
-mantenha as configurações locais e sensíveis fora do histórico do git sempre que possível.
 
 ## licença
 
