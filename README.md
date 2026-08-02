@@ -13,12 +13,12 @@ bot de whatsapp com comandos modulares, persistência local em json e suporte a 
 
 ## o que faz
 
-- **administração de grupo**: ban, mute, anti-link, anti-mídia, boas-vindas, etc.
-- **downloads**: youtube, tiktok, instagram, facebook, pinterest.
-- **stickers e canvas**: cria stickers, aplica filtros de imagem, attp, ttp, brat.
-- **auto-responder e auto-sticker**: respostas automáticas por gatilho e conversão automática de imagens em sticker.
-- **utilitários**: busca de cep, busca no youtube, gerador de link, perfil, ping.
-- **suporte com ia**: integração com openai para respostas inteligentes.
+- 🛡️ **administração de grupo**: ban, mute, anti-link, anti-mídia, anti-audio, anti-video, anti-sticker, anti-document, anti-evento, anti-pagamento, anti-produto, anti-status, boas-vindas, mensagem de saída, abrir/fechar grupo, hidetag, limpar chat, promover/rebaixar, warn/unwarn, afk, agendamento de mensagens, controle de acesso e restrição de comandos a admins.
+- 📥 **downloads**: youtube (áudio e vídeo), tiktok (vídeo e áudio), instagram (reels), facebook, pinterest.
+- 🎨 **stickers e canvas**: cria stickers de imagem, gif ou vídeo; aplica filtros de imagem (blur, contraste, espelhar, gray, inverter, pixel); memes (bolsonaro, cadeia, rip); attp, ttp, brat, bratvid; removebg, rename, to-gif, to-image, to-mp3.
+- 🤖 **auto-responder e auto-sticker**: respostas automáticas por gatilho de texto e conversão automática de imagens em sticker.
+- 🔧 **utilitários**: busca de cep, busca no youtube, gerador de link, perfil, ping, fake-chat, meu-lid, info.
+- 🎲 **brincadeiras**: abraçar, beijar, dado, jantar, lutar, matar, socar, tapar.
 
 ## sumário
 
