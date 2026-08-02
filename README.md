@@ -164,15 +164,9 @@ as opções principais ficam em `src/config.js`.
 | `ONLY_GROUP_ID` | limita o bot a um grupo específico quando preenchido |
 | `DEVELOPER_MODE` | aumenta logs de mensagens recebidas |
 
-### apis
+### o que é lid?
 
-| constante | uso |
-| --- | --- |
-| `SPIDER_API_TOKEN` | token da spider x api |
-| `LINKER_API_KEY` | chave usada pelo comando `gerar-link` |
-| `OPENAI_API_KEY` | chave usada pelo comando `suporte` |
-
-### comportamento
+`lid` ("line identifier") é um identificador interno do whatsapp usado pelo baileys para identificar usuários e grupos. ele é diferente do número de telefone e é necessário para algumas configurações de permissão.
 
 para descobrir seu lid, use:
 
@@ -185,6 +179,16 @@ para descobrir o id do grupo, use:
 ```text
 /get-group-id
 ```
+
+### apis
+
+| constante | uso |
+| --- | --- |
+| `SPIDER_API_TOKEN` | token da spider x api |
+| `LINKER_API_KEY` | chave usada pelo comando `gerar-link` |
+| `OPENAI_API_KEY` | chave usada pelo comando `suporte` |
+
+### comportamento
 
 também é possível trocar o token da spider x api em runtime:
 
