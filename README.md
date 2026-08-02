@@ -508,18 +508,40 @@ bash reset-qr-auth.sh
 
 ## atualização
 
+### puxar atualizações do repositório
+
+```sh
+git pull origin main
+npm install
+```
+
+se houver conflitos, resolva-os antes de rodar `npm install`.
+
+### subir suas próprias mudanças
+
+criar e mudar para uma nova branch:
+
+```sh
+git checkout -b nome-da-branch
+```
+
 verificar arquivos versionados:
 
 ```sh
 git status --short
 ```
 
-subir mudanças:
+adicionar e commitar:
 
 ```sh
 git add -A
 git commit -m "mensagem em português"
-git push
+```
+
+subir branch:
+
+```sh
+git push --set-upstream origin nome-da-branch
 ```
 
 ## segurança
