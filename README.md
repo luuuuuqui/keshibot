@@ -427,7 +427,7 @@ se `OPENAI_API_KEY` estiver vazia, o comando `/suporte` responde que o suporte i
 └── README.md
 ```
 
-arquivos ignorados:
+arquivos e pastas ignorados pelo git:
 
 - `node_modules/`: dependências do npm.
 - `database/`: arquivos de persistência local.
