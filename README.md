@@ -5,7 +5,7 @@
 [![licença (GPL-3.0)](https://img.shields.io/badge/licença-GPL--3.0-orange)](LICENSE)
 
 > [!WARNING]
-> o projeto possui algumas funcionalidades dependentes de APIs externas.
+> comandos de download (youtube, tiktok, instagram, facebook, pinterest) e alguns recursos de stickers de texto dependem da **spider x api**, que exige um token pago. sem ela, o bot continua funcionando, mas esses comandos retornam erro.
 
 fork enxuto do [takeshi-bot](https://github.com/guiireal/takeshi-bot), de [guiireal](https://github.com/guiireal), adaptado pra uso próprio via whatsapp/baileys.
 
