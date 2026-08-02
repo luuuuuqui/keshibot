@@ -211,6 +211,8 @@ arquivos criados conforme o uso:
 - `database/exit-groups.json`: grupos com mensagem de saída ativa.
 - `database/warns.json`: advertências.
 - `database/afk-groups.json`: membros em modo ausente.
+- `database/chat-access-control.json`: controle de acesso a grupos e números.
+- `database/restricted-messages.json`: mensagens restritas.
 
 não comite `database/`.
 
