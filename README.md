@@ -583,6 +583,8 @@ não compartilhe nem comite:
 - logs com dados sensíveis;
 - prints com código de pareamento.
 
+por padrão, `.gitignore` já inclui `database/`, `assets/auth/` e `assets/temp/`, então você não precisa lembrar de remove-los manualmente.
+
 mantenha as configurações locais e sensíveis fora do histórico do git sempre que possível.
 
 ## problemas comuns
