@@ -11,6 +11,8 @@ fork enxuto do [takeshi-bot](https://github.com/guiireal/takeshi-bot), de [guiir
 
 bot de whatsapp com comandos modulares, persistência local em json e suporte a mídia. roda no termux, pc ou qualquer lugar com node.js e ffmpeg.
 
+suporta tipagem via typescript (declarações em `src/@types/` e `jsconfig.json`). o código é javascript com tipos, não um projeto typescript compilado.
+
 ## o que faz
 
 - 🛡️ **administração de grupo**: ban, mute, anti-link, anti-mídia, anti-audio, anti-video, anti-sticker, anti-document, anti-evento, anti-pagamento, anti-produto, anti-status, boas-vindas, mensagem de saída, abrir/fechar grupo, hidetag, limpar chat, promover/rebaixar, warn/unwarn, afk, agendamento de mensagens, controle de acesso e restrição de comandos a admins.
