@@ -1,5 +1,5 @@
 assets/auth/baileys/
-assets/temp/*
+assets/temp/
 database/
 node_modules/
 .vscode/
