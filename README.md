@@ -1,6 +1,6 @@
 # keshi bot
 
-[![versão do bot (v8.10.0)](https://img.shields.io/badge/versão-8.10.0-blue)](https://github.com/luuuuuqui/keshibot)
+![versão do bot](https://img.shields.io/github/package-json/v/luuuuuqui/keshibot?label=versão)
 [![node (>=v22.8.0)](https://img.shields.io/badge/node.js-%3E%3D22.8.0-green)](https://nodejs.org)
 [![licença (GPL-3.0)](https://img.shields.io/badge/licença-GPL--3.0-orange)](LICENSE)
 
