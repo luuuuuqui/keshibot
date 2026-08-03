@@ -152,6 +152,13 @@ quando conectar, pare o bot com `Ctrl + C`, revise `src/config.js` e rode novame
 npm start
 ```
 
+## scripts do projeto
+
+no package.json deste repositório, os scripts são:
+
+- `npm start`: inicia o bot.
+- `npm run test:all`: executa testes unitários e de integração.
+
 ## configuração
 
 as opções principais ficam em `src/config.js`.
