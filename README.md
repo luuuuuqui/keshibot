@@ -544,6 +544,33 @@ subir branch:
 git push --set-upstream origin nome-da-branch
 ```
 
+## contribuindo
+
+### criar uma branch
+
+```sh
+git checkout -b nome-da-branch
+```
+
+### verificar arquivos versionados
+
+```sh
+git status --short
+```
+
+### adicionar e commitar
+
+```sh
+git add -A
+git commit -m "mensagem em português"
+```
+
+### subir branch
+
+```sh
+git push --set-upstream origin nome-da-branch
+```
+
 ## segurança
 
 não compartilhe nem comite:
