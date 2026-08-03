@@ -1,3 +1,4 @@
+.env
 assets/auth/baileys/
 assets/temp/
 database/
