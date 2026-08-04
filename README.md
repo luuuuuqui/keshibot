@@ -210,14 +210,6 @@ para descobrir o id do grupo, use:
 /get-group-id
 ```
 
-### apis
-
-| variável | uso |
-| --- | --- |
-| `SPIDER_API_TOKEN` | token da spider x api |
-| `LINKER_API_KEY` | chave usada pelo comando `gerar-link` |
-| `OPENAI_API_KEY` | chave usada pelo comando `suporte` |
-
 ### comportamento
 
 também é possível trocar o token da spider x api em runtime:
