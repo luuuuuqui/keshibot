@@ -124,6 +124,17 @@ npm install
 
 ## primeira execução
 
+antes de iniciar o bot, crie o arquivo de configuração local:
+
+```sh
+cp .env.example .env
+```
+
+edite o `.env` com seus dados. veja a seção [configuração](#configuração) para saber o que preencher.
+
+> [!TIP]
+> não edite `src/config.js` para colocar tokens e lids. use o `.env`.
+
 inicie o bot:
 
 ```sh
@@ -142,7 +153,7 @@ depois, abra o whatsapp:
 > [!TIP]
 > a pasta `assets/auth/` será criada automaticamente e armazenará a sessão do whatsapp.
 
-quando conectar, pare o bot com `Ctrl + C`, revise `src/config.js` e rode novamente:
+quando conectar, pare o bot com `Ctrl + C`, revise o `.env` se necessário e rode novamente:
 
 ```sh
 npm start
@@ -157,17 +168,30 @@ no package.json deste repositório, os scripts são:
 
 ## configuração
 
-as opções principais ficam em `src/config.js`.
+as opções principais ficam em `src/config.js`, mas **tokens, lids e dados sensíveis** devem ser configurados no arquivo `.env` na raiz do projeto.
 
-| constante | uso |
+> [!TIP]
+> não edite `src/config.js` para colocar tokens. use o `.env`.
+
+crie o arquivo a partir do template:
+
+```sh
+cp .env.example .env
+```
+
+edite o `.env` com seus dados:
+
+| variável | uso |
 | --- | --- |
-| `PREFIX` | prefixo padrão dos comandos |
-| `BOT_EMOJI` | emoji usado em respostas e reações |
-| `BOT_NAME` | nome exibido no menu |
 | `BOT_LID` | lid do número do bot |
 | `OWNER_LID` | lid do dono |
+| `SPIDER_API_TOKEN` | token da spider x api |
+| `LINKER_API_KEY` | chave do linker |
+| `OPENAI_API_KEY` | chave da openai |
 | `ONLY_GROUP_ID` | limita o bot a um grupo específico quando preenchido |
-| `DEVELOPER_MODE` | aumenta logs de mensagens recebidas |
+| `DEVELOPER_MODE` | `true` para aumentar logs, `false` para padrão |
+
+as configurações de comportamento (`PREFIX`, `BOT_NAME`, `BOT_EMOJI`, diretórios e urls base) continuam em `src/config.js` e só precisam ser alteradas se você quiser mudar o nome do bot, emoji ou prefixo padrão.
 
 ### o que é lid?
 
@@ -187,7 +211,7 @@ para descobrir o id do grupo, use:
 
 ### apis
 
-| constante | uso |
+| variável | uso |
 | --- | --- |
 | `SPIDER_API_TOKEN` | token da spider x api |
 | `LINKER_API_KEY` | chave usada pelo comando `gerar-link` |
@@ -361,10 +385,10 @@ alguns comandos dependem de serviços externos.
 
 usada por comandos de downloads, ia, stickers de texto, saldo e alguns recursos de imagem.
 
-configure em `src/config.js`:
+configure no `.env`:
 
-```js
-export const SPIDER_API_TOKEN = "seu_token_aqui";
+```env
+SPIDER_API_TOKEN=seu_token_aqui
 ```
 
 ou via comando:
@@ -377,9 +401,10 @@ ou via comando:
 
 usada pelo comando `/gerar-link`.
 
-```js
-export const LINKER_BASE_URL = "https://linker.devgui.dev/api";
-export const LINKER_API_KEY = "seu_token_aqui";
+configure no `.env`:
+
+```env
+LINKER_API_KEY=seu_token_aqui
 ```
 
 se a api do linker não estiver configurada, alguns comandos podem usar a spider x api como fallback.
@@ -388,8 +413,10 @@ se a api do linker não estiver configurada, alguns comandos podem usar a spider
 
 usada pelo comando `/suporte`.
 
-```js
-export const OPENAI_API_KEY = "sua_chave";
+configure no `.env`:
+
+```env
+OPENAI_API_KEY=sua_chave
 ```
 
 se `OPENAI_API_KEY` estiver vazia, o comando `/suporte` responde que o suporte inteligente não está disponível.
@@ -399,34 +426,35 @@ se `OPENAI_API_KEY` estiver vazia, o comando `/suporte` responde que o suporte i
 ```text
 .
 ├── assets/
-│   ├── auth/          # estado de autenticação do whatsapp
-│   ├── images/        # imagens usadas pelo bot
-│   ├── samples/       # arquivos de exemplo
-│   ├── stickers/      # stickers locais
-│   ├── temp/          # arquivos temporários
-│   └── videos/        # vídeos locais
-├── database/          # persistência local (não versionada)
+│   ├── auth/              # estado de autenticação do whatsapp
+│   ├── images/            # imagens usadas pelo bot
+│   ├── samples/           # arquivos de exemplo
+│   ├── stickers/          # stickers locais
+│   ├── temp/              # arquivos temporários
+│   └── videos/            # vídeos locais
+├── database/              # persistência local (não versionada)
 ├── src/
 │   ├── commands/
-│   │   ├── admin/     # comandos administrativos
-│   │   ├── member/    # comandos de membros
-│   │   └── owner/     # comandos do dono
-│   ├── errors/        # classes de erro usadas pelo fluxo de comandos
-│   ├── middlewares/   # pipeline de mensagens, grupos e chamadas
-│   ├── services/      # integrações e processamento de mídia
-│   ├── utils/         # helpers e persistência
-│   ├── @types/        # tipagens typescript
-│   ├── test/          # testes
-│   ├── config.js      # configuração principal
-│   ├── connection.js  # conexão do baileys
-│   ├── index.js       # entrada do bot
-│   ├── loader.js      # registro dos eventos
-│   ├── menu.js        # texto do menu
-│   ├── messages.js    # mensagens de boas-vindas e saída
-│   └── test.js        # script de teste
+│   │   ├── admin/         # comandos administrativos
+│   │   ├── member/        # comandos de membros
+│   │   └── owner/         # comandos do dono
+│   ├── errors/            # classes de erro usadas pelo fluxo de comandos
+│   ├── middlewares/       # pipeline de mensagens, grupos e chamadas
+│   ├── services/          # integrações e processamento de mídia
+│   ├── utils/             # helpers e persistência
+│   ├── @types/            # tipagens typescript
+│   ├── test/              # testes
+│   ├── config.js          # configuração principal
+│   ├── connection.js      # conexão do baileys
+│   ├── index.js           # entrada do bot
+│   ├── loader.js          # registro dos eventos
+│   ├── menu.js            # texto do menu
+│   ├── messages.js        # mensagens de boas-vindas e saída
+│   └── test.js            # script de teste
+├── .env.example           # template de configuração local
 ├── package.json
 ├── package-lock.json
-├── reset-qr-auth.sh   # script para resetar autenticação
+├── reset-qr-auth.sh       # script para resetar autenticação
 ├── jsconfig.json
 ├── LICENSE
 └── README.md
@@ -439,6 +467,7 @@ arquivos e pastas ignorados pelo git:
 - `assets/auth/baileys/`: estado de autenticação do whatsapp.
 - `assets/temp/`: arquivos temporários de mídia.
 - `.vscode/`: configurações do vscode.
+- `.env`: configurações locais e sensíveis.
 
 ## personalização
 
@@ -581,12 +610,13 @@ git push --set-upstream origin nome-da-branch
 não compartilhe nem comite:
 
 - tokens de api;
+- arquivo `.env`;
 - arquivos de `database/`;
 - arquivos de `assets/auth/baileys/`;
 - logs com dados sensíveis;
 - prints com código de pareamento.
 
-por padrão, `.gitignore` já inclui `database/`, `assets/auth/` e `assets/temp/`, então você não precisa lembrar de remove-los manualmente.
+por padrão, `.gitignore` já inclui `database/`, `assets/auth/`, `assets/temp/` e `.env`, então você não precisa lembrar de removê-los manualmente.
 
 mantenha as configurações locais e sensíveis fora do histórico do git sempre que possível.
 
