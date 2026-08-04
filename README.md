@@ -32,7 +32,7 @@ suporta tipagem via typescript (declarações em `src/@types/` e `jsconfig.json`
  6. [apis externas](#apis-externas)
  7. [estrutura do projeto](#estrutura-do-projeto)
  8. [desenvolvimento e contribuição](#desenvolvimento)
- 9. [segurança](#segurança)
+ 9. [segurança de dados](#segurança-de-dados)
 10. [problemas comuns](#problemas-comuns)
 11. [licença](#licença)
 
@@ -579,7 +579,7 @@ git commit -m "mensagem em português"
 git push --set-upstream origin nome-da-branch
 ```
 
-## segurança
+## segurança de dados
 
 não compartilhe nem comite:
 
