@@ -24,16 +24,17 @@ suporta tipagem via typescript (declarações em `src/@types/` e `jsconfig.json`
 
 ## sumário
 
-1. [requisitos](#requisitos)
-2. [instalação e primeira execução](#instalação)
-3. [configuração e persistência](#configuração)
-4. [comandos](#comandos)
-5. [apis externas](#apis-externas)
-6. [estrutura do projeto](#estrutura-do-projeto)
-7. [desenvolvimento e contribuição](#desenvolvimento)
-8. [segurança](#segurança)
-9. [problemas comuns](#problemas-comuns)
-10. [licença](#licença)
+ 1. [requisitos](#requisitos)
+ 2. [instalação](#instalação)
+ 3. [primeira execução](#primeira-execução)
+ 4. [configuração](#configuração)
+ 5. [comandos](#comandos)
+ 6. [apis externas](#apis-externas)
+ 7. [estrutura do projeto](#estrutura-do-projeto)
+ 8. [desenvolvimento e contribuição](#desenvolvimento)
+ 9. [segurança](#segurança)
+10. [problemas comuns](#problemas-comuns)
+11. [licença](#licença)
 
 ## requisitos
 
