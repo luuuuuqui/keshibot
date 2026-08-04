@@ -521,6 +521,12 @@ instalar ou atualizar dependências:
 npm install
 ```
 
+antes de subir mudanças, rode:
+
+```sh
+npm run test:all
+```
+
 rodar o bot:
 
 ```sh
@@ -535,7 +541,7 @@ bash reset-qr-auth.sh
 
 ## atualização
 
-### puxar atualizações do repositório
+puxe as mudanças e atualize as dependências:
 
 ```sh
 git pull origin main
@@ -544,34 +550,9 @@ npm install
 
 se houver conflitos, resolva-os antes de rodar `npm install`.
 
-### subir suas próprias mudanças
-
-criar e mudar para uma nova branch:
-
-```sh
-git checkout -b nome-da-branch
-```
-
-verificar arquivos versionados:
-
-```sh
-git status --short
-```
-
-adicionar e commitar:
-
-```sh
-git add -A
-git commit -m "mensagem em português"
-```
-
-subir branch:
-
-```sh
-git push --set-upstream origin nome-da-branch
-```
-
 ## contribuindo
+
+use este fluxo se você vai mandar um PR ou commitar em um fork.
 
 ### criar uma branch
 
