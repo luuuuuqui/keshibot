@@ -1,22 +1,40 @@
 # keshi bot
 
-bot de whatsapp baseado em baileys, com comandos modulares e persistência local em json.
+![versão do bot](https://img.shields.io/github/package-json/v/luuuuuqui/keshibot?label=versão)
+[![node (>=v22.8.0)](https://img.shields.io/badge/node.js-%3E%3D22.8.0-green)](https://nodejs.org)
+[![licença (GPL-3.0)](https://img.shields.io/badge/licença-GPL--3.0-orange)](LICENSE)
 
-este repositório foi enxugado para uso próprio, principalmente no termux. ele não inclui `node_modules/`, sessões do whatsapp, banco local, documentação pública de contribuição ou arquivos de publicação.
+> [!WARNING]
+> comandos de download (youtube, tiktok, instagram, facebook, pinterest) e alguns recursos de stickers de texto dependem da **spider x api**, que exige um token pago. sem ela, o bot continua funcionando, mas esses comandos retornam erro.
+
+fork enxuto do [takeshi-bot](https://github.com/guiireal/takeshi-bot), de [guiireal](https://github.com/guiireal), adaptado pra uso próprio via whatsapp/baileys.
+
+bot de whatsapp com comandos modulares, persistência local em json e suporte a mídia. roda no termux, pc ou qualquer lugar com node.js e ffmpeg.
+
+suporta tipagem via typescript (declarações em `src/@types/` e `jsconfig.json`). o código é javascript com tipos, não um projeto typescript compilado.
+
+## o que faz
+
+- 🛡️ **administração de grupo**: ban, mute, anti-link, anti-mídia, anti-audio, anti-video, anti-sticker, anti-document, anti-evento, anti-pagamento, anti-produto, anti-status, boas-vindas, mensagem de saída, abrir/fechar grupo, hidetag, limpar chat, promover/rebaixar, warn/unwarn, afk, agendamento de mensagens, controle de acesso e restrição de comandos a admins.
+- 📥 **downloads**: youtube (áudio e vídeo), tiktok (vídeo e áudio), instagram (reels), facebook, pinterest.
+- 🎨 **stickers e canvas**: cria stickers de imagem, gif ou vídeo; aplica filtros de imagem (blur, contraste, espelhar, gray, inverter, pixel); memes (bolsonaro, cadeia, rip); attp, ttp, brat, bratvid; removebg, rename, to-gif, to-image, to-mp3.
+- 🤖 **auto-responder e auto-sticker**: respostas automáticas por gatilho de texto e conversão automática de imagens em sticker.
+- 🔧 **utilitários**: busca de cep, busca no youtube, gerador de link, perfil, ping, fake-chat, meu-lid, info.
+- 🎲 **brincadeiras**: abraçar, beijar, dado, jantar, lutar, matar, socar, tapar.
 
 ## sumário
 
-1. [requisitos](#requisitos)
-2. [instalação no termux](#instalação-no-termux)
-3. [primeira execução](#primeira-execução)
-4. [configuração](#configuração)
-5. [dados locais](#dados-locais)
-6. [comandos](#comandos)
-7. [apis externas](#apis-externas)
-8. [estrutura do projeto](#estrutura-do-projeto)
-9. [personalização](#personalização)
-10. [manutenção](#manutenção)
-11. [problemas comuns](#problemas-comuns)
+ 1. [requisitos](#requisitos)
+ 2. [instalação](#instalação)
+ 3. [primeira execução](#primeira-execução)
+ 4. [configuração](#configuração)
+ 5. [comandos](#comandos)
+ 6. [apis externas](#apis-externas)
+ 7. [estrutura do projeto](#estrutura-do-projeto)
+ 8. [desenvolvimento e contribuição](#desenvolvimento)
+ 9. [segurança de dados](#segurança-de-dados)
+10. [problemas comuns](#problemas-comuns)
+11. [licença](#licença)
 
 ## requisitos
 
@@ -28,13 +46,14 @@ este repositório foi enxugado para uso próprio, principalmente no termux. ele 
 
 no termux, prefira `nodejs-lts`.
 
-## instalação no termux
+## instalação
 
-atualize o termux e instale os pacotes:
+### instalação das ferramentas do sistema
+
+#### termux (android)
 
 ```sh
-pkg update -y
-pkg upgrade -y
+pkg update -y && pkg upgrade -y
 pkg install git nodejs-lts ffmpeg -y
 ```
 
@@ -44,26 +63,78 @@ libere acesso ao armazenamento, se for usar uma pasta do celular:
 termux-setup-storage
 ```
 
-escolha a pasta onde o bot vai ficar:
+#### ubuntu / debian
 
 ```sh
-cd ~/storage/shared/
+sudo apt update
+sudo apt install -y nodejs npm git ffmpeg
 ```
 
-clone o repositório:
+#### windows
+
+1. instale o node.js em [nodejs.org](https://nodejs.org).
+2. instale o git em [git-scm.com](https://git-scm.com).
+3. instale o ffmpeg em [ffmpeg.org/download.html](https://ffmpeg.org/download.html) ou via [chocolatey](https://chocolatey.org)/[winget](https://learn.microsoft.com/pt-br/windows/package-manager/winget).
+4. adicione `node`, `npm`, `git` e `ffmpeg` ao `PATH` durante a instalação ou nas configurações de sistema.
+
+#### verificação
 
 ```sh
-git clone <url-do-repositorio>
+node -v
+npm -v
+git --version
+ffmpeg -version
+```
+
+### baixar o projeto
+
+antes de clonar, entre na pasta onde quer que o bot fique:
+
+```sh
+# termux
+cd ~/storage/shared/
+
+# linux / windows
+mkdir -p ~/projetos
+cd ~/projetos
+```
+
+clone o repositório pelo git:
+
+```sh
+git clone https://github.com/luuuuuqui/keshibot.git
+```
+
+ou pelo github cli:
+
+```sh
+gh repo clone luuuuuqui/keshibot
+```
+
+e entre no diretório:
+
+```sh
 cd keshibot
 ```
 
-instale as dependências:
+### instalar dependências do node
 
 ```sh
 npm install
 ```
 
 ## primeira execução
+
+antes de iniciar o bot, crie o arquivo de configuração local:
+
+```sh
+cp .env.example .env
+```
+
+edite o `.env` com seus dados. veja a seção [configuração](#configuração) para saber o que preencher.
+
+> [!TIP]
+> não edite `src/config.js` para colocar tokens e lids. use o `.env`.
 
 inicie o bot:
 
@@ -78,30 +149,54 @@ depois, abra o whatsapp:
 1. vá em "dispositivos conectados";
 2. toque em "conectar dispositivo";
 3. escolha a opção de conectar com número de telefone;
-4. informe o código que apareceu no termux.
+4. informe o código que apareceu no terminal.
 
-quando conectar, pare o bot com `Ctrl + C`, revise `src/config.js` e rode novamente:
+> [!TIP]
+> a pasta `assets/auth/` será criada automaticamente e armazenará a sessão do whatsapp.
+
+quando conectar, pare o bot com `Ctrl + C`, revise o `.env` se necessário e rode novamente:
 
 ```sh
 npm start
 ```
 
+## scripts do projeto
+
+no package.json deste repositório, os scripts são:
+
+- `npm start`: inicia o bot.
+- `npm run test:all`: executa testes unitários e de integração.
+
 ## configuração
 
-as opções principais ficam em `src/config.js`.
+as opções principais ficam em `src/config.js`, mas **tokens, lids e dados sensíveis** devem ser configurados no arquivo `.env` na raiz do projeto.
 
-| constante | uso |
+> [!TIP]
+> não edite `src/config.js` para colocar tokens. use o `.env`.
+
+crie o arquivo a partir do template:
+
+```sh
+cp .env.example .env
+```
+
+edite o `.env` com seus dados:
+
+| variável | uso |
 | --- | --- |
-| `PREFIX` | prefixo padrão dos comandos |
-| `BOT_EMOJI` | emoji usado em respostas e reações |
-| `BOT_NAME` | nome exibido no menu |
 | `BOT_LID` | lid do número do bot |
 | `OWNER_LID` | lid do dono |
+| `SPIDER_API_TOKEN` | token da spider x api |
+| `LINKER_API_KEY` | chave do linker |
+| `OPENAI_API_KEY` | chave da openai |
 | `ONLY_GROUP_ID` | limita o bot a um grupo específico quando preenchido |
-| `DEVELOPER_MODE` | aumenta logs de mensagens recebidas |
-| `SPIDER_API_TOKEN` | token da spider api |
-| `LINKER_API_KEY` | chave usada pelo comando `gerar-link` |
-| `OPENAI_API_KEY` | chave usada pelo comando `suporte` |
+| `DEVELOPER_MODE` | `true` para aumentar logs, `false` para padrão |
+
+as configurações de comportamento (`PREFIX`, `BOT_NAME`, `BOT_EMOJI`, diretórios e urls base) continuam em `src/config.js` e só precisam ser alteradas se você quiser mudar o nome do bot, emoji ou prefixo padrão.
+
+### o que é lid?
+
+`lid` ("line identifier") é um identificador interno do whatsapp usado pelo baileys para identificar usuários e grupos. ele é diferente do número de telefone e é necessário para algumas configurações de permissão.
 
 para descobrir seu lid, use:
 
@@ -115,7 +210,9 @@ para descobrir o id do grupo, use:
 /get-group-id
 ```
 
-também é possível trocar o token da spider api em runtime:
+### comportamento
+
+também é possível trocar o token da spider x api em runtime:
 
 ```text
 /set-spider-api-token seu_token
@@ -140,6 +237,8 @@ arquivos criados conforme o uso:
 - `database/exit-groups.json`: grupos com mensagem de saída ativa.
 - `database/warns.json`: advertências.
 - `database/afk-groups.json`: membros em modo ausente.
+- `database/chat-access-control.json`: controle de acesso a grupos e números.
+- `database/restricted-messages.json`: mensagens restritas.
 
 não comite `database/`.
 
@@ -149,128 +248,140 @@ o menu do bot é gerado em `src/menu.js`.
 
 ### dono
 
-- `/access-control`
-- `/exec`
-- `/get-group-id`
-- `/off`
-- `/on`
-- `/set-menu-image`
-- `/set-prefix`
-- `/set-spider-api-token`
+| comando | permissão | descrição |
+| --- | --- | --- |
+| `/access-control` | owner | controla a quais grupos e números o bot responde |
+| `/exec` | owner | executa comandos de terminal pelo bot |
+| `/get-group-id` | owner | mostra o id completo do grupo no formato jid |
+| `/off` | owner | desativa o bot no grupo |
+| `/on` | owner | ativa o bot no grupo |
+| `/set-menu-image` | owner | altera a imagem do menu |
+| `/set-prefix` | owner | muda o prefixo dos comandos |
+| `/set-spider-api-token` | owner | atualiza o token da spider x api |
 
 ### administração
 
-- `/abrir`
-- `/add-auto-responder`
-- `/afk`
-- `/agendar-mensagem`
-- `/anti-audio 1|0`
-- `/anti-call 1|0`
-- `/anti-document 1|0`
-- `/anti-event 1|0`
-- `/anti-image 1|0`
-- `/anti-link 1|0`
-- `/anti-lottie-sticker 1|0`
-- `/anti-payment 1|0`
-- `/anti-product 1|0`
-- `/anti-sticker 1|0`
-- `/anti-status-grupo 1|0`
-- `/anti-video 1|0`
-- `/auto-responder 1|0`
-- `/auto-sticker 1|0`
-- `/ban`
-- `/block-wpp`
-- `/delete`
-- `/delete-auto-responder`
-- `/exit 1|0`
-- `/fechar`
-- `/hidetag`
-- `/limpar-chat`
-- `/link-grupo`
-- `/list-auto-responder`
-- `/mute`
-- `/only-admin 1|0`
-- `/promover`
-- `/rebaixar`
-- `/revelar`
-- `/saldo`
-- `/set-name`
-- `/unmute`
-- `/unwarn`
-- `/warn`
-- `/warn-reactivate`
-- `/welcome 1|0`
+| comando | permissão | descrição |
+| --- | --- | --- |
+| `/abrir` | admin | abre o grupo |
+| `/add-auto-responder` | admin | adiciona um termo ao auto-responder |
+| `/afk` | admin | informa que você está ausente e registra o motivo |
+| `/agendar-mensagem` | admin | agenda uma mensagem para ser enviada depois |
+| `/anti-audio 1\|0` | admin | ativa ou desativa bloqueio de áudio |
+| `/anti-call 1\|0` | admin | ativa ou desativa bloqueio de chamadas |
+| `/anti-document 1\|0` | admin | ativa ou desativa bloqueio de documentos |
+| `/anti-event 1\|0` | admin | ativa ou desativa bloqueio de eventos |
+| `/anti-image 1\|0` | admin | ativa ou desativa bloqueio de imagens |
+| `/anti-link 1\|0` | admin | ativa ou desativa bloqueio de links |
+| `/anti-lottie-sticker 1\|0` | admin | ativa ou desativa bloqueio de stickers animados |
+| `/anti-payment 1\|0` | admin | ativa ou desativa bloqueio de pagamentos |
+| `/anti-product 1\|0` | admin | ativa ou desativa bloqueio de produtos |
+| `/anti-status-grupo 1\|0` | admin | ativa ou desativa bloqueio de marcação de status |
+| `/anti-sticker 1\|0` | admin | ativa ou desativa bloqueio de stickers |
+| `/anti-video 1\|0` | admin | ativa ou desativa bloqueio de vídeos |
+| `/auto-responder 1\|0` | admin | ativa ou desativa respostas automáticas |
+| `/auto-sticker 1\|0` | admin | ativa ou desativa conversão automática de sticker |
+| `/ban` | admin | remove um membro do grupo |
+| `/block-wpp` | admin | bloqueia um número no whatsapp do bot |
+| `/delete` | admin | apaga mensagens do bot |
+| `/delete-auto-responder` | admin | remove um termo do auto-responder pelo id |
+| `/exit 1\|0` | admin | ativa ou desativa mensagem de saída do grupo |
+| `/fechar` | admin | fecha o grupo |
+| `/hidetag` | admin | marca todos do grupo invisivelmente |
+| `/limpar-chat` | admin | limpa o histórico de mensagens do grupo |
+| `/link-grupo` | admin | envia o link de convite do grupo |
+| `/list-auto-responder` | admin | lista todos os termos do auto-responder |
+| `/mute` | admin | silencia um membro no grupo |
+| `/only-admin 1\|0` | admin | restringe comandos a administradores |
+| `/promover` | admin | promove um usuário a administrador |
+| `/rebaixar` | admin | rebaixa um administrador a membro |
+| `/revelar` | admin | revela imagem ou vídeo de visualização única |
+| `/saldo` | admin | consulta o saldo de requests da spider x api |
+| `/set-name` | admin | altera o nome do grupo |
+| `/unmute` | admin | remove o silêncio de um membro |
+| `/unwarn` | admin | remove ou lista advertências |
+| `/warn` | admin | aplica advertência a um membro |
+| `/warn-reactivate` | admin | reativa uma advertência inválida |
+| `/welcome 1\|0` | admin | ativa ou desativa mensagem de boas-vindas |
 
 ### membros
 
-- `/attp`
-- `/brat`
-- `/bratvid`
-- `/cep`
-- `/fake-chat`
-- `/gerar-link`
-- `/info`
-- `/meu-lid`
-- `/menu`
-- `/perfil`
-- `/ping`
-- `/rename`
-- `/removebg`
-- `/sticker`
-- `/suporte`
-- `/to-gif`
-- `/to-image`
-- `/to-mp3`
-- `/ttp`
-- `/yt-search`
+| comando | permissão | descrição |
+| --- | --- | --- |
+| `/attp` | member | cria sticker animado de texto |
+| `/brat` | member | gera imagem no estilo brat |
+| `/bratvid` | member | gera sticker animado no estilo brat |
+| `/cep` | member | consulta endereço por cep |
+| `/fake-chat` | member | cria uma citação falsa mencionando um usuário |
+| `/gerar-link` | member | faz upload de imagem e gera link |
+| `/info` | member | exibe informações de um comando |
+| `/meu-lid` | member | retorna o lid do usuário |
+| `/menu` | member | exibe o menu de comandos |
+| `/perfil` | member | mostra informações de um usuário |
+| `/ping` | member | verifica se o bot está online, latência e uptime |
+| `/rename` | member | adiciona metadados à figurinha |
+| `/removebg` | member | remove o fundo de imagens e figurinhas |
+| `/sticker` | member | cria figurinha de imagem, gif ou vídeo |
+| `/suporte` | member | suporte inteligente com ia |
+| `/to-gif` | member | converte figurinha animada em gif |
+| `/to-image` | member | extrai imagem de figurinha estática |
+| `/to-mp3` | member | extrai áudio de vídeo em mp3 |
+| `/ttp` | member | cria sticker de texto |
+| `/yt-search` | member | busca vídeos no youtube |
 
 ### downloads
 
-- `/facebook`
-- `/instagram`
-- `/play-audio`
-- `/play-video`
-- `/pinterest`
-- `/tik-tok`
-- `/tik-tok-audio`
-- `/yt-mp3`
-- `/yt-mp4`
+| comando | permissão | descrição |
+| --- | --- | --- |
+| `/facebook` | member | baixa vídeo do facebook |
+| `/instagram` | member | baixa vídeo/reel do instagram |
+| `/play-audio` | member | busca e baixa música |
+| `/play-video` | member | busca e baixa vídeo |
+| `/pinterest` | member | busca imagens no pinterest |
+| `/tik-tok` | member | baixa vídeo do tiktok |
+| `/tik-tok-audio` | member | baixa áudio de vídeo do tiktok |
+| `/yt-mp3` | member | baixa áudio do youtube pelo link |
+| `/yt-mp4` | member | baixa vídeo do youtube pelo link |
 
 ### brincadeiras
 
-- `/abracar`
-- `/beijar`
-- `/dado`
-- `/jantar`
-- `/lutar`
-- `/matar`
-- `/socar`
-- `/tapa`
+| comando | permissão | descrição |
+| --- | --- | --- |
+| `/abracar` | member | abraça um usuário |
+| `/beijar` | member | beija um usuário |
+| `/dado` | member | joga um dado d6 |
+| `/jantar` | member | convida um usuário para jantar |
+| `/lutar` | member | luta com um usuário |
+| `/matar` | member | mata um usuário |
+| `/socar` | member | dá um soco em um usuário |
+| `/tapa` | member | dá um tapa em alguém |
 
 ### canvas
 
-- `/blur`
-- `/bolsonaro`
-- `/cadeia`
-- `/contraste`
-- `/espelhar`
-- `/gray`
-- `/inverter`
-- `/pixel`
-- `/rip`
+| comando | permissão | descrição |
+| --- | --- | --- |
+| `/blur` | member | aplica desfoque na imagem |
+| `/bolsonaro` | member | meme do bolsonaro com a imagem |
+| `/cadeia` | member | meme de cadeia com a imagem |
+| `/contraste` | member | ajusta o contraste da imagem |
+| `/espelhar` | member | espelha a imagem |
+| `/gray` | member | converte a imagem para preto e branco |
+| `/inverter` | member | inverte as cores da imagem |
+| `/pixel` | member | aplica efeito pixel-art na imagem |
+| `/rip` | member | meme de lápide com a imagem |
 
 ## apis externas
 
-alguns comandos dependem de api externa.
+alguns comandos dependem de serviços externos.
 
-### spider api
+### spider x api
 
 usada por comandos de downloads, ia, stickers de texto, saldo e alguns recursos de imagem.
 
-configure em `src/config.js`:
+configure no `.env`:
 
-```js
-export const SPIDER_API_TOKEN = "seu_token_aqui";
+```env
+SPIDER_API_TOKEN=seu_token_aqui
 ```
 
 ou via comando:
@@ -283,17 +394,22 @@ ou via comando:
 
 usada pelo comando `/gerar-link`.
 
-```js
-export const LINKER_BASE_URL = "https://linker.devgui.dev/api";
-export const LINKER_API_KEY = "seu_token_aqui";
+configure no `.env`:
+
+```env
+LINKER_API_KEY=seu_token_aqui
 ```
+
+se a api do linker não estiver configurada, alguns comandos podem usar a spider x api como fallback.
 
 ### openai
 
 usada pelo comando `/suporte`.
 
-```js
-export const OPENAI_API_KEY = "sua_chave";
+configure no `.env`:
+
+```env
+OPENAI_API_KEY=sua_chave
 ```
 
 se `OPENAI_API_KEY` estiver vazia, o comando `/suporte` responde que o suporte inteligente não está disponível.
@@ -301,36 +417,50 @@ se `OPENAI_API_KEY` estiver vazia, o comando `/suporte` responde que o suporte i
 ## estrutura do projeto
 
 ```text
-assets/
-  auth/              estado de autenticação do whatsapp
-  images/            imagens usadas pelo bot
-  stickers/          stickers locais
-  temp/              arquivos temporários
-src/
-  @types/            tipos e documentação dos helpers
-  commands/
-    admin/           comandos administrativos
-    member/          comandos de membros
-    owner/           comandos do dono
-  errors/            classes de erro usadas pelo fluxo de comandos
-  middlewares/       pipeline de mensagens, grupos e chamadas
-  services/          integrações e processamento de mídia
-  utils/             helpers e persistência
-  config.js          configuração principal
-  connection.js      conexão do baileys
-  index.js           entrada do bot
-  loader.js          registro dos eventos
-  menu.js            texto do menu
-  messages.js        mensagens de boas-vindas e saída
+.
+├── assets/
+│   ├── auth/              # estado de autenticação do whatsapp
+│   ├── images/            # imagens usadas pelo bot
+│   ├── samples/           # arquivos de exemplo
+│   ├── stickers/          # stickers locais
+│   ├── temp/              # arquivos temporários
+│   └── videos/            # vídeos locais
+├── database/              # persistência local (não versionada)
+├── src/
+│   ├── commands/
+│   │   ├── admin/         # comandos administrativos
+│   │   ├── member/        # comandos de membros
+│   │   └── owner/         # comandos do dono
+│   ├── errors/            # classes de erro usadas pelo fluxo de comandos
+│   ├── middlewares/       # pipeline de mensagens, grupos e chamadas
+│   ├── services/          # integrações e processamento de mídia
+│   ├── utils/             # helpers e persistência
+│   ├── @types/            # tipagens typescript
+│   ├── test/              # testes
+│   ├── config.js          # configuração principal
+│   ├── connection.js      # conexão do baileys
+│   ├── index.js           # entrada do bot
+│   ├── loader.js          # registro dos eventos
+│   ├── menu.js            # texto do menu
+│   ├── messages.js        # mensagens de boas-vindas e saída
+│   └── test.js            # script de teste
+├── .env.example           # template de configuração local
+├── package.json
+├── package-lock.json
+├── reset-qr-auth.sh       # script para resetar autenticação
+├── jsconfig.json
+├── LICENSE
+└── README.md
 ```
 
-arquivos ignorados:
+arquivos e pastas ignorados pelo git:
 
-- `node_modules/`
-- `database/`
-- `assets/auth/baileys/`
-- `assets/temp/`
-- `.vscode/`
+- `node_modules/`: dependências do npm.
+- `database/`: arquivos de persistência local.
+- `assets/auth/baileys/`: estado de autenticação do whatsapp.
+- `assets/temp/`: arquivos temporários de mídia.
+- `.vscode/`: configurações do vscode.
+- `.env`: configurações locais e sensíveis.
 
 ## personalização
 
@@ -383,12 +513,18 @@ use `src/middlewares/customMiddleware.js`.
 
 esse é o ponto mais seguro para adicionar regras globais sem mexer no fluxo principal.
 
-## manutenção
+## desenvolvimento
 
-instalar dependências:
+instalar ou atualizar dependências:
 
 ```sh
 npm install
+```
+
+antes de subir mudanças, rode:
+
+```sh
+npm run test:all
 ```
 
 rodar o bot:
@@ -403,19 +539,60 @@ resetar sessão do whatsapp:
 bash reset-qr-auth.sh
 ```
 
-verificar arquivos versionados:
+## atualização
+
+puxe as mudanças e atualize as dependências:
+
+```sh
+git pull origin main
+npm install
+```
+
+se houver conflitos, resolva-os antes de rodar `npm install`.
+
+## contribuindo
+
+use este fluxo se você vai mandar um PR ou commitar em um fork.
+
+### criar uma branch
+
+```sh
+git checkout -b nome-da-branch
+```
+
+### verificar arquivos versionados
 
 ```sh
 git status --short
 ```
 
-subir mudanças:
+### adicionar e commitar
 
 ```sh
 git add -A
 git commit -m "mensagem em português"
-git push
 ```
+
+### subir branch
+
+```sh
+git push --set-upstream origin nome-da-branch
+```
+
+## segurança de dados
+
+não compartilhe nem comite:
+
+- tokens de api;
+- arquivo `.env`;
+- arquivos de `database/`;
+- arquivos de `assets/auth/baileys/`;
+- logs com dados sensíveis;
+- prints com código de pareamento.
+
+por padrão, `.gitignore` já inclui `database/`, `assets/auth/`, `assets/temp/` e `.env`, então você não precisa lembrar de removê-los manualmente.
+
+mantenha as configurações locais e sensíveis fora do histórico do git sempre que possível.
 
 ## problemas comuns
 
@@ -423,7 +600,7 @@ git push
 
 confira se você está rodando a mesma pasta que editou.
 
-no termux, é comum ter uma cópia em `/sdcard/`, outra em `~/storage/shared/` ou outra em `Downloads/`.
+no termux, por exemplo, é comum ter uma cópia em `/sdcard/`, outra em `~/storage/shared/` ou outra em `Downloads/`.
 
 ### erro de conexão ou sessão corrompida
 
@@ -435,7 +612,7 @@ bash reset-qr-auth.sh
 
 depois remova o dispositivo conectado no whatsapp e faça o pareamento novamente.
 
-### `permission denied` ao acessar armazenamento
+### `permission denied` ao acessar armazenamento (termux)
 
 rode:
 
@@ -447,11 +624,23 @@ aceite a permissão no android e tente novamente.
 
 ### `ffmpeg` não encontrado
 
-instale:
+instale o ffmpeg:
+
+#### para termux
 
 ```sh
 pkg install ffmpeg -y
 ```
+
+#### para ubuntu/debian
+
+```sh
+sudo apt install ffmpeg -y
+```
+
+#### para windows
+
+baixe em [ffmpeg.org](https://ffmpeg.org/download.html) ou use chocolatey/winget e adicione `ffmpeg` ao `PATH`.
 
 ### dependências ausentes
 
@@ -470,18 +659,13 @@ confira:
 - se o nome digitado no whatsapp está dentro de `commands`;
 - se o prefixo do grupo está correto.
 
-## segurança
-
-não compartilhe nem comite:
-
-- tokens de api;
-- arquivos de `database/`;
-- arquivos de `assets/auth/baileys/`;
-- logs com dados sensíveis;
-- prints com código de pareamento.
-
-mantenha as configurações locais e sensíveis fora do histórico do git sempre que possível.
-
 ## licença
 
-este projeto é licenciado sob a gnu general public license (gpl). consulte o arquivo `LICENSE` para mais detalhes.
+distribuído sob a GPL-3.0.
+veja [`LICENSE`](LICENSE) para mais informações.
+
+---
+
+baseado no projeto [takeshi-bot](https://github.com/guiireal/takeshi-bot), de [Guilherme França](https://devgui.dev/).
+
+mantido por [Lucas Duarte](https://github.com/luuuuuqui).
